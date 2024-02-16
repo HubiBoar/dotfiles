@@ -1,25 +1,27 @@
-#ZSH
+# Dotfiles for Linux
+
+### ZSH
 
 sudo get-apt zsh
 
 
-#PowerLevel10k
+## PowerLevel10k
 
 https://github.com/romkatv/powerlevel10k/blob/master/README.md
 
 
-#ZSH-Autocompletion
+## ZSH-Autocompletion
 
 https://github.com/zsh-users/zsh-autosuggestions/blob/master/INSTALL.md#manual-git-clone
 
 
-#Stow
+## Stow
 
 sudo apt-get update -y
 sudo apt-get install -y stow
 
 
-#Instalation
+## Instalation
 
 ```
 git clone git@github.com:HubiBoar/dotfiles.git
