@@ -1,9 +1,10 @@
-# Dotfiles for Linux
+# Linux
 
-### ZSH
+## ZSH
 
+```
 sudo get-apt zsh
-
+```
 
 ## PowerLevel10k
 
@@ -22,7 +23,7 @@ sudo apt-get update -y
 sudo apt-get install -y stow
 ```
 
-## Instalation
+## Copy Dotfiles
 
 ```
 git clone git@github.com:HubiBoar/dotfiles.git
@@ -41,15 +42,15 @@ or
 $ stow --adopt .
 ```
 
-## Windows
+# Windows
 
-### Terminal
+## Terminal
 
 ```
 cp ~/dotfiles/windows-terminal/settings.json ${windowsUserProfile}/AppData/Local/Packages/Microsoft.WindowsTerminal_8wekyb3d8bbwe/LocalState
 ```
 
-### VsCode
+## VsCode
 
 ```
 cp ~/dotfiles/vscode/settings.json ${windowsUserProfile}/AppData/Roaming/Code/User
