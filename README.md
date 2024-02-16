@@ -17,9 +17,10 @@ https://github.com/zsh-users/zsh-autosuggestions/blob/master/INSTALL.md#manual-g
 
 ## Stow
 
+```
 sudo apt-get update -y
 sudo apt-get install -y stow
-
+```
 
 ## Instalation
 
@@ -38,4 +39,21 @@ or
 
 ```
 $ stow --adopt .
+```
+
+## Windows
+
+### Terminal
+
+```
+cp ~/dotfiles/windows-terminal/settings.json ${windowsUserProfile}/AppData/Local/Packages/Microsoft.WindowsTerminal_8wekyb3d8bbwe/LocalState
+```
+
+### VsCode
+
+```
+cp ~/dotfiles/vscode/settings.json ${windowsUserProfile}/AppData/Roaming/Code/User
+cp ~/dotfiles/vscode/keybindings.json ${windowsUserProfile}/AppData/Roaming/Code/User
+
+cp ~/dotfiles/vscode/extensions.json ${windowsUserProfile}/.vscode/extensions
 ```
