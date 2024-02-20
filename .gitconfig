@@ -1,8 +1,9 @@
 [push]
 	autoSetupRemote = true
 	default = current
-[user]
-	email = hubiboar.studio@gmail.com
-	name = HubiBoar
 [core]
-	autocrlf = true
+	editor = code --wait
+	autocrlf = false
+[user]
+	name = HubiBoar
+	email = 150520704+HubiBoar@users.noreply.github.com
