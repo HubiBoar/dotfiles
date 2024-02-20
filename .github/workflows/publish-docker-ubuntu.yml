@@ -2,6 +2,9 @@
 
 name: publish-ubuntu
 on:
+  push:
+    branches:
+      - 'main' 
   workflow_dispatch: # Allow running the workflow manually from the GitHub UI
     inputs:
       tag_name:
@@ -13,7 +16,7 @@ env:
   DockerLogin: "hubiboar"
   Dockerfile: "docker/Dockerfile.ubuntu"
   LatestTag: hubiboar/ubuntu:latest
-  VersionTag: hubiboar/ubuntu:${{ github.event.inputs.tag_name }}
+  VersionTag: hubiboar/ubuntu:1.0.0.${{ github.run_number || github.event.inputs.tag_name }}
 
 jobs:
   publish:
