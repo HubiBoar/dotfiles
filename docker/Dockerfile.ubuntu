@@ -6,7 +6,7 @@
 #docker push hubiboar/ubuntu:1.0.0
 
 
-FROM amd64/ubuntu
+FROM amd64/ubuntu:latest
 
 #apt-get update
 RUN apt-get -y update \

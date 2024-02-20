@@ -16,7 +16,7 @@ env:
   DockerLogin: "hubiboar"
   Dockerfile: "docker/Dockerfile.dotnet"
   LatestTag: hubiboar/dotnet:latest
-  VersionTag: hubiboar/dotnet:8.0.0.${{ github.run_number || github.event.inputs.tag_name }}
+  VersionTag: hubiboar/dotnet:8.0.0.${{ github.event.inputs.tag_name || github.run_number }}
 
 jobs:
   publish:
