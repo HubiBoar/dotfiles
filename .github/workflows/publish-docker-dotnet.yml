@@ -1,0 +1,31 @@
+# yaml-language-server: $schema=https://json.schemastore.org/github-workflow.json
+
+name: publish
+on:
+  workflow_dispatch: # Allow running the workflow manually from the GitHub UI
+    inputs:
+      tag_name:
+        type: string
+        description: Tag
+        required: true
+
+env:
+  DockerLogin: "hubiboar"
+  Dockerfile: "docker/Dockerfile.dotnet"
+  LatestTag: hubiboar/dotnet:latest
+  VersionTag: hubiboar/dotnet:${{ github.event.inputs.tag_name }}
+
+jobs:
+  publish:
+    runs-on: ubuntu-latest
+    steps:
+    - uses: actions/checkout@v3
+
+    - name: Login
+      run: docker login -u "${{ env.DockerLogin }}" -p "${{ secrets.DOCKER_PASSWORD }}"
+
+    - name: Build 
+      run: docker build -t ${{ env.LatestTag }} -t ${{ env.VersionTag }} -f ${{ env.Dockerfile }} .
+
+    - name: Push
+      run: docker push ${{ env.LatestTag }} && docker push ${{ env.VersionTag }}

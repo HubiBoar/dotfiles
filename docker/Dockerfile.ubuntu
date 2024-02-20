@@ -1,9 +1,14 @@
 #https://medium.com/@ls12styler/docker-as-an-integrated-development-environment-95bc9b01d2c1
 
+#docker build -t hubiboar/ubuntu:latest -t hubiboar/ubuntu:1.0.0 -f docker/Dockerfile.ubuntu .
+#docker login -u hubiboar
+#docker push hubiboar/ubuntu:latest
+#docker push hubiboar/ubuntu:1.0.0
+
+
 FROM amd64/ubuntu
 
-# --> LINUX
-
+#apt-get update
 RUN apt-get -y update \
     && apt-get -qy full-upgrade
 
