@@ -1,0 +1,29 @@
+#https://medium.com/@ls12styler/docker-as-an-integrated-development-environment-95bc9b01d2c1
+
+FROM amd64/ubuntu
+
+# --> LINUX
+
+RUN apt-get -y update \
+    && apt-get -qy full-upgrade
+
+#zsh
+RUN apt-get install -y zsh \
+    && chsh -s $(which zsh)
+
+#git
+RUN apt-get install -y git \
+    && git clone --depth=1 https://github.com/romkatv/powerlevel10k ~/powerlevel10k \
+    && git clone --depth=1 https://github.com/HubiBoar/dotfiles ~/dotfiles \
+    && git clone --depth=1 https://github.com/zsh-users/zsh-autosuggestions ~/.zsh/zsh-autosuggestions
+
+#stow
+RUN apt-get install -y stow \
+    && stow --dir="$HOME/dotfiles" --adopt .
+
+#curl
+RUN apt-get install -y curl
+
+#docker
+RUN curl -sSL https://get.docker.com/ | bash
+#docker run --privileged -v "/var/run/docker.sock:/var/run/docker.sock"

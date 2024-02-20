@@ -1,0 +1,7 @@
+services:
+  devcontainer:
+    image: hubiboar/dotnet:latest
+    volumes:
+      - ../..:/workspaces:cached
+      -  /var/run/docker.sock:/var/run/docker.sock
+    command: sleep infinity

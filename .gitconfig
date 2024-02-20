@@ -4,3 +4,5 @@
 [user]
 	email = hubiboar.studio@gmail.com
 	name = HubiBoar
+[core]
+	autocrlf = true
