@@ -19,7 +19,8 @@ RUN apt-get install -y dotnet-sdk-7.0 \
     && apt-get install -y aspnetcore-runtime-7.0 \
     && apt-get install -y dotnet-sdk-8.0 \
     && apt-get install -y dotnet-runtime-8.0 \
-    && apt-get install -y aspnetcore-runtime-8.0
+    && apt-get install -y aspnetcore-runtime-8.0 \
+    && dotnet restore
 
 #azure CLI
 RUN curl -sSL https://aka.ms/InstallAzureCLIDeb | bash
