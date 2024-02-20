@@ -3,7 +3,7 @@
 	"dockerComposeFile": "docker-compose.yml",
 	"service": "devcontainer",
 	"workspaceFolder": "/workspaces/${localWorkspaceFolderBasename}",
-	"postStartCommand": "dotnet restore ./src",
+	"postStartCommand": "dotnet restore ./src && chmod -R 400 ~/.ssh",
 	"customizations": {
 		"vscode": {
 			"extensions": [
