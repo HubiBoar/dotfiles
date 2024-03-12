@@ -1,0 +1,37 @@
+{
+	"name": "C# (.NET)",
+	"dockerComposeFile": "docker-compose.yml",
+	"service": "devcontainer",
+	"workspaceFolder": "/workspaces/${localWorkspaceFolderBasename}",
+	"postStartCommand": "chmod -R 400 ~/.ssh",
+	"customizations": {
+		"vscode": {
+			"extensions": [
+				"ms-vscode.azure-account",
+				"ms-azuretools.vscode-azurefunctions",
+				"ms-azuretools.vscode-azureresourcegroups",
+				"Azurite.azurite",
+				"ms-dotnettools.csharp",
+				"ms-azuretools.vscode-docker",
+				"yzhang.markdown-all-in-one",
+				"redhat.vscode-yaml"
+			]
+		}
+	}
+}
+// "build": {
+//     "dockerfile": "Dockerfile"
+// },
+// "features": {
+	// 	"ghcr.io/devcontainers/features/docker-in-docker:2": {
+		// 		"moby": true,
+// 		"azureDnsAutoDetection": true,
+// 		"installDockerBuildx": true,
+// 		"version": "latest",
+// 		"dockerDashComposeVersion": "none"
+// 	},
+// 	"ghcr.io/devcontainers/features/git:1": {
+// 	    "version": "latest",
+// 	    "ppa": "false"
+// 	}
+// },

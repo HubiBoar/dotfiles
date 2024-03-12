@@ -8,6 +8,8 @@
 *.sln.docstates
 *.dll
 
+azurite
+
 # User-specific files (MonoDevelop/Xamarin Studio)
 *.userprefs
 
