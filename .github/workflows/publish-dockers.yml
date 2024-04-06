@@ -1,27 +1,28 @@
 # yaml-language-server: $schema=https://json.schemastore.org/github-workflow.json
 
-name: publish-dockers
+name: publish
 on:
-  push:
-    branches:
-      - 'main' 
   workflow_dispatch: # Allow running the workflow manually from the GitHub UI
     inputs:
       tag_name:
         type: string
         description: Tag
+        required: true
+  release:
+    types:
+      - published    # Run the workflow when a new GitHub release is published
 
 env:
   DockerLogin: "hubiboar"
   UbuntuDockerfile: "docker/Dockerfile.ubuntu"
   UbuntuLatestTag: hubiboar/ubuntu:latest
-  UbuntuVersionTag: hubiboar/ubuntu:1.0.0.${{ github.event.inputs.tag_name || github.run_number }}
+  UbuntuVersionTag: hubiboar/ubuntu:1.0.0.${{ github.event.release.tag_name || github.event.inputs.tag_name }}
   DotnetDockerfile: "docker/Dockerfile.dotnet"
   DotnetLatestTag: hubiboar/dotnet:latest
-  DotnetVersionTag: hubiboar/dotnet:8.0.0.${{ github.event.inputs.tag_name || github.run_number }}
+  DotnetVersionTag: hubiboar/dotnet:8.0.0.${{ github.event.release.tag_name || github.event.inputs.tag_name }}
   FunctionsDockerfile: "docker/Dockerfile.functions"
   FunctionsLatestTag: hubiboar/functions:latest
-  FunctionsVersionTag: hubiboar/functions:8.0.0.${{ github.event.inputs.tag_name || github.run_number }}
+  FunctionsVersionTag: hubiboar/functions:8.0.0.${{ github.event.release.tag_name || github.event.inputs.tag_name }}
 
 jobs:
   publish:
