@@ -11,8 +11,7 @@
 FROM hubiboar/dotnet:latest
 
 #update
-RUN apt-get -y update \
-    && apt-get -qy full-upgrade
+RUN apt-get -y update
 
 #func
 RUN apt-get install azure-functions-core-tools-4

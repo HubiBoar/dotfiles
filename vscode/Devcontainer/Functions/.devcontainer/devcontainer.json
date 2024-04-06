@@ -14,24 +14,13 @@
 				"ms-dotnettools.csharp",
 				"ms-azuretools.vscode-docker",
 				"yzhang.markdown-all-in-one",
-				"redhat.vscode-yaml"
+				"redhat.vscode-yaml",
+				"jeff-hykin.macro-commander",
+				"vintharas.learn-vim",
+				"vscodevim.vim",
+				"kevin-kwong.vscode-autohide-keyboard",
+				"rangav.vscode-thunder-client"
 			]
 		}
 	}
 }
-// "build": {
-//     "dockerfile": "Dockerfile"
-// },
-// "features": {
-	// 	"ghcr.io/devcontainers/features/docker-in-docker:2": {
-		// 		"moby": true,
-// 		"azureDnsAutoDetection": true,
-// 		"installDockerBuildx": true,
-// 		"version": "latest",
-// 		"dockerDashComposeVersion": "none"
-// 	},
-// 	"ghcr.io/devcontainers/features/git:1": {
-// 	    "version": "latest",
-// 	    "ppa": "false"
-// 	}
-// },

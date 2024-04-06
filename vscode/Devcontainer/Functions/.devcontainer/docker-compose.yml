@@ -1,0 +1,9 @@
+services:
+  devcontainer:
+    image: hubiboar/functions:latest
+    volumes:
+      - ../..:/workspaces:cached
+      -  /var/run/docker.sock:/var/run/docker.sock
+      -  ~/.ssh:/root/.ssh
+      -  ~/.gitconfig:/root/.gitconfig
+    command: sleep infinity
