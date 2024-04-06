@@ -1,0 +1,55 @@
+# yaml-language-server: $schema=https://json.schemastore.org/github-workflow.json
+
+name: publish-dockers
+on:
+  push:
+    branches:
+      - 'main' 
+  workflow_dispatch: # Allow running the workflow manually from the GitHub UI
+    inputs:
+      tag_name:
+        type: string
+        description: Tag
+        required: true
+
+env:
+  DockerLogin: "hubiboar"
+  UbuntuDockerfile: "docker/Dockerfile.ubuntu"
+  UbuntuLatestTag: hubiboar/ubuntu:latest
+  UbuntuVersionTag: hubiboar/ubuntu:1.0.0.${{ github.event.inputs.tag_name || github.run_number }}
+  DotnetDockerfile: "docker/Dockerfile.dotnet"
+  DotnetLatestTag: hubiboar/dotnet:latest
+  DotnetVersionTag: hubiboar/dotnet:8.0.0.${{ github.event.inputs.tag_name || github.run_number }}
+  FunctionsDockerfile: "docker/Dockerfile.functions"
+  FunctionsLatestTag: hubiboar/functions:latest
+  FunctionsVersionTag: hubiboar/functions:8.0.0.${{ github.event.inputs.tag_name || github.run_number }}
+
+jobs:
+  publish:
+    runs-on: ubuntu-latest
+    steps:
+    - uses: actions/checkout@v3
+
+    - name: Login
+      run: docker login -u "${{ env.DockerLogin }}" -p "${{ secrets.DOCKER_PASSWORD }}"
+
+
+    - name: Build Ubuntu
+      run: docker build -t ${{ env.UbuntuLatestTag }} -t ${{ env.UbuntuVersionTag }} -f ${{ env.UbuntuDockerfile }} .
+
+    - name: Push Ubuntu
+      run: docker push ${{ env.UbuntuLatestTag }} && docker push ${{ env.UbuntuVersionTag }}
+
+
+    - name: Build Dotnet
+      run: docker build -t ${{ env.DotnetLatestTag }} -t ${{ env.DotnetVersionTag }} -f ${{ env.DotnetDockerfile }} .
+
+    - name: Push Dotnet
+      run: docker push ${{ env.DotnetLatestTag }} && docker push ${{ env.DotnetVersionTag }}
+
+
+    - name: Build Functions
+      run: docker build -t ${{ env.FunctionsLatestTag }} -t ${{ env.FunctionsVersionTag }} -f ${{ env.FunctionsDockerfile }} .
+
+    - name: Push Functions
+      run: docker push ${{ env.FunctionsLatestTag }} && docker push ${{ env.FunctionsVersionTag }}
