@@ -10,7 +10,6 @@ on:
       tag_name:
         type: string
         description: Tag
-        required: true
 
 env:
   DockerLogin: "hubiboar"

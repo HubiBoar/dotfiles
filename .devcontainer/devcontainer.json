@@ -1,5 +1,5 @@
 {
-	"name": "C# (.NET)",
+	"name": "Ubuntu",
 	"dockerComposeFile": "docker-compose.yml",
 	"service": "devcontainer",
 	"workspaceFolder": "/workspaces/${localWorkspaceFolderBasename}",
@@ -19,19 +19,3 @@
 		}
 	}
 }
-// "build": {
-//     "dockerfile": "Dockerfile"
-// },
-// "features": {
-	// 	"ghcr.io/devcontainers/features/docker-in-docker:2": {
-		// 		"moby": true,
-// 		"azureDnsAutoDetection": true,
-// 		"installDockerBuildx": true,
-// 		"version": "latest",
-// 		"dockerDashComposeVersion": "none"
-// 	},
-// 	"ghcr.io/devcontainers/features/git:1": {
-// 	    "version": "latest",
-// 	    "ppa": "false"
-// 	}
-// },
