@@ -1,0 +1,3 @@
+FROM hubiboar/python:latest
+
+RUN pip install pandas

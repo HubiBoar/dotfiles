@@ -1,10 +1,3 @@
-#https://medium.com/@ls12styler/docker-as-an-integrated-development-environment-95bc9b01d2c1
-
-#docker build -t hubiboar/functions:latest -t hubiboar/functions:8.0.0 -f docker/Dockerfile.functions .
-#docker login -u hubiboar
-#docker push hubiboar/functions:latest
-#docker push hubiboar/functions:8.0.0
-
 #azurite -s -l /c/azurite -d /c/azurite/debug.log
 #func host start --host localhost --port 7022 --pause-on-error --dotnet-isolated-debug
 
