@@ -1,3 +1,4 @@
 FROM hubiboar/python:latest
 
 RUN pip install pandas
+RUN pip install openpyxl
