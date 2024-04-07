@@ -26,9 +26,9 @@ env:
   PythonDockerfile: "docker/Dockerfile.python"
   PythonLatestTag: hubiboar/python:latest
   PythonVersionTag: hubiboar/python:1.0.0.${{ github.event.release.tag_name || github.event.inputs.tag_name }}
-  PythonPandasDockerfile: "docker/Dockerfile.pandas"
-  PythonPandasLatestTag: hubiboar/pandas:latest
-  PythonPandasVersionTag: hubiboar/pandas:1.0.0.${{ github.event.release.tag_name || github.event.inputs.tag_name }}
+  PandasDockerfile: "docker/Dockerfile.pandas"
+  PandasLatestTag: hubiboar/pandas:latest
+  PandasVersionTag: hubiboar/pandas:1.0.0.${{ github.event.release.tag_name || github.event.inputs.tag_name }}
 
 jobs:
   publish:
@@ -60,8 +60,16 @@ jobs:
     - name: Push Functions
       run: docker push ${{ env.FunctionsLatestTag }} && docker push ${{ env.FunctionsVersionTag }}
 
+
     - name: Build Python
-      run: docker build -t ${{ env.FunctionsLatestTag }} -t ${{ env.FunctionsVersionTag }} -f ${{ env.FunctionsDockerfile }} .
+      run: docker build -t ${{ env.PythonLatestTag }} -t ${{ env.PythonVersionTag }} -f ${{ env.PythonDockerfile }} .
 
     - name: Push Python
-      run: docker push ${{ env.FunctionsLatestTag }} && docker push ${{ env.FunctionsVersionTag }}
+      run: docker push ${{ env.PythonLatestTag }} && docker push ${{ env.PythonVersionTag }}
+
+
+    - name: Build Pandas
+      run: docker build -t ${{ env.PandasLatestTag }} -t ${{ env.PandasVersionTag }} -f ${{ env.PandasDockerfile }} .
+
+    - name: Push Pandas
+      run: docker push ${{ env.PandasLatestTag }} && docker push ${{ env.PandasVersionTag }}

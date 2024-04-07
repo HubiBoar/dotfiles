@@ -3,7 +3,7 @@
 	"dockerComposeFile": "docker-compose.yml",
 	"service": "devcontainer",
 	"workspaceFolder": "/workspaces/${localWorkspaceFolderBasename}",
-	"postStartCommand": "chmod -R 400 ~/.ssh",
+	"postStartCommand": "chmod -R 400 ~/.ssh && gh auth login --with-token < ~/.ssh/.githubtoken",
 	"customizations": {
 		"vscode": {
 			"extensions": [
