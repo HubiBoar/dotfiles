@@ -32,3 +32,6 @@ RUN curl -sSL https://get.docker.com/ | bash
 
 #github
 RUN apt-get install gh -y
+
+#ranger
+RUN apt-get install ranger -y
