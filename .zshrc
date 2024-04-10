@@ -79,3 +79,5 @@ for key     kcap   seq        mode   widget (
 # restore backward-delete-char for Backspace in the incremental
 # search keymap so it keeps working there:
 bindkey -M isearch '^?' backward-delete-char
+
+bindkey '^@' autosuggest-accept
