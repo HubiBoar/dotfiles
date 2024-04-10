@@ -1,0 +1,18 @@
+{
+  "autorun": true,
+  "terminals": [
+    {
+      "name": "Main",
+      "description": "Main Zsh terminal",
+      "focus": true,
+      "command": ""
+    },
+    {
+      "name": "Ranger",
+      "description": "Ranger terminal",
+      "focus": false,
+      "command": "ranger",
+      "split": "Main"
+    }
+  ]
+}
