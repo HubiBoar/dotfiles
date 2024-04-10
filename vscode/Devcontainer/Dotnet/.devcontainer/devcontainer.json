@@ -15,7 +15,8 @@
 				"vintharas.learn-vim",
 				"vscodevim.vim",
 				"kevin-kwong.vscode-autohide-keyboard",
-				"rangav.vscode-thunder-client"
+				"rangav.vscode-thunder-client",
+				"fabiospampinato.vscode-terminals"
 			]
 		}
 	}
