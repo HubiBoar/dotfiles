@@ -29,6 +29,9 @@ env:
   PandasDockerfile: "docker/Dockerfile.pandas"
   PandasLatestTag: hubiboar/pandas:latest
   PandasVersionTag: hubiboar/pandas:1.0.0.${{ github.event.release.tag_name || github.event.inputs.tag_name }}
+  TerraformDockerfile: "docker/Dockerfile.terraform"
+  TerraformLatestTag: hubiboar/terraform:latest
+  TerraformVersionTag: hubiboar/terraform:1.0.0.${{ github.event.release.tag_name || github.event.inputs.tag_name }}
 
 jobs:
   publish:
@@ -73,3 +76,10 @@ jobs:
 
     - name: Push Pandas
       run: docker push ${{ env.PandasLatestTag }} && docker push ${{ env.PandasVersionTag }}
+
+
+    - name: Build Terraform
+      run: docker build -t ${{ env.TerraformLatestTag }} -t ${{ env.TerraformVersionTag }} -f ${{ env.TerraformDockerfile }} .
+
+    - name: Push Terraform
+      run: docker push ${{ env.TerraformLatestTag }} && docker push ${{ env.TerraformVersionTag }}
