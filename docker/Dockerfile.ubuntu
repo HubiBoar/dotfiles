@@ -28,10 +28,18 @@ RUN apt-get install inetutils-ping
 
 #docker
 RUN curl -sSL https://get.docker.com/ | bash
-#docker run --privileged -v "/var/run/docker.sock:/var/run/docker.sock"
 
 #github
 RUN apt-get install gh -y
 
 #ranger
 RUN apt-get install ranger -y
+
+#unzip
+RUN apt-get install unzip -y
+
+#wget
+RUN apt-get install wget -y
+
+#iproute2
+RUN apt-get install iproute2 -y

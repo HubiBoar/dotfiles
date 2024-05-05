@@ -15,8 +15,10 @@
 				"vintharas.learn-vim",
 				"vscodevim.vim",
 				"kevin-kwong.vscode-autohide-keyboard",
-				"rangav.vscode-thunder-client",
-				"fabiospampinato.vscode-terminals"
+				"fabiospampinato.vscode-terminals",
+				"eamodio.gitlens",
+				"Postman.postman-for-vscode",
+				"sleistner.vscode-fileutils"
 			]
 		}
 	}
