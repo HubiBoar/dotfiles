@@ -18,7 +18,8 @@
 				"eamodio.gitlens",
 				"Postman.postman-for-vscode",
 				"sleistner.vscode-fileutils",
-				"patbenatar.advanced-new-file"
+				"patbenatar.advanced-new-file",
+				"hoovercj.vscode-settings-cycler"
 			]
 		}
 	}
