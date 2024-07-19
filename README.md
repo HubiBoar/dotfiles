@@ -1,5 +1,10 @@
 # Linux
 
+## WSL
+
+copy /etc/ folder to /etc/ in **WSL**
+
+
 ## ZSH
 
 ```
