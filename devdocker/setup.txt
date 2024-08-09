@@ -1,0 +1,13 @@
+apt install neovim -y
+
+apt install ripgrep -y
+
+(apt install binutils -y (moze))
+
+apt update && apt install build-essential -y
+
+echo "export COLORTERM=truecolor" >> .zshrc
+
+apt install tmux -y
+
+git clone https://github.com/tmux-plugins/tpm ~/.tmux/plugins/tpm

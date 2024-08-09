@@ -1,0 +1,19 @@
+#docker compose up -d
+# OR
+#docker compose start
+
+#docker compose exec -ti devdocker zsh /workspaces
+
+#docker compose stop
+# OR
+#docker compose down
+
+services:
+  devdocker:
+    image: hubiboar/dotnet:latest
+    volumes:
+      - ../..:/workspaces:cached
+      -  /var/run/docker.sock:/var/run/docker.sock
+      -  ~/.ssh:/root/.ssh
+      -  ~/.gitconfig:/root/.gitconfig
+    command: sh -c "chmod -R 400 ~/.ssh && gh auth login --with-token < ~/.ssh/.githubtoken && sleep infinity"
