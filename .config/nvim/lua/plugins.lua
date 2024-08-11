@@ -9,5 +9,6 @@ require("lazy").setup(
   require("plugins.completions"),
   require("plugins.dap"),
   require("plugins.harpoon"),
+  require("plugins.sessions"),
 })
 

@@ -1,6 +1,6 @@
 #https://medium.com/@ls12styler/docker-as-an-integrated-development-environment-95bc9b01d2c1
 
-FROM amd64/ubuntu:latest
+FROM amd64/ubuntu:22.04
 
 #apt-get update
 RUN apt-get -y update \
@@ -46,3 +46,20 @@ RUN apt-get install iproute2 -y
 
 #jq
 RUN apt-get install jq -y
+
+#ripgrep
+RUN mkdir ~/ripgrep \
+    && cd ~/ripgrep \
+    && curl -LO 'https://github.com/BurntSushi/ripgrep/releases/download/14.1.0/ripgrep_14.1.0-1_amd64.deb' \
+    && dpkg -i ripgrep_14.1.0-1_amd64.deb \
+    && apt-get install -f \
+    && cd ~
+
+#neovim
+RUN apt-get install neovim -y
+RUN apt-get install build-essential -y 
+
+#tmux
+RUN apt-get install tmux -y
+RUN git clone --depth=1 https://github.com/tmux-plugins/tpm ~/.tmux/plugins/tpm
+RUN ~/.tmux/plugins/tpm/bin/install_plugins

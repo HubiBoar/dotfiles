@@ -1,4 +1,6 @@
 FROM hubiboar/python:latest
 
-RUN pip install pandas --break-system-packages
-RUN pip install openpyxl --break-system-packages
+RUN export PIP_BREAK_SYSTEM_PACKAGES=1
+
+RUN pip install pandas
+RUN pip install openpyxl
