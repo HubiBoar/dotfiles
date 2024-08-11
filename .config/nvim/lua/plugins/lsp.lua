@@ -1,10 +1,14 @@
-
 return
 {
     {
         "neovim/nvim-lspconfig",
         config = function ()
+
             require("../keys").lsp()
+            vim.diagnostic.config(
+            {
+                virtual_text = false
+            })
         end
     },
     {
@@ -59,7 +63,7 @@ return
                                 workspace =
                                 {
                                     library = vim.api.nvim_get_runtime_file("", true),
-                                },
+                                },
                                 telemetry =
                                 {
                                     enable = false,
