@@ -1,13 +1,3 @@
-#docker compose up -d
-# OR
-#docker compose start
-
-#docker compose exec -ti devdocker zsh /workspaces
-
-#docker compose stop
-# OR
-#docker compose down
-
 services:
   devdocker:
     image: hubiboar/cde:latest
