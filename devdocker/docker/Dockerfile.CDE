@@ -16,8 +16,7 @@ RUN apt-get install -y git \
     && git clone --depth=1 https://github.com/zsh-users/zsh-autosuggestions ~/.zsh/zsh-autosuggestions
     
 #stow
-RUN apt-get install -y stow \
-    && stow --dir="$HOME/dotfiles" --adopt .
+RUN apt-get install -y stow
 
 RUN apt-get install -y \
     curl \
