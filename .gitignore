@@ -5,3 +5,5 @@ azurite
 .config/tmux/plugins/
 .config/nvim/lazy-lock.json
 *.pyc
+
+*.ssh
