@@ -10,7 +10,7 @@ services:
       - ./setup/.gitconfig:/root/.gitconfig
     command: sh -c "
         cd /startup/devdocker/setup/modules
-        && ./runner/config.sh
+        && ../runner/config.sh
         && ./dotnet.sh
-        && ./runner/run.sh
+        && ../runner/run.sh
       "

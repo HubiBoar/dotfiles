@@ -8,6 +8,6 @@ rm /etc/apt/sources.list.d/microsoft-prod.list
 apt-get install -y dotnet-sdk-8.0
 
 #dotnet ef
-echo 'export PATH="$PATH:/root/.dotnet/tools" ' >> ~/.zshrc
+grep -qxF 'export PATH="$PATH:/root/.dotnet/tools"' ~/.zshrc || echo 'export PATH="$PATH:/root/.dotnet/tools"' >> ~/.zshrc
 dotnet tool install --global dotnet-ef --version 8.0.2 \
     && dotnet tool restore
