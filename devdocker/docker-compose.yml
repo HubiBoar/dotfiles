@@ -10,10 +10,15 @@
 
 services:
   devdocker:
-    image: hubiboar/dotnet:latest
+    image: hubiboar/cde:latest
     volumes:
-      - ../..:/workspaces:cached
+      - .:/startup:cached
+      - C:\Projects:/workspaces:cached
       -  /var/run/docker.sock:/var/run/docker.sock
       -  ~/.ssh:/root/.ssh
       -  ~/.gitconfig:/root/.gitconfig
-    command: sh -c "chmod -R 400 ~/.ssh && gh auth login --with-token < ~/.ssh/.githubtoken && sleep infinity"
+    command: sh -c "
+        cd /startup/modules
+        && ./dotnet.sh
+        && ./runner/run.sh
+      "

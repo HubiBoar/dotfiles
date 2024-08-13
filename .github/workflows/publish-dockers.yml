@@ -14,24 +14,9 @@ on:
 
 env:
   DockerLogin: "hubiboar"
-  UbuntuDockerfile: "docker/Dockerfile.ubuntu"
-  UbuntuLatestTag: hubiboar/ubuntu:latest
-  UbuntuVersionTag: hubiboar/ubuntu:1.0.0.${{ github.event.release.tag_name || github.event.inputs.tag_name }}
-  DotnetDockerfile: "docker/Dockerfile.dotnet"
-  DotnetLatestTag: hubiboar/dotnet:latest
-  DotnetVersionTag: hubiboar/dotnet:8.0.0.${{ github.event.release.tag_name || github.event.inputs.tag_name }}
-  FunctionsDockerfile: "docker/Dockerfile.functions"
-  FunctionsLatestTag: hubiboar/functions:latest
-  FunctionsVersionTag: hubiboar/functions:8.0.0.${{ github.event.release.tag_name || github.event.inputs.tag_name }}
-  PythonDockerfile: "docker/Dockerfile.python"
-  PythonLatestTag: hubiboar/python:latest
-  PythonVersionTag: hubiboar/python:1.0.0.${{ github.event.release.tag_name || github.event.inputs.tag_name }}
-  PandasDockerfile: "docker/Dockerfile.pandas"
-  PandasLatestTag: hubiboar/pandas:latest
-  PandasVersionTag: hubiboar/pandas:1.0.0.${{ github.event.release.tag_name || github.event.inputs.tag_name }}
-  TerraformDockerfile: "docker/Dockerfile.terraform"
-  TerraformLatestTag: hubiboar/terraform:latest
-  TerraformVersionTag: hubiboar/terraform:1.0.0.${{ github.event.release.tag_name || github.event.inputs.tag_name }}
+  Dockerfile: "devdocker/docker/Dockerfile.CDE"
+  LatestTag: hubiboar/cde:latest
+  VersionTag: hubiboar/cde:1.0.0.${{ github.event.release.tag_name || github.event.inputs.tag_name }}
 
 jobs:
   publish:
@@ -43,43 +28,8 @@ jobs:
       run: docker login -u "${{ env.DockerLogin }}" -p "${{ secrets.DOCKER_PASSWORD }}"
 
 
-    - name: Build Ubuntu
-      run: docker build -t ${{ env.UbuntuLatestTag }} -t ${{ env.UbuntuVersionTag }} -f ${{ env.UbuntuDockerfile }} .
+    - name: Build CDE
+      run: docker build -t ${{ env.LatestTag }} -t ${{ env.VersionTag }} -f ${{ env.Dockerfile }} .
 
-    - name: Push Ubuntu
-      run: docker push ${{ env.UbuntuLatestTag }} && docker push ${{ env.UbuntuVersionTag }}
-
-
-    - name: Build Dotnet
-      run: docker build -t ${{ env.DotnetLatestTag }} -t ${{ env.DotnetVersionTag }} -f ${{ env.DotnetDockerfile }} .
-
-    - name: Push Dotnet
-      run: docker push ${{ env.DotnetLatestTag }} && docker push ${{ env.DotnetVersionTag }}
-
-
-    - name: Build Functions
-      run: docker build -t ${{ env.FunctionsLatestTag }} -t ${{ env.FunctionsVersionTag }} -f ${{ env.FunctionsDockerfile }} .
-
-    - name: Push Functions
-      run: docker push ${{ env.FunctionsLatestTag }} && docker push ${{ env.FunctionsVersionTag }}
-
-
-    - name: Build Python
-      run: docker build -t ${{ env.PythonLatestTag }} -t ${{ env.PythonVersionTag }} -f ${{ env.PythonDockerfile }} .
-
-    - name: Push Python
-      run: docker push ${{ env.PythonLatestTag }} && docker push ${{ env.PythonVersionTag }}
-
-
-    - name: Build Pandas
-      run: docker build -t ${{ env.PandasLatestTag }} -t ${{ env.PandasVersionTag }} -f ${{ env.PandasDockerfile }} .
-
-    - name: Push Pandas
-      run: docker push ${{ env.PandasLatestTag }} && docker push ${{ env.PandasVersionTag }}
-
-
-    - name: Build Terraform
-      run: docker build -t ${{ env.TerraformLatestTag }} -t ${{ env.TerraformVersionTag }} -f ${{ env.TerraformDockerfile }} .
-
-    - name: Push Terraform
-      run: docker push ${{ env.TerraformLatestTag }} && docker push ${{ env.TerraformVersionTag }}
+    - name: Push CDE
+      run: docker push ${{ env.LatestTag }} && docker push ${{ env.VersionTag }}

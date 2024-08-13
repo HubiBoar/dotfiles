@@ -1,7 +1,4 @@
-vscode
-windows-terminal
-docker
-.github
+devdocker
 
 RCS
 .+,v
@@ -15,6 +12,7 @@ _darcs
 \.hg
 
 \.git
+\.github
 \.gitignore
 
 .+~          # emacs backup files

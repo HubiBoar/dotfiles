@@ -1,3 +1,0 @@
-FROM hubiboar/ubuntu:latest
-
-RUN apt-get install pip -y
