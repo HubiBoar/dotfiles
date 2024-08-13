@@ -1,9 +1,10 @@
 azurite
 
-.config/.config
-.config/gh/
-.config/tmux/plugins/
-.config/nvim/lazy-lock.json
+.git
+
+**/.config/gh/
+**/.config/tmux/plugins/
+**/.config/nvim/lazy-lock.json
 *.pyc
 
 *.ssh
