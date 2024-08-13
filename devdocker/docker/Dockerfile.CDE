@@ -39,7 +39,6 @@ RUN mkdir ~/installers/neovim \
     && curl -LO https://github.com/neovim/neovim/releases/download/v0.10.1/nvim-linux64.tar.gz \
     && rm -rf /opt/nvim \
     && tar -C /opt -xzf nvim-linux64.tar.gz \
-    && echo 'export PATH="$PATH:/opt/nvim-linux64/bin" ' >> ~/.zshrc \
     && cd ~
 
 #ripgrep for telescope
