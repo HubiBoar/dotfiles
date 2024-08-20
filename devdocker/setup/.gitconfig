@@ -9,7 +9,7 @@
 	autoSetupRemote = true
 	default = current
 [core]
-	editor = vim
+	editor = nvim
 	autocrlf = false
 [user]
 	name = HubiBoar
