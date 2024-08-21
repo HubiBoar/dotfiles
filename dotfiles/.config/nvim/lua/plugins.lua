@@ -10,5 +10,7 @@ require("lazy").setup(
   require("plugins.dap"),
   require("plugins.harpoon"),
   require("plugins.sessions"),
+  require("plugins.hardtime"),
+  require("plugins.precognition"),
 })
 
