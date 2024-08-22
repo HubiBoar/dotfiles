@@ -11,5 +11,6 @@ installConfig() {
     touch /installed/config.txt
 }
 
-mkdir /installed
+echo "\n --> Running Config... \n" 
+mkdir -p /installed
 test -f /installed/config.txt || installConfig

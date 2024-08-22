@@ -6,13 +6,13 @@
 --        vim.cmd.colorscheme("iceberg")
 --    end,
 --}
-return
-{
-    "kvrohit/rasmus.nvim",
-    config = function()
-        vim.cmd.colorscheme("rasmus")
-    end,
-}
+--return
+--{
+--    "kvrohit/rasmus.nvim",
+--    config = function()
+--        vim.cmd.colorscheme("rasmus")
+--    end,
+--}
 --return
 --{
 --  "askfiy/visual_studio_code",
@@ -48,11 +48,11 @@ return
 --  end,
 --}
 
---return
---{
---  "folke/tokyonight.nvim",
---
---  config = function()
---    vim.cmd.colorscheme("tokyonight-night")
---  end,
---}
+return
+{
+  "folke/tokyonight.nvim",
+
+  config = function()
+    vim.cmd.colorscheme("tokyonight-night")
+  end,
+}

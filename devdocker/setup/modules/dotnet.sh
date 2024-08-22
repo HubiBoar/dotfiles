@@ -1,4 +1,7 @@
 installDotnet() {
+    
+    echo "\n --> Installing Dotnet package... \n"
+
     #get packages
     wget -q https://packages.microsoft.com/config/ubuntu/22.04/packages-microsoft-prod.deb -O packages-microsoft-prod.deb \
         && dpkg -i packages-microsoft-prod.deb \
@@ -16,4 +19,5 @@ installDotnet() {
     touch /installed/dotnet.txt
 }
 
-test -f /installed/config.txt || installDotnet
+echo "\n --> Running Dotnet module... \n"
+test -f /installed/dotnet.txt || installDotnet
