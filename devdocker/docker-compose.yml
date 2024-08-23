@@ -12,5 +12,6 @@ services:
         cd /startup/devdocker/setup/modules
         && ../runner/config.sh
         && ./dotnet.sh
+        && ./azcli.sh
         && ../runner/run.sh
       "

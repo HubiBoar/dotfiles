@@ -1,14 +1,23 @@
-#update
-apt-get -y update \
-    && apt-get -qy full-upgrade
+dotnet.sh
 
-#func
-apt-get install azure-functions-core-tools-4
+install() {
+    
+    echo "\n --> Installing Functions package... \n"
 
-#node
-apt-get install -y \
-    nodejs \
-    npm
+    #func
+    apt-get install azure-functions-core-tools-4
 
-#azurite
-npm install -g azurite
+    #node
+    apt-get install -y \
+        nodejs \
+        npm
+
+    #azurite
+    npm install -g azurite
+
+    touch /installed/functions.txt
+}
+
+echo "\n --> Running Functions module... \n"
+test -f /installed/functions.txt || install
+

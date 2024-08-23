@@ -1,6 +1,17 @@
 python.sh
 
-export PIP_BREAK_SYSTEM_PACKAGES=1
+install() {
+    
+    echo "\n --> Installing Pandas package... \n"
 
-pip install pandas
-pip install openpyxl
+    export PIP_BREAK_SYSTEM_PACKAGES=1
+
+    pip install pandas
+    pip install openpyxl
+
+    touch /installed/pandas.txt
+}
+
+echo "\n --> Running Pandas module... \n"
+test -f /installed/pandas.txt || install
+
