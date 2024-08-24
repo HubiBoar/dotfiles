@@ -11,6 +11,7 @@ require("lazy").setup(
   require("plugins.harpoon"),
   require("plugins.sessions"),
   require("plugins.hardtime"),
-  require("plugins.precognition"),
+  require("plugins.hop"),
+--  require("plugins.precognition"),
 })
 

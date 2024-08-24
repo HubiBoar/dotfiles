@@ -11,6 +11,12 @@ M.default = function ()
     vim.keymap.set("n", "<M-v>",     "<c-v>",        remap)
 end
 
+M.hop = function()
+    local remap = { remap = true }
+    vim.keymap.set('', '<leader>h', "<cmd>HopLine<cr>", remap)
+    vim.keymap.set('', '<leader>H', "<cmd>HopWord<cr>", remap)
+end
+
 M.lsp = function()
     vim.keymap.set("n", "<leader>e",  vim.diagnostic.open_float,           {})
     vim.keymap.set("n", "K",          vim.lsp.buf.hover,                   {})

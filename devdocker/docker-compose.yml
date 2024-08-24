@@ -2,6 +2,9 @@ services:
   devdocker:
     image: devdocker/cde
     build: ./setup/docker
+    ports:
+      - "8080:8080"
+      - "8081:8081"
     volumes:
       - ../:/startup:cached
       - C:\Projects:/workspaces:cached
