@@ -11,6 +11,14 @@ M.default = function ()
     vim.keymap.set("n", "<M-v>",     "<c-v>",        remap)
 end
 
+M.tmux = function()
+    local remap = { remap = true }
+    vim.keymap.set('', '<C-h>', "<cmd>TmuxNavigateLeft<cr>", remap)
+    vim.keymap.set('', '<C-l>', "<cmd>TmuxNavigateRight<cr>", remap)
+    vim.keymap.set('', '<C-j>', "<cmd>TmuxNavigateDown<cr>", remap)
+    vim.keymap.set('', '<C-k>', "<cmd>TmuxNavigateUp<cr>", remap)
+end
+
 M.hop = function()
     local remap = { remap = true }
     vim.keymap.set('', '<leader>h', "<cmd>HopLine<cr>", remap)

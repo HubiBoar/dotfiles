@@ -13,6 +13,6 @@ require("lazy").setup(
   require("plugins.hardtime"),
   require("plugins.hop"),
   require("plugins.camelCaseMotion"),
---  require("plugins.precognition"),
+  require("plugins.tmux"),
 })
 
