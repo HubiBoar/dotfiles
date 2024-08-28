@@ -12,6 +12,7 @@ require("lazy").setup(
   require("plugins.sessions"),
   require("plugins.hardtime"),
   require("plugins.hop"),
+  require("plugins.camelCaseMotion"),
 --  require("plugins.precognition"),
 })
 

@@ -33,6 +33,14 @@ M.lsp = function()
     vim.keymap.set("n", "gr",         vim.lsp.buf.references,              {})
 end
 
+M.camelCaseMotion = function ()
+    local remap = { silent = true, remap = true }
+    vim.keymap.set('', 'w', "<Plug>CamelCaseMotion_w",   remap)
+    vim.keymap.set('', 'b', "<Plug>CamelCaseMotion_b",   remap)
+    vim.keymap.set('', 'e', "<Plug>CamelCaseMotion_e",   remap)
+    vim.keymap.set('', 'ge', "<Plug>CamelCaseMotion_ge", remap)
+end
+
 M.completions = function (cmp)
 
     return
@@ -91,8 +99,9 @@ M.harpoon = function (harpoon)
 end
 
 M.telescope = function (builtin)
-    vim.keymap.set("n", "<C-f>", builtin.find_files, {})
-    vim.keymap.set("n", "<C-g>", builtin.live_grep, {})
+    vim.keymap.set("n", "<leader>ff", function() builtin.find_files() end)
+    vim.keymap.set("n", "<leader>fg", function() builtin.live_grep()  end)
+    vim.keymap.set("n", "<leader>fr", function() builtin.resume()  end)
 end
 
 M.dap = function (dap)

@@ -1,0 +1,31 @@
+pane	FeatureSlice	1	1	:*	1	f483cd84792c	:/workspaces/FeatureSlice/src/Samples	1	zsh	:
+pane	definit	1	0	:	1	f483cd84792c	:/workspaces/Definit/src/Definit.Validation/Definit.Validation.Generator	1	zsh	:
+pane	definit	2	0	:	1	f483cd84792c	:/workspaces/Definit/src/Definit.Validation	1	zsh	:
+pane	definit	3	0	:-	1	f483cd84792c	:/workspaces/Definit/src	1	zsh	:
+pane	definit	4	1	:*	1	f483cd84792c	:/workspaces/Definit/src	1	zsh	:
+pane	konfik	1	1	:*	1	f483cd84792c	:/workspaces/Konfik	1	nvim	:nvim .
+pane	konfik	2	0	:-	1	f483cd84792c	:/workspaces/Konfik/src	1	zsh	:
+pane	konfik	3	0	:	1	f483cd84792c	:/workspaces/Konfik/src/Konfik	1	zsh	:
+pane	maandag	1	0	:	1	d27976a02d0b	:/workspaces/Maandag.com/MWS/Modules/Identity/Identity/Sync/Shared	1	zsh	:
+pane	maandag	2	0	:-	1	ca68f5436475	:/workspaces/Maandag.com/MWS	1	nvim	:nvim .
+pane	maandag	3	1	:*	1	125aa42f6897	:/workspaces/Maandag.com/MWS/Applications/Api.Public	1	zsh	:
+pane	maandag	4	0	:	1	f483cd84792c	:/workspaces/Maandag.com/MWS	1	zsh	:
+pane	notes	1	1	:*	1	ca68f5436475	:/workspaces/Notes	1	zsh	:
+pane	startup	1	0	:-	1	d27976a02d0b	:/startup/dotfiles/.config	1	nvim	:nvim .
+pane	startup	2	1	:*	1	d27976a02d0b	:/startup/dotfiles/.config/nvim/lua	1	zsh	:
+window	FeatureSlice	1	:zsh	1	:*	c3be,344x74,0,0,1	:
+window	definit	1	:python3	0	:	c3bf,344x74,0,0,2	off
+window	definit	2	:ranger	0	:	c3c0,344x74,0,0,3	off
+window	definit	3	:python3	0	:-	c3c1,344x74,0,0,4	off
+window	definit	4	:zsh	1	:*	c3c2,344x74,0,0,5	:
+window	konfik	1	:nvim	1	:*	c3c3,344x74,0,0,6	:
+window	konfik	2	:zsh	0	:-	c3c4,344x74,0,0,7	:
+window	konfik	3	:zsh	0	:	c3c5,344x74,0,0,8	:
+window	maandag	1	:zsh	0	:	c3c6,344x74,0,0,9	:
+window	maandag	2	:nvim	0	:-	610f,382x83,0,0,10	:
+window	maandag	3	:zsh	1	:*	6110,382x83,0,0,11	:
+window	maandag	4	:zsh	0	:	6211,344x74,0,0,12	:
+window	notes	1	:zsh	1	:*	6212,344x74,0,0,13	:
+window	startup	1	:nvim	0	:-	6213,344x74,0,0,14	:
+window	startup	2	:python3	1	:*	6214,344x74,0,0,15	off
+state	maandag	definit

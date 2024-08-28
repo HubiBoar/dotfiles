@@ -1,0 +1,27 @@
+pane	definit	1	0	:-	1	f483cd84792c	:/workspaces/Definit/src/Definit.Validation	1	zsh	:
+pane	definit	2	1	:*	1	f483cd84792c	:/workspaces/Definit/src/Definit.Validation/Definit.Validation.Generator	1	python3	:/usr/bin/python3 -O /usr/bin/ranger
+pane	definit	3	0	:	1	f483cd84792c	:/workspaces/Definit/src/Definit.Primitives	1	zsh	:
+pane	konfik	1	1	:*	1	f483cd84792c	:/workspaces/Konfik	1	nvim	:nvim .
+pane	konfik	2	0	:-	1	f483cd84792c	:/workspaces/Konfik/src	1	zsh	:
+pane	konfik	3	0	:	1	f483cd84792c	:/workspaces/Konfik/src/Konfik	1	zsh	:
+pane	maandag	1	0	:	1	d27976a02d0b	:/workspaces/Maandag.com/MWS/Modules/Identity/Identity/Sync/Shared	1	zsh	:
+pane	maandag	2	1	:*	1	ca68f5436475	:/workspaces/Maandag.com/MWS	1	nvim	:nvim .
+pane	maandag	3	0	:-	1	125aa42f6897	:/workspaces/Maandag.com/MWS/Applications/Api.Public	1	zsh	:
+pane	maandag	4	0	:	1	f483cd84792c	:/workspaces/Maandag.com/MWS	1	zsh	:
+pane	notes	1	1	:*	1	ca68f5436475	:/workspaces/Notes	1	zsh	:
+pane	startup	1	0	:-	1	d27976a02d0b	:/startup/dotfiles/.config	1	nvim	:nvim .
+pane	startup	2	1	:*	1	d27976a02d0b	:/startup/dotfiles	1	zsh	:
+window	definit	1	:python3	0	:-	d45e,213x69,0,0,1	off
+window	definit	2	:python3	1	:*	d45f,213x69,0,0,2	:
+window	definit	3	:zsh	0	:	b9c0,192x62,0,0,3	:
+window	konfik	1	:nvim	1	:*	b9c1,192x62,0,0,4	:
+window	konfik	2	:zsh	0	:-	b9c2,192x62,0,0,5	:
+window	konfik	3	:zsh	0	:	b9c3,192x62,0,0,6	:
+window	maandag	1	:zsh	0	:	b9c4,192x62,0,0,7	:
+window	maandag	2	:nvim	1	:*	d465,213x69,0,0,8	:
+window	maandag	3	:zsh	0	:-	d466,213x69,0,0,9	:
+window	maandag	4	:zsh	0	:	5d0f,192x62,0,0,10	:
+window	notes	1	:zsh	1	:*	5d10,192x62,0,0,11	:
+window	startup	1	:nvim	0	:-	5d11,192x62,0,0,12	:
+window	startup	2	:python3	1	:*	5d12,192x62,0,0,13	off
+state	definit	maandag
