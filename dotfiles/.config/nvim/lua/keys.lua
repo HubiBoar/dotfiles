@@ -9,6 +9,36 @@ M.default = function ()
     vim.keymap.set("n", "g.",        "g;",           remap)
     vim.keymap.set("n", "<M-v>",     "<c-v>",        remap)
     vim.keymap.set("n", "<M-v>",     "<c-v>",        remap)
+
+    vim.keymap.set('', "<Up>",    "<nop>", remap)
+    vim.keymap.set('', "<Down>",  "<nop>", remap)
+    vim.keymap.set('', "<Left>",  "<nop>", remap)
+    vim.keymap.set('', "<Right>", "<nop>", remap)
+
+    vim.keymap.set('', "<S-Up>",    "<nop>", remap)
+    vim.keymap.set('', "<S-Down>",  "<nop>", remap)
+    vim.keymap.set('', "<S-Left>",  "<nop>", remap)
+    vim.keymap.set('', "<S-Right>", "<nop>", remap)
+
+    vim.keymap.set('', "<C-Up>",    "<nop>", remap)
+    vim.keymap.set('', "<C-Down>",  "<nop>", remap)
+    vim.keymap.set('', "<C-Left>",  "<nop>", remap)
+    vim.keymap.set('', "<C-Right>", "<nop>", remap)
+
+    vim.keymap.set('i', "<Up>",    "<nop>", remap)
+    vim.keymap.set('i', "<Down>",  "<nop>", remap)
+    vim.keymap.set('i', "<Left>",  "<nop>", remap)
+    vim.keymap.set('i', "<Right>", "<nop>", remap)
+
+    vim.keymap.set('i', "<S-Up>",    "<nop>", remap)
+    vim.keymap.set('i', "<S-Down>",  "<nop>", remap)
+    vim.keymap.set('i', "<S-Left>",  "<nop>", remap)
+    vim.keymap.set('i', "<S-Right>", "<nop>", remap)
+
+    vim.keymap.set('i', "<C-Up>",    "<nop>", remap)
+    vim.keymap.set('i', "<C-Down>",  "<nop>", remap)
+    vim.keymap.set('i', "<C-Left>",  "<nop>", remap)
+    vim.keymap.set('i', "<C-Right>", "<nop>", remap)
 end
 
 M.tmux = function()
