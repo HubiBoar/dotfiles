@@ -1,0 +1,27 @@
+pane	Definit	1	1	:*	1	f483cd84792c	:/workspaces/Definit/src/Definit.Validation	1	nvim	:nvim .
+pane	Definit	2	0	:-	1	f483cd84792c	:/workspaces/Definit/src	0	zsh	:
+pane	Definit	2	0	:-	2	f483cd84792c	:/workspaces/Definit/src/Definit.Validation/Definit.Validation.Generator	1	python3	:/usr/bin/python3 -O /usr/bin/ranger
+pane	FeatureSlice	1	1	:*	1	f483cd84792c	:/workspaces/FeatureSlice/src/Samples	1	zsh	:
+pane	konfik	1	1	:*	1	f483cd84792c	:/workspaces/Konfik	1	nvim	:nvim .
+pane	konfik	2	0	:-	1	f483cd84792c	:/workspaces/Konfik/src	1	zsh	:
+pane	konfik	3	0	:	1	f483cd84792c	:/workspaces/Konfik/src/Konfik	1	zsh	:
+pane	maandag	1	0	:-	1	ca68f5436475	:/workspaces/Maandag.com/MWS	1	nvim	:nvim .
+pane	maandag	2	1	:*	1	f483cd84792c	:/workspaces/Maandag.com/MWS	1	zsh	:
+pane	maandag	2	1	:*	2	f483cd84792c	:/workspaces/Maandag.com/MWS/Applications/Api.Public	0	zsh	:
+pane	notes	1	1	:*	1	ca68f5436475	:/workspaces/Notes	1	zsh	:
+pane	startup	1	0	:-	1	f483cd84792c	:/startup/dotfiles/.config/nvim/lua	0	zsh	:
+pane	startup	1	0	:-	2	f483cd84792c	:/startup/dotfiles/.config/tmux	1	zsh	:
+pane	startup	2	1	:*	1	d27976a02d0b	:/startup/dotfiles/.config/nvim	1	nvim	:nvim .
+pane	startup	2	1	:*	2	f483cd84792c	:/startup/dotfiles/.config/nvim	0	zsh	:
+window	Definit	1	:solution	1	:*	c1be,382x83,0,0,1	off
+window	Definit	2	:terminal	0	:-	76f9,382x83,0,0{191x83,0,0,2,190x83,192,0,3}	off
+window	FeatureSlice	1	:zsh	1	:*	c3c1,344x74,0,0,4	:
+window	konfik	1	:nvim	1	:*	c3c2,344x74,0,0,5	:
+window	konfik	2	:zsh	0	:-	c3c3,344x74,0,0,6	:
+window	konfik	3	:zsh	0	:	c3c4,344x74,0,0,7	:
+window	maandag	1	:solution	0	:-	c3c5,344x74,0,0,8	off
+window	maandag	2	:terminal	1	:*	5cf6,344x74,0,0{172x74,0,0,9,171x74,173,0,10}	off
+window	notes	1	:zsh	1	:*	6210,344x74,0,0,11	:
+window	startup	1	:solution	0	:-	0e93,344x74,0,0{172x74,0,0,12,171x74,173,0,13}	off
+window	startup	2	:terminal	1	:*	0e95,344x74,0,0{172x74,0,0,14,171x74,173,0,15}	off
+state	Definit	startup

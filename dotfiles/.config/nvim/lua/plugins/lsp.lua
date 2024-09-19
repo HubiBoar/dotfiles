@@ -9,7 +9,7 @@ return
             {
                 virtual_text = false
             })
-        end
+        end,
     },
     {
         "williamboman/mason.nvim",

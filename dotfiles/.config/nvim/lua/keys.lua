@@ -39,6 +39,31 @@ M.default = function ()
     vim.keymap.set('i', "<C-Down>",  "<nop>", remap)
     vim.keymap.set('i', "<C-Left>",  "<nop>", remap)
     vim.keymap.set('i', "<C-Right>", "<nop>", remap)
+
+
+    vim.keymap.set('', "<PageUp>",    "<nop>", remap)
+    vim.keymap.set('', "<PageDown>",  "<nop>", remap)
+
+    vim.keymap.set('', "<S-PageUp>",    "<nop>", remap)
+    vim.keymap.set('', "<S-PageDown>",  "<nop>", remap)
+
+    vim.keymap.set('', "<C-PageUp>",    "<nop>", remap)
+    vim.keymap.set('', "<C-PageDown>",  "<nop>", remap)
+
+    vim.keymap.set('', "<M-PageUp>",    "<nop>", remap)
+    vim.keymap.set('', "<M-PageDown>",  "<nop>", remap)
+
+    vim.keymap.set('i', "<PageUp>",    "<nop>", remap)
+    vim.keymap.set('i', "<PageDown>",  "<nop>", remap)
+
+    vim.keymap.set('i', "<S-PageUp>",    "<nop>", remap)
+    vim.keymap.set('i', "<S-PageDown>",  "<nop>", remap)
+
+    vim.keymap.set('i', "<C-PageUp>",    "<nop>", remap)
+    vim.keymap.set('i', "<C-PageDown>",  "<nop>", remap)
+
+    vim.keymap.set('i', "<M-PageUp>",    "<nop>", remap)
+    vim.keymap.set('i', "<M-PageDown>",  "<nop>", remap)
 end
 
 M.tmux = function()
