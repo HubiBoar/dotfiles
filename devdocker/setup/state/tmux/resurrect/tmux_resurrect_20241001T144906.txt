@@ -1,0 +1,10 @@
+pane	4	1	1	:*	1	f3e03f6ee43a	:/startup/dotfiles/etc	1	zsh	:
+pane	startup	1	1	:*Z	1	f3e03f6ee43a	:/startup/dotfiles/.config	1	zsh	:
+pane	startup	1	1	:*Z	2	f3e03f6ee43a	:/startup/dotfiles/.config	0	python3	:/usr/bin/python3 -O /usr/bin/ranger
+pane	startup	2	0	:	1	f3e03f6ee43a	:/startup/dotfiles/.config/nvim	1	nvim	:nvim .
+pane	startup	3	0	:-	1	f3e03f6ee43a	:/startup/dotfiles/.config/tmux	1	nvim	:nvim .
+window	4	1	:zsh	1	:*	b7a6,240x62,0,0,9	:
+window	startup	1	:cli	1	:*Z	840b,240x62,0,0{120x62,0,0,5,119x62,121,0,4}	off
+window	startup	2	:nvim	0	:	b7a3,240x62,0,0,6	off
+window	startup	3	:tmux	0	:-	b7a4,240x62,0,0,7	off
+state	4	startup

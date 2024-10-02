@@ -1,0 +1,6 @@
+pane	startup	1	0	:-	1	f3e03f6ee43a	:/startup/dotfiles/.config	1	zsh	:
+pane	startup	1	0	:-	2	f3e03f6ee43a	:/startup/dotfiles/.config	0	python3	:/usr/bin/python3 -O /usr/bin/ranger
+pane	startup	2	1	:*	1	f3e03f6ee43a	:/startup/dotfiles/.config	1	nvim	:nvim .
+window	startup	1	:python3	0	:-	840b,240x62,0,0{120x62,0,0,5,119x62,121,0,4}	off
+window	startup	2	:nvim	1	:*	b7a3,240x62,0,0,6	:
+state	startup	

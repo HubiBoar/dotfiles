@@ -11,6 +11,7 @@
 [core]
 	editor = nvim
 	autocrlf = false
+	filemode = false
 [user]
 	name = HubiBoar
 	email = 150520704+HubiBoar@users.noreply.github.com
