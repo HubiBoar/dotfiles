@@ -22,11 +22,19 @@ RUN apt-get install -y \
     curl \
     inetutils-ping \
     gh \
-    ranger \
     unzip \
     wget \
     iproute2 \
     jq
+
+#LF
+RUN mkdir ~/installers/lf \
+    && cd ~/installers/lf \
+    && curl -LO https://github.com/gokcehan/lf/releases/download/r32/lf-linux-amd64.tar.gz \
+    && tar xvf lf-linux-amd64.tar.gz \
+    && chmod +x lf \
+    && mv lf /usr/bin \
+    && cd ~
 
 #docker
 RUN curl -sSL https://get.docker.com/ | bash

@@ -29,11 +29,14 @@ return
             require("mason-lspconfig").setup(
             {
                 automatic_installation = true,
-                ensure_installed = { "lua_ls", "omnisharp" }
+                ensure_installed = { "lua_ls", "omnisharp", "omnisharp_mono" }
             })
 
             require("mason-lspconfig").setup_handlers(
             {
+                ["omnisharp_mono"] = function ()
+
+                end,
 
                 function (server_name)
                     lspconfig[server_name].setup(
@@ -63,7 +66,7 @@ return
                                 workspace =
                                 {
                                     library = vim.api.nvim_get_runtime_file("", true),
-                                },
+                                },
                                 telemetry =
                                 {
                                     enable = false,
@@ -75,10 +78,13 @@ return
 
                 ["omnisharp"] = function()
 
+                    local pid = vim.fn.getpid();
+                    local omnisharp_bin = vim.fn.stdpath "data" .. "/mason/packages/omnisharp/omnisharp-mono/run";
+
                     lspconfig.omnisharp.setup(
                     {
                         capabilities = capabilities,
-                        cmd = { "dotnet", vim.fn.stdpath "data" .. "/mason/packages/omnisharp/libexec/OmniSharp.dll" },
+                        cmd = { omnisharp_bin, "--languageserver" , "--hostPID", tostring(pid) };
 
                         settings =
                         {
