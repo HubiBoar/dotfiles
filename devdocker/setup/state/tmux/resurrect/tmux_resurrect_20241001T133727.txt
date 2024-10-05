@@ -1,4 +1,0 @@
-pane	startup	1	1	:*	1	f3e03f6ee43a	:/startup/dotfiles/.config	1	zsh	:
-pane	startup	1	1	:*	2	f3e03f6ee43a	:/startup/dotfiles/.config	0	python3	:/usr/bin/python3 -O /usr/bin/ranger
-window	startup	1	:python3	1	:*	840b,240x62,0,0{120x62,0,0,5,119x62,121,0,4}	off
-state	startup	

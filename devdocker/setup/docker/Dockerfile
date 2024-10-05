@@ -27,6 +27,11 @@ RUN apt-get install -y \
     iproute2 \
     jq
 
+#docker
+RUN curl -sSL https://get.docker.com/ | bash
+
+RUN mkdir ~/installers
+
 #LF
 RUN mkdir ~/installers/lf \
     && cd ~/installers/lf \
@@ -35,11 +40,6 @@ RUN mkdir ~/installers/lf \
     && chmod +x lf \
     && mv lf /usr/bin \
     && cd ~
-
-#docker
-RUN curl -sSL https://get.docker.com/ | bash
-
-RUN mkdir ~/installers
 
 #NVIM
 RUN mkdir ~/installers/neovim \
