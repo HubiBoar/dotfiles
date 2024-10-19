@@ -6,16 +6,18 @@ services:
     network_mode: "host"
     volumes:
       - ../:/startup:cached
-      - \\wsl.localhost\Ubuntu\home\Projects:/workspaces:cached
-      - C:\:/c:cached
-      - C:\Users\HUD\Desktop\:/desktop:cached
+      - /home/Projects:/workspaces:cached
+      - /mnt/c/:/c:cached
+      - /mnt/c/users/HUD/Desktop/:/desktop:cached
       - /var/run/docker.sock:/var/run/docker.sock
       - ./setup/.ssh:/root/.ssh
       - ./setup/.gitconfig:/root/.gitconfig
     command: sh -c "
-        chmod +x /startup/devdocker/setup/modules
+        chmod 400 ~/.ssh/id_rsa
+        && chmod +x /startup/devdocker/setup/runner/*.sh
+        && chmod +x /startup/devdocker/setup/modules/*.sh
         && cd /startup/devdocker/setup/modules
-        && ../runner/config.sh
+        && /startup/devdocker/setup/runner/config.sh
         && ./dotnet.sh
         && ./azcli.sh
         && ./node.sh
