@@ -2,19 +2,23 @@ services:
   devdocker:
     image: devdocker/cde
     build: ./setup/docker
-    ports:
-      - "8080:8080"
-      - "8081:8081"
+    container_name: cde
+    network_mode: "host"
     volumes:
       - ../:/startup:cached
-      - C:\Projects:/workspaces:cached
+      - \\wsl.localhost\Ubuntu\home\Projects:/workspaces:cached
+      - C:\:/c:cached
+      - C:\Users\HUD\Desktop\:/desktop:cached
       - /var/run/docker.sock:/var/run/docker.sock
       - ./setup/.ssh:/root/.ssh
       - ./setup/.gitconfig:/root/.gitconfig
     command: sh -c "
-        cd /startup/devdocker/setup/modules
+        chmod +x /startup/devdocker/setup/modules
+        && cd /startup/devdocker/setup/modules
         && ../runner/config.sh
         && ./dotnet.sh
         && ./azcli.sh
+        && ./node.sh
+        && ./node-yarn.sh
         && ../runner/run.sh
       "

@@ -15,9 +15,9 @@ install() {
     #azurite
     npm install -g azurite
 
-    touch /installed/functions.txt
+    touch /installed/functions
 }
 
 echo "\n --> Running Functions module... \n"
-test -f /installed/functions.txt || install
+test -f /installed/functions || install
 

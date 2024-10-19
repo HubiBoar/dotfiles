@@ -8,8 +8,8 @@ install() {
     && rm terraform_1.8.2_linux_amd64.zip \
     && rm LICENSE.txt
 
-    touch /installed/terraform.txt
+    touch /installed/terraform
 }
 
 echo "\n --> Running Terraform module... \n"
-test -f /installed/terraform.txt || install
+test -f /installed/terraform || install

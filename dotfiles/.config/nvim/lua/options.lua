@@ -22,3 +22,6 @@ vim.opt.ignorecase     = true
 vim.opt.cursorline     = true
 
 vim.o.termguicolors    = true
+
+--vim.opt_global.fileformat  = "unix"
+--vim.opt_global.fileformats = "unix"

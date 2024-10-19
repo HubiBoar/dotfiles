@@ -9,9 +9,9 @@ install() {
     pip install pandas
     pip install openpyxl
 
-    touch /installed/pandas.txt
+    touch /installed/pandas
 }
 
 echo "\n --> Running Pandas module... \n"
-test -f /installed/pandas.txt || install
+test -f /installed/pandas || install
 

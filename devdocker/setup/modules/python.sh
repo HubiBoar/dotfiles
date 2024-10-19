@@ -4,8 +4,8 @@ install() {
 
     apt-get install pip -y
 
-    touch /installed/python.txt
+    touch /installed/python
 }
 
 echo "\n --> Running Python module... \n"
-test -f /installed/python.txt || install
+test -f /installed/python || install

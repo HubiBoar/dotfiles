@@ -29,7 +29,7 @@ return
             require("mason-lspconfig").setup(
             {
                 automatic_installation = true,
-                ensure_installed = { "lua_ls", "omnisharp" }
+                ensure_installed = { "lua_ls", "omnisharp@v1.39.8" }
             })
 
             require("mason-lspconfig").setup_handlers(
