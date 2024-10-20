@@ -15,3 +15,5 @@
 [user]
 	name = HubiBoar
 	email = 150520704+HubiBoar@users.noreply.github.com
+[safe]
+    directory = *

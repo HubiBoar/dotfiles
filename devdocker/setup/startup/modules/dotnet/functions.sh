@@ -2,7 +2,7 @@ dotnet.sh
 
 install() {
     
-    echo "\n --> Installing Functions package... \n"
+    echo "\n --> Installing Functions module... \n"
 
     #func
     apt-get install azure-functions-core-tools-4
@@ -18,6 +18,6 @@ install() {
     touch /installed/functions
 }
 
-echo "\n --> Running Functions module... \n"
 test -f /installed/functions || install
+echo " --> Functions module installed"
 

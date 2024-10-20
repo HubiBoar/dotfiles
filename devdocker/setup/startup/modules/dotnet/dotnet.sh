@@ -1,6 +1,6 @@
 install() {
     
-    echo "\n --> Installing Dotnet package... \n"
+    echo "\n --> Installing Dotnet module... \n"
 
     apt-get update && apt-get install -y dotnet-sdk-8.0
     apt-get update && apt-get install -y dotnet-runtime-8.0
@@ -8,5 +8,5 @@ install() {
     touch /installed/dotnet
 }
 
-echo "\n --> Running Dotnet module... \n"
 test -f /installed/dotnet || install
+echo " --> Dotnet module installed"

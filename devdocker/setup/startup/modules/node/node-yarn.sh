@@ -1,6 +1,6 @@
 install() {
     
-    echo "\n --> Installing Yarn package... \n"
+    echo "\n --> Installing Node Yarn module... \n"
 
     npm install -g yarn
     npm install -g eslint
@@ -10,5 +10,5 @@ install() {
     touch /installed/yarn
 }
 
-echo "\n --> Running Yarn module... \n"
 test -f /installed/yarn || install
+echo " --> Node Yarn module installed"

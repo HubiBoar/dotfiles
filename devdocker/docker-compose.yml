@@ -1,26 +1,49 @@
+x-base: &base
+  image: devdocker/cde
+  build: ./setup/docker
+  network_mode: "host"
+  volumes:
+    - /home/dotfiles:/home/dotfiles
+    - /home/projects:/home/projects
+    - /home/dotfiles/dotfiles:/dotfiles
+    - ./setup/startup:/startup
+    - /mnt/c:/mnt/c
+    - /mnt/c/users/HUD/Desktop:/desktop
+    - /var/run/docker.sock:/var/run/docker.sock
+    - ./setup/.ssh:/root/.ssh
+    - ./setup/.gitconfig:/root/.gitconfig
+
 services:
-  devdocker:
-    image: devdocker/cde
-    build: ./setup/docker
-    container_name: cde
-    network_mode: "host"
-    volumes:
-      - ../:/startup:cached
-      - /home/Projects:/workspaces:cached
-      - /mnt/c/:/c:cached
-      - /mnt/c/users/HUD/Desktop/:/desktop:cached
-      - /var/run/docker.sock:/var/run/docker.sock
-      - ./setup/.ssh:/root/.ssh
-      - ./setup/.gitconfig:/root/.gitconfig
+  cde-nisportal:
+    <<: *base 
+    container_name: cde-nisportal
+    profiles:
+      - nisportal
+      - all
+    environment:
+      # I wanted to use Volumes for setting separate states paths for each service but, could not merge the *base volumes with custom one 
+      STATE_PATH: "/home/dotfiles/setup/state/nisportal"
     command: sh -c "
-        chmod 400 ~/.ssh/id_rsa
-        && chmod +x /startup/devdocker/setup/runner/*.sh
-        && chmod +x /startup/devdocker/setup/modules/*.sh
-        && cd /startup/devdocker/setup/modules
-        && /startup/devdocker/setup/runner/config.sh
-        && ./dotnet.sh
-        && ./azcli.sh
-        && ./node.sh
-        && ./node-yarn.sh
-        && ../runner/run.sh
+        chmod +x /startup/**/*.sh
+        && /startup/runner/config.sh
+        && /startup/modules/dotnet/dotnet.sh
+        && /startup/modules/dotnet/azcli.sh
+        && /startup/modules/node/node.sh
+        && /startup/modules/node/node-yarn.sh
+        && /startup/runner/run.sh
+      "
+  cde-dotnet:
+    <<: *base 
+    container_name: cde-dotnet
+    profiles:
+      - dotnet
+      - all
+    environment:
+      STATE_PATH: "/home/dotfiles/setup/state/dotnet"
+    command: sh -c "
+        chmod +x /startup/**/*.sh
+        && /startup/runner/config.sh
+        && /startup/modules/dotnet/dotnet.sh
+        && /startup/modules/dotnet/azcli.sh
+        && /startup/runner/run.sh
       "

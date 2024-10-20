@@ -1,6 +1,6 @@
 install() {
     
-    echo "\n --> Installing Node package... \n"
+    echo "\n --> Installing Node module... \n"
 
     apt-get update && apt-get install nodejs -y 
     apt-get update && apt-get install npm -y
@@ -11,5 +11,5 @@ install() {
     touch /installed/node
 }
 
-echo "\n --> Running Node module... \n"
 test -f /installed/node || install
+echo " --> Node module installed"

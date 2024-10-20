@@ -1,1 +1,3 @@
-docker-compose down
+profile=$1
+
+docker compose --profile $profile down

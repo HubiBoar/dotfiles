@@ -1,1 +1,3 @@
-docker-compose build
+profile=$1
+
+docker compose --profile $profile build

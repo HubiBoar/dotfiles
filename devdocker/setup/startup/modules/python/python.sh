@@ -1,11 +1,11 @@
 install() {
     
-    echo "\n --> Installing Python package... \n"
+    echo "\n --> Installing Python module... \n"
 
     apt-get install pip -y
 
     touch /installed/python
 }
 
-echo "\n --> Running Python module... \n"
 test -f /installed/python || install
+echo " --> Python module installed"
