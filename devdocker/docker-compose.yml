@@ -21,8 +21,9 @@ services:
       - nisportal
       - all
     environment:
+      PROFILE: nisportal
       # I wanted to use Volumes for setting separate states paths for each service but, could not merge the *base volumes with custom one 
-      STATE_PATH: "/home/dotfiles/setup/state/nisportal"
+      STATE_PATH: "/home/dotfiles/devdocker/setup/state/nisportal"
     command: sh -c "
         chmod +x /startup/**/*.sh
         && /startup/runner/config.sh
@@ -39,7 +40,8 @@ services:
       - dotnet
       - all
     environment:
-      STATE_PATH: "/home/dotfiles/setup/state/dotnet"
+      PROFILE: dotnet
+      STATE_PATH: "/home/dotfiles/devdocker/setup/state/dotnet"
     command: sh -c "
         chmod +x /startup/**/*.sh
         && /startup/runner/config.sh
