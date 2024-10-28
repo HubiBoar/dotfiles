@@ -2,18 +2,36 @@ x-base: &base
   image: devdocker/cde
   build: ./setup/docker
   network_mode: "host"
-  volumes:
+  volumes: 
     - /home/dotfiles:/home/dotfiles
     - /home/projects:/home/projects
     - /home/dotfiles/dotfiles:/dotfiles
-    - ./setup/startup:/startup
     - /mnt/c:/mnt/c
     - /mnt/c/users/HUD/Desktop:/desktop
     - /var/run/docker.sock:/var/run/docker.sock
+    - /root/.azure:/root/.azure
+    - /root/.aspnet:/root/.aspnet
+    - ./setup/startup:/startup
     - ./setup/.ssh:/root/.ssh
     - ./setup/.gitconfig:/root/.gitconfig
 
 services:
+  cde-base:
+    <<: *base 
+    container_name: cde-base
+    profiles:
+      - base
+      - all
+    environment:
+      PROFILE: base
+      # I wanted to use Volumes for setting separate states paths for each service but, could not merge the *base volumes with custom one 
+      STATE_PATH: "/home/dotfiles/devdocker/setup/state/base"
+    command: sh -c "
+        chmod +x /startup/**/*.sh
+        && /startup/runner/config.sh
+        && /startup/runner/run.sh
+      "
+
   cde-nisportal:
     <<: *base 
     container_name: cde-nisportal
@@ -22,7 +40,6 @@ services:
       - all
     environment:
       PROFILE: nisportal
-      # I wanted to use Volumes for setting separate states paths for each service but, could not merge the *base volumes with custom one 
       STATE_PATH: "/home/dotfiles/devdocker/setup/state/nisportal"
     command: sh -c "
         chmod +x /startup/**/*.sh

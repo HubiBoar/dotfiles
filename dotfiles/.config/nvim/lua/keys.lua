@@ -162,8 +162,10 @@ end
 
 M.telescope = function (builtin)
     vim.keymap.set("n", "<leader>ff", function() builtin.find_files() end)
+    vim.keymap.set("n", "<leader>fb", function() builtin.buffers() end)
+    vim.keymap.set("n", "<leader>fr", function() builtin.registers() end)
     vim.keymap.set("n", "<leader>fg", function() builtin.live_grep()  end)
-    vim.keymap.set("n", "<leader>fr", function() builtin.resume()  end)
+    vim.keymap.set("n", "<leader>fd", function() builtin.resume()  end)
 end
 
 M.dap = function (dap)
