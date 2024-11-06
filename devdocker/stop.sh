@@ -1,3 +1,3 @@
-profile=$1
+export PROFILE=$1
 
-docker compose --profile $profile stop
+docker compose --profile $PROFILE stop

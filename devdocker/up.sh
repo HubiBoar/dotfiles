@@ -1,3 +1,3 @@
-profile=$1
+export PROFILE=$1
 
-docker compose --profile $profile up -d && docker logs cde-$profile --follow
+docker compose --profile $PROFILE up -d  && docker logs cde-$PROFILE --follow

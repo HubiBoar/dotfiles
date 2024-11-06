@@ -42,7 +42,7 @@ return
                     { name = "luasnip" }
                 },
                 {
-                    { name = "buffer" },
+                    { name = "buffer" }
                 }),
             })
         end,

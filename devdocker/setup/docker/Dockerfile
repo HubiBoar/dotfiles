@@ -10,6 +10,9 @@ RUN apt-get -y update \
 RUN apt-get install -y zsh \
     && chsh -s $(which zsh)
 
+#xclip
+RUN apt-get install -y xclip
+
 #git
 RUN apt-get install -y git \
     && git clone --depth=1 https://github.com/romkatv/powerlevel10k ~/powerlevel10k \

@@ -9,12 +9,16 @@ end
 
 M.live_grep = function()
     local builtin = require("telescope.builtin")
-    builtin.live_grep()
+    builtin.live_grep({
+        additional_args = { '--hidden' },
+    })
 end
 
 M.file_browser = function()
     local builtin = require("telescope.builtin")
-    builtin.file_browser()
+    builtin.file_browser({
+        find_command = { 'rg', '--files', '--iglob', '!.git', '--hidden' },
+    })
 end
 
 M.buffers = function()
@@ -69,5 +73,5 @@ return
             })
             require("telescope").load_extension("ui-select")
         end,
-    },
+    }
 }

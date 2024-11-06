@@ -10,7 +10,7 @@
 	default = current
 [core]
 	editor = nvim
-	autocrlf = false
+	autocrlf = input
 	filemode = false
 [user]
 	name = HubiBoar
