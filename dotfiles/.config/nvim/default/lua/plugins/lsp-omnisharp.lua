@@ -1,5 +1,20 @@
+local overloads = function (name, client, bufnr)
+    print("LSP: " .. name);
+    if client.server_capabilities.signatureHelpProvider then
+        local keys = require("../keys");
+        require("lsp-overloads").setup(client, {
+            keymaps = keys.overloads_keymaps(),
+            display_automatically = false
+        })
+        keys.overloads(bufnr)
+    end
+end
+
 return
 {
+    {
+        "Issafalcon/lsp-overloads.nvim",
+    },
     {
         "neovim/nvim-lspconfig",
         config = function ()
@@ -19,7 +34,7 @@ return
     },
     {
         "williamboman/mason-lspconfig.nvim",
-        dependencies = { "mason.nvim" },
+        dependencies = { "mason.nvim", "lsp-overloads.nvim" },
         config = function()
 
             local capabilities = require('cmp_nvim_lsp').default_capabilities()
@@ -34,14 +49,6 @@ return
 
             require("mason-lspconfig").setup_handlers(
             {
-
-                function (server_name)
-                    lspconfig[server_name].setup(
-                    {
-                        capabilities = capabilities
-                    })
-                end,
-
                 ["lua_ls"] = function()
 
                     lspconfig.lua_ls.setup(
@@ -70,6 +77,9 @@ return
                                 },
                             }
                         },
+                        on_attach = function(client, bufnr)
+                            overloads("Lua", client, bufnr);
+                        end,
                     })
                 end,
 
@@ -102,6 +112,9 @@ return
                                 IncludePrereleases = false,
                             },
                         },
+                        on_attach = function(client, bufnr)
+                            overloads("Omnisharp", client, bufnr);
+                        end,
                     })
                 end,
             })

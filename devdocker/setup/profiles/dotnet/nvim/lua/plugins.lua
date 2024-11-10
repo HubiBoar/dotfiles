@@ -15,4 +15,3 @@ require("lazy").setup(
   require("plugins.camelCaseMotion"),
   require("plugins.tmux"),
 })
-

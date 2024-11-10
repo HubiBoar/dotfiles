@@ -76,8 +76,8 @@ end
 
 M.hop = function()
     local remap = { remap = true }
-    vim.keymap.set('', '<leader>h', "<cmd>HopLine<cr>", remap)
-    vim.keymap.set('', '<leader>H', "<cmd>HopWord<cr>", remap)
+    vim.keymap.set('', '<leader>j', "<cmd>HopLine<cr>", remap)
+    vim.keymap.set('', '<leader>J', "<cmd>HopWord<cr>", remap)
 end
 
 M.lsp = function()
