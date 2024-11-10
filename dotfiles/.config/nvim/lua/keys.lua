@@ -5,6 +5,16 @@ M.default = function ()
 
     vim.g.mapleader = " "
 
+    vim.keymap.set("n", "d", '"_d')
+    vim.keymap.set("v", "d", '"_d')
+    vim.keymap.set("n", "dd", '"_dd')
+    vim.keymap.set("n", "D", '"_D')
+    vim.keymap.set("", "<Del>", '"_x')
+    vim.keymap.set("n", "p", 'P')
+    vim.keymap.set("v", "p", '"_dP')
+
+    vim.keymap.set("n", "<leader>RE", "<cmd>source /root/.config/nvim/init.lua<cr>")
+
     vim.keymap.set("n", "<leader>/", "<cmd>noh<cr>", remap)
     vim.keymap.set("n", "g.",        "g;",           remap)
     vim.keymap.set("n", "<M-v>",     "<c-v>",        remap)
@@ -148,16 +158,19 @@ end
 
 M.harpoon = function (harpoon)
 
-    vim.keymap.set("n", "<M-Up>",    function() harpoon:list():add() end)
-    vim.keymap.set("n", "<M-Down>",  function() harpoon.ui:toggle_quick_menu(harpoon:list()) end)
+    vim.keymap.set("n", "<leader>ha", function() harpoon:list():add() end)
+    vim.keymap.set("n", "<leader>hh", function() harpoon.ui:toggle_quick_menu(harpoon:list()) end)
 
-    vim.keymap.set("n", "<C-1>",     function() harpoon:list():select(1) end)
-    vim.keymap.set("n", "<C-2>",     function() harpoon:list():select(2) end)
-    vim.keymap.set("n", "<C-3>",     function() harpoon:list():select(3) end)
-    vim.keymap.set("n", "<C-4>",     function() harpoon:list():select(4) end)
+    vim.keymap.set("n", "<leader>h1", function() harpoon:list():select(1) end)
+    vim.keymap.set("n", "<leader>h2", function() harpoon:list():select(2) end)
+    vim.keymap.set("n", "<leader>h3", function() harpoon:list():select(3) end)
+    vim.keymap.set("n", "<leader>h4", function() harpoon:list():select(4) end)
+    vim.keymap.set("n", "<leader>h5", function() harpoon:list():select(4) end)
+    vim.keymap.set("n", "<leader>h6", function() harpoon:list():select(4) end)
+    vim.keymap.set("n", "<leader>h7", function() harpoon:list():select(4) end)
 
-    vim.keymap.set("n", "<M-Left>",  function() harpoon:list():prev() end)
-    vim.keymap.set("n", "<M-Right>", function() harpoon:list():next() end)
+    vim.keymap.set("n", "<leader>hk", function() harpoon:list():prev() end)
+    vim.keymap.set("n", "<leader>hj", function() harpoon:list():next() end)
 end
 
 M.telescope = function (builtin)
@@ -171,6 +184,22 @@ end
 M.dap = function (dap)
     vim.keymap.set("n", "<leader>db", dap.toggle_breakpoint, {})
     vim.keymap.set("n", "<leader>dc", dap.continue, {})
+end
+
+M.overloads_keymaps = function ()
+    return
+    {
+        next_signature = "j",
+        previous_signature = "k",
+        next_parameter = "l",
+        previous_parameter = "h",
+        close_signature = "<ESC>"
+    }
+end
+
+M.overloads = function(bufnr)
+    local remap = { noremap = true, silent = true, buffer = bufnr }
+    vim.keymap.set("n", '<leader>s', "<cmd>LspOverloadsSignature<cr>", remap)
 end
 
 return M;

@@ -7,12 +7,11 @@ x-base: &base
   volumes: 
     - /home/dotfiles:/home/dotfiles
     - /home/projects:/home/projects
+    - /home/dotfiles/dotfiles/.config/nvim/lua/profiles/${PROFILE}/plugins.lua:/dotfiles/.config/nvim/lua/plugins.lua
     - /home/dotfiles/dotfiles:/dotfiles
-    - /home/dotfiles/devdocker/setup/profiles/${PROFILE}/nvim:/dotfiles/.config/nvim
-    - /home/dotfiles/dotfiles/.config/nvim/default/lua/plugins:/dotfiles/.config/nvim/lua/plugins
     - /home/dotfiles/devdocker/setup/state/${PROFILE}:/state
     - /home/dotfiles/devdocker/setup/state/${PROFILE}/tmux/plugins:/dotfiles/.config/tmux/plugins
-    - /home/dotfiles/devdocker/setup/state/${PROFILE}/.local:/dotfiles/.local
+    - /home/dotfiles/devdocker/setup/state/${PROFILE}/.local:/root/.local
     - /mnt/c:/mnt/c
     - /mnt/c/users/HUD/Desktop:/desktop
     - /var/run/docker.sock:/var/run/docker.sock

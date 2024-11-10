@@ -2,10 +2,11 @@ local overloads = function (name, client, bufnr)
     print("LSP: " .. name);
     if client.server_capabilities.signatureHelpProvider then
         local keys = require("../keys");
-        require("lsp-overloads").setup(client, {
+        require("lsp-overloads").setup(client,
+        {
             keymaps = keys.overloads_keymaps(),
-            display_automatically = false
-        })
+            display_automatically = false,
+        });
         keys.overloads(bufnr)
     end
 end
