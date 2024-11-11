@@ -158,18 +158,19 @@ M.treesitter_selection_modes = function ()
     }
 end
 
-M.harpoon = function (harpoon)
+M.harpoon = function (harpoon, toggle_telescope)
 
     vim.keymap.set("n", "<leader>ha", function() harpoon:list():add() end)
-    vim.keymap.set("n", "<leader>hh", function() harpoon.ui:toggle_quick_menu(harpoon:list()) end)
+    vim.keymap.set("n", "<leader>hl", function() harpoon.ui:toggle_quick_menu(harpoon:list()) end)
+    vim.keymap.set("n", "<leader>hh", function() toggle_telescope(harpoon:list()) end, { desc = "Open harpoon window" })
 
     vim.keymap.set("n", "<leader>h1", function() harpoon:list():select(1) end)
     vim.keymap.set("n", "<leader>h2", function() harpoon:list():select(2) end)
     vim.keymap.set("n", "<leader>h3", function() harpoon:list():select(3) end)
     vim.keymap.set("n", "<leader>h4", function() harpoon:list():select(4) end)
-    vim.keymap.set("n", "<leader>h5", function() harpoon:list():select(4) end)
-    vim.keymap.set("n", "<leader>h6", function() harpoon:list():select(4) end)
-    vim.keymap.set("n", "<leader>h7", function() harpoon:list():select(4) end)
+    vim.keymap.set("n", "<leader>h5", function() harpoon:list():select(5) end)
+    vim.keymap.set("n", "<leader>h6", function() harpoon:list():select(6) end)
+    vim.keymap.set("n", "<leader>h7", function() harpoon:list():select(7) end)
 
     vim.keymap.set("n", "<leader>hk", function() harpoon:list():prev() end)
     vim.keymap.set("n", "<leader>hj", function() harpoon:list():next() end)
