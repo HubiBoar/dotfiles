@@ -12,6 +12,8 @@ M.default = function ()
     vim.keymap.set("", "<Del>", '"_x')
     vim.keymap.set("n", "p", 'P')
     vim.keymap.set("v", "p", '"_dP')
+    vim.keymap.set("n", "c", '"_c')
+    vim.keymap.set("v", "c", '"_c')
 
     vim.keymap.set("n", "<leader>RE", "<cmd>source /root/.config/nvim/init.lua<cr>")
 
