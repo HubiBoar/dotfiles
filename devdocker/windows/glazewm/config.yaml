@@ -17,7 +17,7 @@ general:
 
   cursor_jump:
     # Whether to automatically move the cursor on the specified trigger.
-    enabled: true
+    enabled: false
 
     # Trigger for cursor jump:
     # - 'monitor_focus': Jump when focus changes between monitors.
@@ -73,7 +73,7 @@ window_effects:
 window_behavior:
   # New windows are created in this state whenever possible.
   # Allowed values: 'tiling', 'floating'.
-  initial_state: 'tiling'
+  initial_state: 'floating'
 
   # Sets the default options for when a new window is created. This also
   # changes the defaults for when the state change commands, like
@@ -81,7 +81,7 @@ window_behavior:
   state_defaults:
     floating:
       # Whether to center floating windows by default.
-      centered: true
+      centered: false
 
       # Whether to show floating windows as always on top.
       shown_on_top: false

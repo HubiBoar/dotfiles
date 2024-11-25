@@ -11,7 +11,7 @@ M.default = function ()
     vim.keymap.set("n", "D", '"_D')
     vim.keymap.set("", "<Del>", '"_x')
     vim.keymap.set("n", "p", 'P')
-    vim.keymap.set("v", "p", '"_dP')
+    vim.keymap.set("v", "p", 'P')
     vim.keymap.set("n", "c", '"_c')
     vim.keymap.set("v", "c", '"_c')
 
