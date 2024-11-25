@@ -15,6 +15,7 @@ x-base: &base
     - /mnt/c:/mnt/c
     - /mnt/c/users/HUD/Desktop:/desktop
     - /var/run/docker.sock:/var/run/docker.sock
+    - /root/.docker:/root/.docker
     - /root/.azure:/root/.azure
     - /root/.aspnet:/root/.aspnet
     - ./setup/startup:/startup
