@@ -91,3 +91,4 @@ bindkey '^@' autosuggest-accept
 
 export PATH="$PATH:/opt/nvim-linux64/bin"
 export PATH="$PATH:/root/.dotnet/tools"
+export PATH="$PATH:/usr/local/go/bin"

@@ -7,11 +7,14 @@ x-base: &base
   volumes: 
     - /home/dotfiles:/home/dotfiles
     - /home/projects:/home/projects
-    - /home/dotfiles/dotfiles:/dotfiles
+    - /home/dotfiles/dotfiles/.config/nvim:/dotfiles/.config/nvim
+    - /home/dotfiles/dotfiles/.config/tmux:/dotfiles/.config/tmux
+    - /home/dotfiles/dotfiles/.config/lf:/dotfiles/.config/lf
+    - /home/dotfiles/dotfiles/root:/dotfiles
     - /home/dotfiles/devdocker/setup/profiles/${PROFILE}/nvim/plugins.lua:/dotfiles/.config/nvim/lua/plugins.lua
-    - /home/dotfiles/devdocker/setup/state/${PROFILE}:/state
-    - /home/dotfiles/devdocker/setup/state/${PROFILE}/tmux/plugins:/dotfiles/.config/tmux/plugins
-    - /home/dotfiles/devdocker/setup/state/${PROFILE}/.local:/root/.local
+    - /home/dotfiles/devdocker/setup/profiles/${PROFILE}/state:/state
+    - /home/dotfiles/devdocker/setup/profiles/${PROFILE}/state/tmux/plugins:/dotfiles/.config/tmux/plugins
+    - /home/dotfiles/devdocker/setup/profiles/${PROFILE}/state/.local:/root/.local
     - /mnt/c:/mnt/c
     - /mnt/c/users/HUD/Desktop:/desktop
     - /var/run/docker.sock:/var/run/docker.sock
@@ -34,11 +37,11 @@ services:
         && /startup/runner/run.sh
       "
 
-  cde-nisportal:
+  cde-nis:
     <<: *base 
-    container_name: cde-nisportal
+    container_name: cde-nis
     profiles:
-      - nisportal
+      - nis
     command: sh -c "
         chmod +x /startup/**/*.sh
         && /startup/runner/config.sh
@@ -58,5 +61,16 @@ services:
         && /startup/runner/config.sh
         && /startup/modules/dotnet/dotnet.sh
         && /startup/modules/dotnet/azcli.sh
+        && /startup/runner/run.sh
+      "
+  cde-go:
+    <<: *base 
+    container_name: cde-go
+    profiles:
+      - go
+    command: sh -c "
+        chmod +x /startup/**/*.sh
+        && /startup/runner/config.sh
+        && /startup/modules/go/go.sh
         && /startup/runner/run.sh
       "

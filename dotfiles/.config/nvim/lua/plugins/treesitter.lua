@@ -9,7 +9,7 @@ return
 
             require("nvim-treesitter.configs").setup(
             {
-                ensure_installed = { "c", "lua", "vim", "vimdoc", "query", "c_sharp" },
+                ensure_installed = { "c", "lua", "vim", "vimdoc", "query", "c_sharp", "go", "kotlin" },
                 auto_install = true,
 
                 highlight =

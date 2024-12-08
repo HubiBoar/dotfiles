@@ -3,7 +3,7 @@ azurite
 .git
 
 **/.local/
-**/devdocker/setup/state/
+**/devdocker/setup/**/state/
 **/.config/gh/
 **/.config/tmux/plugins/
 **/.config/nvim/lazy-lock.json
