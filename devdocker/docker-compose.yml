@@ -20,7 +20,9 @@ x-base: &base
     - /var/run/docker.sock:/var/run/docker.sock
     - /root/.docker:/root/.docker
     - /root/.azure:/root/.azure
+    - /root/.config/gh:/root/.config/gh
     - /root/.aspnet:/root/.aspnet
+    - /root/nis:/root/nis
     - ./setup/startup:/startup
     - ./setup/.ssh:/root/.ssh
     - ./setup/.gitconfig:/root/.gitconfig

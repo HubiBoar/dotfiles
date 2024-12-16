@@ -92,3 +92,5 @@ bindkey '^@' autosuggest-accept
 export PATH="$PATH:/opt/nvim-linux64/bin"
 export PATH="$PATH:/root/.dotnet/tools"
 export PATH="$PATH:/usr/local/go/bin"
+test -f /root/nis/login/github-token.txt && export GITHUB_PKG_TOKEN=$(cat /root/nis/login/github-token.txt)
+test -f /root/nis/login/azproxy.sh && source /root/nis/login/azproxy.sh

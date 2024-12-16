@@ -79,4 +79,3 @@ RUN mkdir ~/installers/tmux \
     && make install
 
 RUN git clone --depth=1 https://github.com/tmux-plugins/tpm ~/.tmux/plugins/tpm
-

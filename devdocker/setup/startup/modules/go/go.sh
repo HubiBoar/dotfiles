@@ -14,4 +14,4 @@ install() {
 
 test -f /installed/go || install
 
-echo "[Dev-Docker] Go module installed"
+echo "\n [Dev-Docker] Go module installed"
