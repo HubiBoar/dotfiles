@@ -1,0 +1,34 @@
+services:
+    cde-base:
+      container_name: cde-base
+      build:
+        context: ./profiles/base
+      profiles:
+        - base
+      entrypoint: zsh 
+
+    cde-dotnet:
+      container_name: cde-dotnet
+      build: ./profiles/dotnet
+      profiles:
+        - dotnet
+      entrypoint: zsh 
+
+    cde-nis:
+      container_name: cde-nis
+      build:
+        context: ./profiles/nis
+      profiles:
+        - nis
+      entrypoint: zsh 
+
+    cde-go:
+      container_name: cde-go
+      build:
+        context: .
+        dockerfile: ./profiles/go/Dockerfile
+        # ADD ADDITIONAL CONTEXTS AND THEN GET DOTFILES FROM THERE
+      profiles:
+        - go
+      entrypoint: zsh 
+

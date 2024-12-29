@@ -21,6 +21,8 @@ RUN apt-get install -y git \
 #stow
 RUN apt-get install -y stow
 
+RUN apt-get update --fix-missing
+
 RUN apt-get install -y \
     curl \
     inetutils-ping \

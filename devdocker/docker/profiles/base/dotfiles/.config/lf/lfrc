@@ -1,0 +1,61 @@
+set shell zsh
+set hidden
+set number
+set relativenumber
+set drawbox
+set info size
+set dircounts
+set ratios 1:2:3
+set preview
+
+cmd mkdir ${{
+    printf "Directory Name: "
+    read ans
+    mkdir $ans
+}}
+
+cmd mkfile ${{
+    printf "File Name: "
+    read ans
+    $EDITOR $ans
+}}
+
+# Archive bindings
+cmd unarchive ${{
+  case "$f" in
+    *.zip) unzip "$f" ;;
+    *.tar.gz) tar -xzvf "$f" ;;
+    *.tar.bz2) tar -xjvf "$f" ;;
+    *.tar) tar -xvf "$f" ;;
+    *)echo "Unsupported format" ;;
+  esac
+}}
+
+cmd zip %zip -r "$f" "$f"
+cmd tar %tar cvf "$f.tar" "$f"
+cmd targz %tar cvzf "$f.tar.gz" "$f"
+cmd tarbz2 %tar cjvf "$f. tar.bz2" "$f"
+
+# Remove some defaults
+map m
+map o
+map n
+map "'"
+map '"'
+
+# Basic Functions
+map . set hidden!
+map DD delete
+map p paste
+map y copy
+map mf mkfile
+map ms sudomkfile
+map md mkdir
+map <enter> $$EDITOR "$f"
+
+#Archive Mappings
+map az zip
+map at tar
+map ag targz
+map ab tarbz2
+map au unarchive
