@@ -201,7 +201,7 @@ M.overloads_keymaps = function ()
 end
 
 M.overloads = function(bufnr)
-    local remap = { noremap = true, silent = true, buffer = bufnr }
+    local remap = { noremap = false, silent = true, buffer = bufnr }
     vim.keymap.set("n", '<leader>s', "<cmd>LspOverloadsSignature<cr>", remap)
 end
 

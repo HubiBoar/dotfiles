@@ -14,4 +14,5 @@ require("lazy").setup(
     require("plugins.hop"),
     require("plugins.camelCaseMotion"),
     require("plugins.tmux"),
+    require("plugins.markdown"),
 })
