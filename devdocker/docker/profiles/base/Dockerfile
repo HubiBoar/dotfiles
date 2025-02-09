@@ -52,6 +52,8 @@ RUN curl -LO https://github.com/neovim/neovim/releases/download/v0.10.1/nvim-lin
     tar -C /opt -xzf nvim-linux64.tar.gz && \
     rm -rf /root/installers/nvim
 
+ENV PATH="$PATH:/opt/nvim-linux64/bin"
+
 #ripgrep for telescope
 WORKDIR /root/installers/ripgrep
 RUN curl -LO 'https://github.com/BurntSushi/ripgrep/releases/download/14.1.0/ripgrep_14.1.0-1_amd64.deb' && \
@@ -78,3 +80,5 @@ RUN curl -LO https://github.com/tmux/tmux/releases/download/3.4/tmux-3.4.tar.gz 
     rm -rf /root/installers/tmux
 
 RUN git clone --depth=1 https://github.com/tmux-plugins/tpm ~/.tmux/plugins/tpm
+
+RUN ~/.tmux/plugins/tpm/bin/install_plugins

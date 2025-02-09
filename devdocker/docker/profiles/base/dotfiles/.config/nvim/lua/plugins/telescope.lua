@@ -1,9 +1,17 @@
 local M = {}
 
+local file_ignore_patterns = {
+    "yarn%.lock",
+    "%node_modules/",
+    "%.git/",
+    "%.gitlab/",
+}
+
 M.find_files = function()
     local builtin = require("telescope.builtin")
     builtin.find_files ({
-        find_command = { 'rg', '--files', '--iglob', '!.git', '--hidden' },
+        file_ignore_patterns = file_ignore_patterns,
+        find_command = { 'rg', '--files', '--iglob', '--hidden' },
     })
 end
 
@@ -50,9 +58,7 @@ return
                 'rg',
                 '--files',
                 '--iglob',
-                '!.git',
-                '--hidden',
-                '--line-number'
+                '--hidden'
             }
         },
 

@@ -1,34 +1,39 @@
+x-base: &base
+  image: devdocker/cde
+  build: ./setup/docker
+  network_mode: "host"
+  environment:
+    PROFILE: $PROFILE
+  volumes: 
+    - /home/dotfiles:/home/dotfiles
+    - /home/projects:/home/projects
+    - /home/dotfiles/devdocker/setup/profiles/${PROFILE}/state:/state
+    - /home/dotfiles/devdocker/setup/profiles/${PROFILE}/state/.local:/root/.local
+    - /mnt/c:/mnt/c
+    - /mnt/c/users/HUD/Desktop:/desktop
+    - /var/run/docker.sock:/var/run/docker.sock
+    - /root/.docker:/root/.docker
+    - /root/.azure:/root/.azure
+    - /root/.config/gh:/root/.config/gh
+    - /root/.aspnet:/root/.aspnet
+    - /root/nis:/root/nis
+    - ./setup/.ssh:/root/.ssh
+    - ./setup/.gitconfig:/root/.gitconfig
+
 services:
-    cde-base:
-      container_name: cde-base
+    base:
+      image: cde/base 
       build:
         context: ./profiles/base
-      profiles:
-        - base
-      entrypoint: zsh 
 
-    cde-dotnet:
+    dotnet:
       container_name: cde-dotnet
-      build: ./profiles/dotnet
-      profiles:
-        - dotnet
+      build: 
+        context: ./profiles/dotnet
       entrypoint: zsh 
 
-    cde-nis:
+    nis:
       container_name: cde-nis
       build:
         context: ./profiles/nis
-      profiles:
-        - nis
       entrypoint: zsh 
-
-    cde-go:
-      container_name: cde-go
-      build:
-        context: .
-        dockerfile: ./profiles/go/Dockerfile
-        # ADD ADDITIONAL CONTEXTS AND THEN GET DOTFILES FROM THERE
-      profiles:
-        - go
-      entrypoint: zsh 
-

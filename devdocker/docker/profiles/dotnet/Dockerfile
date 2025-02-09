@@ -1,6 +1,4 @@
-# syntax = edrevo/dockerfile-plus
-
-INCLUDE+ ../base/Dockerfile
+FROM cde/base
 
 COPY ./dotfiles/* /dotfiles/*
 
@@ -13,3 +11,5 @@ RUN sh /scripts/dotnet.sh && rm -rf /installer
 
 WORKDIR /installer
 RUN sh /scripts/azcli.sh && rm -rf /installer
+
+RUN stow --dir="/dotfiles/" --target=$HOME --adopt -v .

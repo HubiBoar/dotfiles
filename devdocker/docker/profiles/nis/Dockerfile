@@ -1,8 +1,4 @@
-# syntax = edrevo/dockerfile-plus
-
-INCLUDE+ ../base/Dockerfile
-
-COPY ./dotfiles/* /dotfiles/*
+FROM devdocker/base
 
 # dotnet
 
