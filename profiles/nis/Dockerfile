@@ -80,3 +80,5 @@ RUN curl -L -o gum.tar.gz https://github.com/charmbracelet/gum/releases/download
     && rm -rf gum_${GUM_VERSION}_Linux_x86_64
 
 RUN gum --version
+
+WORKDIR /home/dotfiles

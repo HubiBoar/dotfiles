@@ -1,24 +1,16 @@
 local M = {}
 
-local file_ignore_patterns = {
-    "yarn%.lock",
-    "%node_modules/",
-    "%.git/",
-    "%.gitlab/",
-}
-
 M.find_files = function()
     local builtin = require("telescope.builtin")
     builtin.find_files ({
-        file_ignore_patterns = file_ignore_patterns,
-        find_command = { 'rg', '--files', '--iglob', '--hidden' },
+        find_command = { 'rg', '--files', '--iglob', '!.git', '--hidden' },
     })
 end
 
 M.live_grep = function()
     local builtin = require("telescope.builtin")
     builtin.live_grep({
-        additional_args = { '--hidden' },
+        additional_args = { '--iglob', '!.git', '--hidden' },
     })
 end
 
@@ -52,15 +44,6 @@ return
 
             require("../keys").telescope(M)
         end,
-
-        defaults = {
-            vimgrep_arguments = {
-                'rg',
-                '--files',
-                '--iglob',
-                '--hidden'
-            }
-        },
 
         dependencies = { "nvim-lua/plenary.nvim" }
     },

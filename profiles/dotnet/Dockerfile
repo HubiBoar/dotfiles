@@ -19,3 +19,5 @@ RUN wget https://packages.microsoft.com/config/ubuntu/22.04/packages-microsoft-p
     rm -rf /installers
 
 RUN dotnet --version
+
+WORKDIR /home/dotfiles

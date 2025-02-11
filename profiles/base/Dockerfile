@@ -84,6 +84,11 @@ RUN curl -LO 'https://github.com/BurntSushi/ripgrep/releases/download/14.1.0/rip
     rm -rf /installers/ripgrep
 
 
+# ------- FD-FIN FOR TELESCOPE -------
+
+RUN apt install fd-find -y
+
+
 # ------- TMUX -------
 
 WORKDIR /installers/tmux
@@ -104,5 +109,3 @@ RUN curl -LO https://github.com/tmux/tmux/releases/download/3.4/tmux-3.4.tar.gz 
     rm -rf /installers/tmux
 
 RUN git clone --depth=1 https://github.com/tmux-plugins/tpm /root/.tmux/plugins/tpm
-
-COPY ./root /dotfiles
