@@ -1,1 +1,0 @@
-export LANG=en_IN.UTF-8

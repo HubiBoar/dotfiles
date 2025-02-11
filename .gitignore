@@ -1,12 +1,3 @@
-azurite
-
-.git
-
-**/.local/
-**/devdocker/setup/**/state/
-**/.config/gh/
-**/.config/tmux/plugins/
-**/.config/nvim/lazy-lock.json
-*.pyc
-
-*.ssh
+root/sync/.ssh
+profiles/**/state/
+root/sync/.config/tmux/plugins/

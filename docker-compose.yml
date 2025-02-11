@@ -1,0 +1,56 @@
+x-base: &base
+  network_mode: "host"
+  environment:
+    PROFILE: ${PROFILE}
+  volumes: 
+    - /home/dotfiles:/home/dotfiles
+    - /home/projects:/home/projects
+    - /home/dotfiles/root/sync:/dotfiles/sync
+    - /home/dotfiles/profiles/${PROFILE}/state:/state
+    - /home/dotfiles/profiles/${PROFILE}/root/.config/nvim/lua/plugins.lua:/dotfiles/sync/.config/nvim/lua/plugins.lua
+    - /home/dotfiles/profiles/${PROFILE}/state/base:/dotfiles/base
+    - /home/dotfiles/profiles/${PROFILE}/state/.local:/root/.local
+    - /mnt/c:/mnt/c
+    - /mnt/c/users/HUD/Desktop:/desktop
+    - /var/run/docker.sock:/var/run/docker.sock
+    - /root/.docker:/root/.docker
+    - /root/.azure:/root/.azure
+    - /root/.config/gh:/root/.config/gh
+    - /root/.aspnet:/root/.aspnet
+    - /root/nis:/root/nis
+
+#cp -n /home/dotfiles/dotfiles/* /dotfiles/ && \
+services:
+    base:
+      image: cde/base 
+      build:
+        context: ./profiles/base
+      profiles:
+        - base
+
+    dotnet:
+      <<: *base 
+      container_name: cde-dotnet
+      build: 
+        context: ./profiles/dotnet
+      profiles:
+        - profiles
+        - dotnet
+      entrypoint: zsh -c "
+          cp -n -r /home/dotfiles/root/base /dotfiles/base && \
+          stow --dir=/dotfiles/base --target=$HOME --adopt -v . && \
+          stow --dir=/dotfiles/sync --target=$HOME --adopt -v . && \
+          /root/.tmux/plugins/tpm/bin/install_plugins && \
+          chmod -R 400 /root/.ssh && \
+          tmux
+        "
+
+    nis:
+      <<: *base 
+      container_name: cde-nis
+      build:
+        context: ./profiles/nis
+      profiles:
+        - profiles
+        - nis
+      entrypoint: zsh -c "chmod -R 400 /root/.ssh && tmux"
