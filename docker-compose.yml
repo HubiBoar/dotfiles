@@ -37,7 +37,7 @@ services:
         - profiles
         - dotnet
       entrypoint: zsh -c "
-          cp -n -r /home/dotfiles/root/base /dotfiles/base && \
+          cp -n -r /home/dotfiles/root/base /dotfiles && \
           stow --dir=/dotfiles/base --target=$HOME --adopt -v . && \
           stow --dir=/dotfiles/sync --target=$HOME --adopt -v . && \
           /root/.tmux/plugins/tpm/bin/install_plugins && \
@@ -54,7 +54,7 @@ services:
         - profiles
         - nis
       entrypoint: zsh -c "
-          cp -n -r /home/dotfiles/root/base /dotfiles/base && \
+          cp -n -r /home/dotfiles/root/base /dotfiles && \
           stow --dir=/dotfiles/base --target=$HOME --adopt -v . && \
           stow --dir=/dotfiles/sync --target=$HOME --adopt -v . && \
           /root/.tmux/plugins/tpm/bin/install_plugins && \
