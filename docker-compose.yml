@@ -6,6 +6,7 @@ x-base: &base
     - /var/run/docker.sock:/var/run/docker.sock
     - /home/dotfiles:/home/dotfiles
     - /home/projects:/home/projects
+    - /etc/hosts:/etc/hosts
     - /mnt/c:/mnt/c
     - /mnt/c/users/HUD/Desktop:/desktop
     - /home/dotfiles/root/sync:/dotfiles/sync

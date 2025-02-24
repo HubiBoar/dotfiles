@@ -5,7 +5,7 @@ require("lazy").setup(
     require("plugins.colorschema"),
     require("plugins.telescope"),
     require("plugins.treesitter"),
-    require("plugins.lsp-omnisharp-nisportal"),
+    require("plugins.lsp-omnisharp"),
     require("plugins.completions"),
     require("plugins.dap"),
     require("plugins.harpoon"),
