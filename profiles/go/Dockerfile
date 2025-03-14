@@ -9,4 +9,16 @@ RUN curl -OL https://golang.org/dl/go1.23.4.linux-amd64.tar.gz && \
 
 ENV PATH="$PATH:/usr/local/go/bin"
 
-WORKDIR /home/dotfiles
+
+
+# ------- RUN -------
+
+COPY root/ /root/
+COPY scripts/ /scripts/
+
+RUN nvim --headless "+Lazy! sync" +qall
+RUN nvim --headless "+MasonInstallAll" +qall
+
+RUN chmod +x /scripts/entrypoint.sh
+
+ENTRYPOINT ["/scripts/entrypoint.sh"]

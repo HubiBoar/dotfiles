@@ -9,11 +9,7 @@ x-base: &base
     - /etc/hosts:/etc/hosts
     - /mnt/c:/mnt/c
     - /mnt/c/users/HUD/Desktop:/desktop
-    - /home/dotfiles/root/sync:/dotfiles/sync
-    - /home/dotfiles/profiles/${PROFILE}/state:/state
-    - /home/dotfiles/profiles/${PROFILE}/root/.config/nvim/lua/plugins.lua:/dotfiles/sync/.config/nvim/lua/plugins.lua
-    - /home/dotfiles/profiles/${PROFILE}/state/base:/dotfiles/base
-    - /home/dotfiles/profiles/${PROFILE}/state/.local:/root/.local
+    - /root/.ssh:/root/.ssh
     - /root/.docker:/root/.docker
     - /root/.azure:/root/.azure
     - /root/.config/gh:/root/.config/gh
@@ -29,6 +25,15 @@ services:
       profiles:
         - base
 
+    go:
+      <<: *base 
+      container_name: cde-go
+      build: 
+        context: ./profiles/go
+      profiles:
+        - profiles
+        - go
+
     dotnet:
       <<: *base 
       container_name: cde-dotnet
@@ -37,14 +42,6 @@ services:
       profiles:
         - profiles
         - dotnet
-      entrypoint: zsh -c "
-          cp -n -r /home/dotfiles/root/base /dotfiles && \
-          stow --dir=/dotfiles/base --target=$HOME --adopt -v . && \
-          stow --dir=/dotfiles/sync --target=$HOME --adopt -v . && \
-          /root/.tmux/plugins/tpm/bin/install_plugins && \
-          chmod -R 400 /root/.ssh && \
-          tmux -u
-        "
 
     nis:
       <<: *base 
@@ -54,11 +51,3 @@ services:
       profiles:
         - profiles
         - nis
-      entrypoint: zsh -c "
-          cp -n -r /home/dotfiles/root/base /dotfiles && \
-          stow --dir=/dotfiles/base --target=$HOME --adopt -v . && \
-          stow --dir=/dotfiles/sync --target=$HOME --adopt -v . && \
-          /root/.tmux/plugins/tpm/bin/install_plugins && \
-          chmod -R 400 /root/.ssh && \
-          tmux -u
-        "

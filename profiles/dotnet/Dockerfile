@@ -1,5 +1,6 @@
 FROM cde/base
 
+
 # azcli
 WORKDIR /installers
 
@@ -20,4 +21,16 @@ RUN wget https://packages.microsoft.com/config/ubuntu/22.04/packages-microsoft-p
 
 RUN dotnet --version
 
-WORKDIR /home/dotfiles
+
+
+# ------- RUN -------
+
+COPY root/ /root/
+COPY scripts/ /scripts/
+
+RUN nvim --headless "+Lazy! sync" +qall
+RUN nvim --headless "+MasonInstall --force --all" +qall
+
+RUN chmod +x /scripts/entrypoint.sh
+
+ENTRYPOINT ["/scripts/entrypoint.sh"]

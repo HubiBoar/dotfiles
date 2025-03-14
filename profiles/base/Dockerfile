@@ -1,15 +1,12 @@
 #https://medium.com/@ls12styler/docker-as-an-integrated-development-environment-95bc9b01d2c1
 FROM amd64/ubuntu:22.04
 
+COPY root/ /root/
+
 # ------- UPDATE -------
 
 RUN apt-get -y update \
     && apt-get -qy full-upgrade
-
-
-# ------- STOW -------
-
-RUN apt-get install -y stow
 
 
 # ------- ZSH -------
@@ -27,17 +24,6 @@ RUN apt-get install -y xclip
 
 RUN apt-get install -y git
 
-
-# ------- POWERLEVEL -------
-
-RUN git clone --depth=1 https://github.com/romkatv/powerlevel10k /root/powerlevel10k
-
-
-# ------- ZSH-AUTOSUGGESTIONS -------
-
-RUN git clone --depth=1 https://github.com/zsh-users/zsh-autosuggestions /root/.zsh/zsh-autosuggestions
-    
-RUN apt-get update --fix-missing
 
 RUN apt-get install -y \
     curl \
@@ -109,3 +95,19 @@ RUN curl -LO https://github.com/tmux/tmux/releases/download/3.4/tmux-3.4.tar.gz 
     rm -rf /installers/tmux
 
 RUN git clone --depth=1 https://github.com/tmux-plugins/tpm /root/.tmux/plugins/tpm
+RUN /root/.tmux/plugins/tpm/bin/install_plugins
+
+
+# ------- POWERLEVEL -------
+
+RUN git clone --depth=1 https://github.com/romkatv/powerlevel10k /root/powerlevel10k
+RUN zsh -c '/root/powerlevel10k/gitstatus/install'
+
+
+# ------- ZSH-AUTOSUGGESTIONS -------
+
+RUN git clone --depth=1 https://github.com/zsh-users/zsh-autosuggestions /root/.zsh/zsh-autosuggestions
+
+COPY scripts/ /scripts/
+
+SHELL ["/bin/zsh", "-c"]

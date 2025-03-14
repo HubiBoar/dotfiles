@@ -3,7 +3,6 @@ FROM cde/base
 ENV GUM_VERSION=0.14.5
 ENV GITHUB_CLI_VERSION=2.65.0
 
-
 # ------- DOTNET -------
 
 WORKDIR /installers
@@ -81,4 +80,15 @@ RUN curl -L -o gum.tar.gz https://github.com/charmbracelet/gum/releases/download
 
 RUN gum --version
 
-WORKDIR /home/dotfiles
+
+# ------- RUN -------
+
+COPY root/ /root/
+COPY scripts/ /scripts/
+
+RUN nvim --headless "+Lazy! sync" +qall
+RUN nvim --headless "+MasonInstall --force --all" +qall
+
+RUN chmod +x /scripts/entrypoint.sh
+
+ENTRYPOINT ["/scripts/entrypoint.sh"]
