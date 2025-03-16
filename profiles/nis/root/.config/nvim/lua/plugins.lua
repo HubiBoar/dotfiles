@@ -8,6 +8,7 @@ require("lazy").setup(
     require("plugins.dap"),
     require("plugins.lsp"),
     require("plugins.lsp_config"),
+    require("plugins.oil"),
     require("plugins.completions"),
     require("plugins.harpoon"),
     require("plugins.sessions"),

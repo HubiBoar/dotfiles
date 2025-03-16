@@ -5,6 +5,13 @@ M.default = function ()
 
     vim.g.mapleader = " "
 
+    vim.keymap.set("t", "<esc><esc>", "<C-\\><C-n>")
+
+    local terminal = require("plugins.float_terminal");
+
+    vim.api.nvim_create_user_command("Floaterminal", terminal.toggle_terminal, {})
+    vim.keymap.set({ "n", "t" }, "<space>tt", terminal.toggle_terminal)
+
     vim.keymap.set("n", "d", '"_d')
     vim.keymap.set("v", "d", '"_d')
     vim.keymap.set("n", "dd", '"_dd')
@@ -15,7 +22,10 @@ M.default = function ()
     vim.keymap.set("n", "c", '"_c')
     vim.keymap.set("v", "c", '"_c')
 
-    vim.keymap.set("n", "<leader>RE", "<cmd>source /root/.config/nvim/init.lua<cr>")
+    vim.keymap.set("n", "<leader>re", function()
+        vim.cmd("source /root/.config/nvim/init.lua")
+        print("Neovim config reloaded!")
+    end, { desc = "Reload Neovim config" })
 
     vim.keymap.set("n", "<leader>/", "<cmd>noh<cr>", remap)
     vim.keymap.set("n", "g.",        "g;",           remap)
@@ -204,5 +214,18 @@ M.overloads = function(bufnr)
     local remap = { noremap = false, silent = true, buffer = bufnr }
     vim.keymap.set("n", '<leader>s', "<cmd>LspOverloadsSignature<cr>", remap)
 end
+
+M.oil = function()
+    local remap = { noremap = false, silent = true, }
+    vim.keymap.set("n", "<leader>e", "<CMD>Oil<CR>", remap)
+end
+
+M.oil_keymaps = {
+    ["<C-h>"] = false,
+    ["<C-l>"] = false,
+    ["<C-k>"] = false,
+    ["<C-j>"] = false,
+    ["<M-h>"] = "actions.select_split",
+}
 
 return M;
