@@ -7,7 +7,7 @@ require("lazy").setup(
     require("plugins.treesitter"),
     require("plugins.dap"),
     require("plugins.lsp"),
-    require("plugins.lspconfig"),
+    require("plugins.lsp_config"),
     require("plugins.completions"),
     require("plugins.harpoon"),
     require("plugins.sessions"),

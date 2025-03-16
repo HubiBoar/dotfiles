@@ -1,7 +1,9 @@
+local overloads = require("plugins.lspoverloads");
+
 return
 {
     {
-        "Issafalcon/lsp-overloads.nvim",
+        overloads.install
     },
     {
         "neovim/nvim-lspconfig",
