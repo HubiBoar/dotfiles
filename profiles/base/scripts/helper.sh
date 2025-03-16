@@ -6,8 +6,8 @@ create_session() {
 
     tmux new-session -d -s "$session_name" -c "$session_path" -n zsh
 
-    tmux new-window -t "$session_name":2 -c "$session_path" -n lf "zsh -c 'lf; exec zsh'"
-    tmux new-window -t "$session_name":3 -c "$session_path" -n nvim "zsh -c 'nvim .; exec zsh'"
+    tmux new-window -t "$session_name":2 -c "$session_path" -n lf "source /root/.zshrc && lf; exec zsh"
+    tmux new-window -t "$session_name":3 -c "$session_path" -n nvim "source /root/.zshrc && nvim .; exec zsh"
 }
 
 create_sessions() {
@@ -24,6 +24,7 @@ create_sessions() {
     done
 }
 
-create_session "desktop" "/desktop"
+create_session "config" "/root/.config"
 create_session "dotfiles" "/home/dotfiles"
+create_session "desktop" "/desktop"
 create_session "projects" "/home/projects"
