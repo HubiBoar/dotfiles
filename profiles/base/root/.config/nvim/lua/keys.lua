@@ -10,7 +10,7 @@ M.default = function ()
     local terminal = require("plugins.float_terminal");
 
     vim.api.nvim_create_user_command("Floaterminal", terminal.toggle_terminal, {})
-    vim.keymap.set({ "n", "t" }, "<space>tt", terminal.toggle_terminal)
+    vim.keymap.set({ "n", "t" }, "<leader>tt", terminal.toggle_terminal)
 
     vim.keymap.set("n", "d", '"_d')
     vim.keymap.set("v", "d", '"_d')
