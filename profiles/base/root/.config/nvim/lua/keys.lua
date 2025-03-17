@@ -217,7 +217,7 @@ end
 
 M.oil = function()
     local remap = { noremap = false, silent = true, }
-    vim.keymap.set("n", "<leader>e", "<CMD>Oil<CR>", remap)
+    vim.keymap.set("n", "<leader>fe", "<CMD>Oil<CR>", remap)
 end
 
 M.oil_keymaps = {
