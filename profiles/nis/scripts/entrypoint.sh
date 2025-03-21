@@ -13,6 +13,6 @@ create_sessions "nis-platform" "/home/projects/nisportal/platform"
 cd /home/projects/nisportal/baltic
 
 chmod +x ./install.sh
-./install.sh headless
+./install.sh
 
 /scripts/run.sh
