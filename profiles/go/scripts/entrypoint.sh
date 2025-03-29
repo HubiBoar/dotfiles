@@ -1,7 +1,8 @@
 #!/bin/bash
 
-chmod +x /scripts/helper.sh
-chmod +x /scripts/run.sh
+chmod +x /scripts/*.sh
 
-source /scripts/helper.sh
+source /scripts/create-session.sh
+
+/scripts/create-default-session.sh
 /scripts/run.sh

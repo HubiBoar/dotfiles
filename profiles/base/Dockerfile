@@ -9,6 +9,8 @@ RUN apt-get -y update \
     && apt-get -qy full-upgrade
 
 
+RUN apt-get -y update --fix-missing
+
 # ------- ZSH -------
 
 RUN apt-get install -y zsh \
@@ -109,5 +111,7 @@ RUN zsh -c '/root/powerlevel10k/gitstatus/install'
 RUN git clone --depth=1 https://github.com/zsh-users/zsh-autosuggestions /root/.zsh/zsh-autosuggestions
 
 COPY scripts/ /scripts/
+
+RUN nvim --headless "+MasonInstall --force lua-language-server" +qall
 
 SHELL ["/bin/zsh", "-c"]

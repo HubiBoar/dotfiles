@@ -1,14 +1,41 @@
 #!/bin/bash
 
-chmod +x /scripts/helper.sh
-chmod +x /scripts/run.sh
+create_nordic_session() {
+    session_name=$1
+    session_path=$2
 
-source /scripts/helper.sh
+    tmux new-session -d -s "$session_name" -c "$session_path" -n zsh
+
+    tmux new-window -t "$session_name":2 -c "$session_path" -n lf "source /root/.zshrc && lf; exec zsh"
+    tmux new-window -t "$session_name":3 -c "$session_path/src" -n nvim "source /root/.zshrc && nvim .; exec zsh"
+    tmux new-window -t "$session_name":3 -c "$session_path/src/Nordic/UI" -n frontend
+    tmux new-window -t "$session_name":3 -c "$session_path/src/Nordic/Nordic.WebApi" -n backend
+}
+
+create_nordic_sessions() {
+    session_prefix="$1"  
+    base_dir="$2"  
+
+    for folder in "$base_dir"/*; do
+        if [ -d "$folder" ]; then  
+            folder_name=$(basename "$folder")  
+            session_name="${session_prefix}-$folder_name"  
+            
+            create_nordic_session "$session_name" "$folder"
+        fi
+    done
+}
+
+cchmod +x /scripts/*.sh
+
+source /scripts/create-session.sh
+
+/scripts/create-default-session.sh
 
 create_session "nis-baltic" "/home/projects/nisportal/baltic"
 
 create_sessions "nis-panoramica" "/home/projects/nisportal/panoramica"
-create_sessions "nis-platform" "/home/projects/nisportal/platform" 
+create_nordic_sessions "nis-platform" "/home/projects/nisportal/platform" 
 
 cd /home/projects/nisportal/baltic
 

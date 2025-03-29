@@ -30,6 +30,7 @@ COPY scripts/ /scripts/
 
 RUN nvim --headless "+Lazy! sync" +qall
 RUN nvim --headless "+MasonInstall --force --all" +qall
+RUN nvim --headless "+MasonInstall --force omnisharp" +qall
 
 RUN chmod +x /scripts/entrypoint.sh
 
