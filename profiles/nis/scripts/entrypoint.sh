@@ -4,12 +4,12 @@ create_nordic_session() {
     session_name=$1
     session_path=$2
 
-    tmux new-session -d -s "$session_name" -c "$session_path" -n zsh
+    tmux new-session -d -s "$session_name" -c "$session_path" -n zsh "echo 'Press Enter ...'; read; source /root/.zshrc; exec zsh"
 
-    tmux new-window -t "$session_name":2 -c "$session_path" -n lf "source /root/.zshrc && lf; exec zsh"
-    tmux new-window -t "$session_name":3 -c "$session_path" -n nvim "source /root/.zshrc; echo 'Press Enter to start build...'; read; (cd $session_path/src/Nordic/Nordic.WebApi && dotnet build); nvim .; exec zsh"
-    tmux new-window -t "$session_name":4 -c "$session_path/src/Nordic/UI" -n frontend
-    tmux new-window -t "$session_name":5 -c "$session_path/src/Nordic/Nordic.WebApi" -n backend
+    tmux new-window -t "$session_name":2 -c "$session_path" -n lf "echo 'Press Enter ...'; read; source /root/.zshrc; lf; exec zsh"
+    tmux new-window -t "$session_name":3 -c "$session_path" -n nvim "echo 'Press Enter to start build...'; read; source /root/.zshrc; (cd $session_path/src/Nordic/Nordic.WebApi && dotnet build); nvim .; exec zsh"
+    tmux new-window -t "$session_name":4 -c "$session_path/src/Nordic/UI" -n frontend "echo 'Press Enter ...'; read; source /root/.zshrc; exec zsh"
+    tmux new-window -t "$session_name":5 -c "$session_path/src/Nordic/Nordic.WebApi" -n backend "echo 'Press Enter ...'; read; source /root/.zshrc; exec zsh"
 }
 
 create_nordic_sessions() {
