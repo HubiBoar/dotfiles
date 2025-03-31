@@ -26,11 +26,12 @@ RUN dotnet --version
 # ------- RUN -------
 
 COPY root/ /root/
-COPY scripts/ /scripts/
 
 RUN nvim --headless "+Lazy! sync" +qall
 RUN nvim --headless "+MasonInstall --force --all" +qall
 RUN nvim --headless "+MasonInstall --force omnisharp" +qall
+
+COPY scripts/ /scripts/
 
 RUN chmod +x /scripts/entrypoint.sh
 

@@ -3,6 +3,7 @@ x-base: &base
   environment:
     PROFILE: ${PROFILE}
   volumes: 
+    - ./profiles/${PROFILE}/state/root/.local/share/nvim/harpoon:/root/.local/share/nvim/harpoon
     - /var/run/docker.sock:/var/run/docker.sock
     - /home/dotfiles:/home/dotfiles
     - /home/projects:/home/projects
