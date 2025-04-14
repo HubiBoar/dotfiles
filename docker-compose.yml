@@ -4,6 +4,7 @@ x-base: &base
     PROFILE: ${PROFILE}
   volumes: 
     - ./profiles/${PROFILE}/state/root/.local/share/nvim/harpoon:/root/.local/share/nvim/harpoon
+    - ./profiles/${PROFILE}/state/root/.config/nvim/lazy-lock.json:/root/.config/nvim/lazy-lock.json
     - /var/run/docker.sock:/var/run/docker.sock
     - /home/dotfiles:/home/dotfiles
     - /home/projects:/home/projects

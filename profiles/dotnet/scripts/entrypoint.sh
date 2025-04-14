@@ -1,14 +1,27 @@
 #!/bin/bash
 
-
 create_dotnet_session() {
     session_name=$1
     session_path=$2
 
-    tmux new-session -d -s "$session_name" -c "$session_path" -n zsh
+    tmux new-session -d -s "$session_name" -c "$session_path" -n zsh "echo 'Press Enter ...'; read; source /root/.zshrc; exec zsh"
 
-    tmux new-window -t "$session_name":2 -c "$session_path" -n lf "source /root/.zshrc && lf; exec zsh"
-    tmux new-window -t "$session_name":3 -c "$session_path/src" -n nvim "source /root/.zshrc; dotnet build; nvim .; exec zsh" 
+    tmux new-window -t "$session_name":2 -c "$session_path" -n lf "echo 'Press Enter ...'; read; source /root/.zshrc; lf; exec zsh"
+    tmux new-window -t "$session_name":3 -c "$session_path/src" -n nvim "echo 'Press Enter ...'; read; source /root/.zshrc; dotnet build; nvim .; exec zsh" 
+}
+
+create_dotnet_sessions() {
+    session_prefix="$1"  
+    base_dir="$2"  
+
+    for folder in "$base_dir"/*; do
+        if [ -d "$folder" ]; then  
+            folder_name=$(basename "$folder")  
+            session_name="${session_prefix}-$folder_name"  
+            
+            create_dotnet_session "$session_name" "$folder"
+        fi
+    done
 }
 
 chmod +x /scripts/*.sh
@@ -17,8 +30,6 @@ source /scripts/create-session.sh
 
 /scripts/create-default-sessions.sh
 
-create_dotnet_session "konfik" "/home/projects/hubiboar/konfik"
-create_dotnet_session "definit" "/home/projects/hubiboar/definit"
-create_dotnet_session "feature-slice" "/home/projects/hubiboar/feature-slice"
+create_dotnet_sessions "dotnet" "/home/projects/hubiboar/dotnet"
 
 /scripts/run.sh

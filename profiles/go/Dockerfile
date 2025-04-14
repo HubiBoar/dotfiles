@@ -14,10 +14,11 @@ ENV PATH="$PATH:/usr/local/go/bin"
 # ------- RUN -------
 
 COPY root/ /root/
-COPY scripts/ /scripts/
 
 RUN nvim --headless "+Lazy! sync" +qall
 RUN nvim --headless "+MasonInstallAll" +qall
+
+COPY scripts/ /scripts/
 
 RUN chmod +x /scripts/entrypoint.sh
 
