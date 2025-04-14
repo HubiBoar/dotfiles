@@ -14,14 +14,32 @@ return
                 ensure_installed = {
                     lua.name,
                     go.name,
-                    go.delve,
                 }
             })
 
             require("mason-lspconfig").setup_handlers(
             {
                 [lua.name] = lua.setup,
+                [go.name] = go.setup,
             })
         end,
     },
+    {
+        "jay-babu/mason-nvim-dap.nvim",
+        dependencies =
+        {
+            "williamboman/mason.nvim",
+            "mfussenegger/nvim-dap",
+        },
+        opts =
+        {
+            ensure_installed = { go.dapname },
+            handlers =
+            {
+                function(config)
+                    require('mason-nvim-dap').default_setup(config)
+                end,
+            },
+        }
+    }
 }

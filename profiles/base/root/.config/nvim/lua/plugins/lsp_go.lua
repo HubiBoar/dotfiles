@@ -1,6 +1,14 @@
 local M = {}
 
 M.name="gopls"
-M.delve="delve"
+M.dapname="delve"
+
+M.setup = function()
+
+    local lspconfig = require("lspconfig")
+
+    lspconfig.gopls.setup({})
+
+end;
 
 return M
