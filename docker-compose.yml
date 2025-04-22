@@ -4,6 +4,10 @@ x-base: &base
     PROFILE: ${PROFILE}
   volumes: 
     - ./profiles/${PROFILE}/state/root/.local/share/nvim/harpoon:/root/.local/share/nvim/harpoon
+    - ./profiles/${PROFILE}/state/root/.ssh:/root/.ssh
+    - ./profiles/${PROFILE}/state/root/.azure:/root/.azure
+    - ./profiles/${PROFILE}/state/root/.aspnet:/root/.aspnet
+    - ./profiles/${PROFILE}/state/root/.config/gh:/root/.config/gh
     - ./profiles/${PROFILE}/lazy-lock.json:/root/.config/nvim/lazy-lock.json
     - /var/run/docker.sock:/var/run/docker.sock
     - /home/dotfiles:/home/dotfiles
@@ -11,11 +15,7 @@ x-base: &base
     - /etc/hosts:/etc/hosts
     - /mnt/c:/mnt/c
     - /mnt/c/users/HUD/Desktop:/desktop
-    - /root/.ssh:/root/.ssh
     - /root/.docker:/root/.docker
-    - /root/.azure:/root/.azure
-    - /root/.config/gh:/root/.config/gh
-    - /root/.aspnet:/root/.aspnet
     - /root/nis:/root/nis
 
 #cp -n /home/dotfiles/dotfiles/* /dotfiles/ && \
@@ -53,3 +53,12 @@ services:
       profiles:
         - profiles
         - nis
+
+    bsure:
+      <<: *base 
+      container_name: cde-bsure
+      build:
+        context: ./profiles/bsure
+      profiles:
+        - profiles
+        - bsure

@@ -115,6 +115,8 @@ M.lsp = function()
     vim.keymap.set("n", "<leader>rn", vim.lsp.buf.rename,                  {})
     vim.keymap.set("n", "<leader>ca", vim.lsp.buf.code_action,             {})
     vim.keymap.set("n", "gr",         vim.lsp.buf.references,              {})
+    vim.keymap.set('n', 'gn',         vim.diagnostic.goto_next,            {})
+    vim.keymap.set('n', 'gp',         vim.diagnostic.goto_prev,            {})
 end
 
 M.camelCaseMotion = function ()
