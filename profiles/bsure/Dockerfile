@@ -65,6 +65,8 @@ RUN nvim --headless "+MasonInstall --force omnisharp" +qall
 
 COPY scripts/ /scripts/
 
+RUN git config --global url."git@github-bsureas:bsureas/".insteadOf "git@github.com:bsureas/"
+
 RUN chmod +x /scripts/entrypoint.sh
 
 ENTRYPOINT ["/scripts/entrypoint.sh"]
