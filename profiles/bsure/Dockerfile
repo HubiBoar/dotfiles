@@ -33,6 +33,15 @@ RUN curl -sSL https://aka.ms/InstallAzureCLIDeb | bash && \
 RUN az --version
 
 
+# ------- AZURE FUNC -------
+
+RUN wget -q https://packages.microsoft.com/config/ubuntu/22.04/packages-microsoft-prod.deb \
+    && dpkg -i packages-microsoft-prod.deb \
+    && sh -c 'echo "deb [arch=amd64] https://packages.microsoft.com/repos/microsoft-ubuntu-$(lsb_release -cs 2>/dev/null)-prod $(lsb_release -cs 2>/dev/null) main" > /etc/apt/sources.list.d/dotnetdev.list' \
+    && apt-get update \
+    && apt-get install azure-functions-core-tools-4
+
+
 # ------- GITHUB CLI -------
 
 RUN curl -L -o gh.tar.gz https://github.com/cli/cli/releases/download/v${GITHUB_CLI_VERSION}/gh_${GITHUB_CLI_VERSION}_linux_amd64.tar.gz \

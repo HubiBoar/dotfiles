@@ -2,7 +2,7 @@ local M = {}
 
 M.name = "bicep";
 
-M.bicep = function()
+M.setup = function()
     local lspconfig = require("lspconfig")
     lspconfig.bicep.setup{}
 end;

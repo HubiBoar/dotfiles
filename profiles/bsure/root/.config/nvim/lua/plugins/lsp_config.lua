@@ -23,7 +23,7 @@ return
             {
                 [lua.name] = lua.setup,
                 [dotnet.name] = dotnet.setup,
-                [bicep.name] = dotnet.bicep,
+                [bicep.name] = bicep.setup,
             })
         end,
     },
