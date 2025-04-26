@@ -1,0 +1,64 @@
+x-base: &base
+  network_mode: "host"
+  environment:
+    PROFILE: ${PROFILE}
+  volumes: 
+    - ./profiles/${PROFILE}/state/root/.local/share/nvim/harpoon:/root/.local/share/nvim/harpoon
+    - ./profiles/${PROFILE}/state/root/.ssh:/root/.ssh
+    - ./profiles/${PROFILE}/state/root/.azure:/root/.azure
+    - ./profiles/${PROFILE}/state/root/.aspnet:/root/.aspnet
+    - ./profiles/${PROFILE}/state/root/.config/gh:/root/.config/gh
+    - ./profiles/${PROFILE}/lazy-lock.json:/root/.config/nvim/lazy-lock.json
+    - /var/run/docker.sock:/var/run/docker.sock
+    - /home/dotfiles:/home/dotfiles
+    - /home/projects:/home/projects
+    - /etc/hosts:/etc/hosts
+    - /mnt/c:/mnt/c
+    - /mnt/c/users/HUD/Desktop:/desktop
+    - /root/.docker:/root/.docker
+    - /root/nis:/root/nis
+
+#cp -n /home/dotfiles/dotfiles/* /dotfiles/ && \
+services:
+    base:
+      image: cde/base 
+      build:
+        context: ./profiles/base
+      profiles:
+        - base
+
+    go:
+      <<: *base 
+      container_name: cde-go
+      build: 
+        context: ./profiles/go
+      profiles:
+        - profiles
+        - go
+
+    dotnet:
+      <<: *base 
+      container_name: cde-dotnet
+      build: 
+        context: ./profiles/dotnet
+      profiles:
+        - profiles
+        - dotnet
+
+    nis:
+      <<: *base 
+      container_name: cde-nis
+      build:
+        context: ./profiles/nis
+      profiles:
+        - profiles
+        - nis
+
+    bsure:
+      <<: *base 
+      container_name: cde-bsure
+      build:
+        context: ./profiles/bsure
+      profiles:
+        - profiles
+        - bsure
