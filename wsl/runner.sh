@@ -1,3 +1,5 @@
+sudo cp -rf ./etc/* /etc/
+
 #https://www.digitalocean.com/community/tutorials/how-to-install-and-use-docker-on-ubuntu-22-04#step-3-using-the-docker-command
 
 sudo apt update -y && sudo apt upgrade -y
