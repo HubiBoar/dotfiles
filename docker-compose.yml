@@ -2,6 +2,7 @@ x-base: &base
   network_mode: "host"
   environment:
     PROFILE: ${PROFILE}
+    USER: ${USER:?'USER is Required'}
   volumes: 
     - ./profiles/${PROFILE}/state/root/.local/share/nvim/harpoon:/root/.local/share/nvim/harpoon
     - ./profiles/${PROFILE}/state/root/.ssh:/root/.ssh
@@ -14,7 +15,7 @@ x-base: &base
     - /home/projects:/home/projects
     - /etc/hosts:/etc/hosts
     - /mnt/c:/mnt/c
-    - /mnt/c/users/HUD/Desktop:/desktop
+    - /mnt/c/users/${USER}/Desktop:/desktop
     - /root/.docker:/root/.docker
     - /root/nis:/root/nis
 
