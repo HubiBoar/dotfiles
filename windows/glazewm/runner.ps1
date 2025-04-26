@@ -1,8 +1,12 @@
+Set-ExecutionPolicy -Scope Process -ExecutionPolicy Bypass
+
 $WorkingDir = Convert-Path .
 $Config = "$WorkingDir\config.yaml"
 
 echo $Config
 
-winget install GlazeWM --accept-package-agreements   --accept-source-agreements
+[Environment]::SetEnvironmentVariable("GLAZEWM_CONFIG_PATH", $Config, "User")
 
-setx GLAZEWM_CONFIG_PATH $Config
+$env:GLAZEWM_CONFIG_PATH = $Config
+
+winget install GlazeWM --accept-package-agreements   --accept-source-agreements
