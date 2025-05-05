@@ -31,6 +31,7 @@ RUN apt-get install -y \
     curl \
     inetutils-ping \
     gh \
+    zip \
     unzip \
     wget \
     iproute2 \

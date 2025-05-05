@@ -33,6 +33,11 @@ RUN curl -sSL https://aka.ms/InstallAzureCLIDeb | bash && \
 RUN az --version
 
 
+# ------- BICEP -------
+
+RUN az bicep install
+
+
 # ------- AZURE FUNC -------
 
 RUN wget -q https://packages.microsoft.com/config/ubuntu/22.04/packages-microsoft-prod.deb \
