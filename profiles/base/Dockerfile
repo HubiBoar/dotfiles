@@ -111,6 +111,18 @@ RUN zsh -c '/root/powerlevel10k/gitstatus/install'
 
 RUN git clone --depth=1 https://github.com/zsh-users/zsh-autosuggestions /root/.zsh/zsh-autosuggestions
 
+
+# ------- LAZY SQL -------
+
+WORKDIR /installers/lazysql
+RUN curl -LO https://github.com/jorgerojas26/lazysql/releases/download/v0.3.7/lazysql_Linux_x86_64.tar.gz && \
+    tar xvf lazysql_Linux_x86_64.tar.gz && \
+    mv lazysql /usr/local/bin && \
+    chmod +x /usr/local/bin/lazysql && \
+    rm -rf /installers/lazysql
+
+RUN lazysql --help
+
 COPY scripts/ /scripts/
 
 RUN nvim --headless "+MasonInstall --force lua-language-server" +qall
