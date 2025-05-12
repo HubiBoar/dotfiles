@@ -11,7 +11,7 @@ M.setup = function()
     lspconfig.omnisharp.setup(
     {
         capabilities = capabilities,
-        cmd = { "dotnet", vim.fn.stdpath "data" .. "/mason/packages/omnisharp/libexec/OmniSharp.dll" },
+        cmd = { "dotnet", vim.fn.stdpath "data" .. "/mason/packages/omnisharp/OmniSharp.dll" },
         --lspconfig.util.root_pattern(".gitignore", "*.sln", "*.csproj"),
         root_dir = vim.loop.cwd, 
         settings =
