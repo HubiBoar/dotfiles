@@ -123,6 +123,12 @@ RUN curl -LO https://github.com/jorgerojas26/lazysql/releases/download/v0.3.7/la
 
 RUN lazysql --help
 
+
+# ------- XH (Curl replacement) -------
+
+RUN curl -sfL https://raw.githubusercontent.com/ducaale/xh/master/install.sh | sh
+
+
 COPY scripts/ /scripts/
 
 RUN nvim --headless "+MasonInstall --force lua-language-server" +qall
