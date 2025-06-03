@@ -3,6 +3,7 @@
 	caa   = !git add -A && git commit --amend
 	caap  = !git add -A && git commit --amend && git push
 	caapf = !git add -A && git commit --amend && git push --force
+    lg    = !git log --oneline -n 15
 [init]
 	defaultBranch = main
 [push]

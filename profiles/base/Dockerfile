@@ -126,9 +126,17 @@ RUN lazysql --help
 
 # ------- XH (Curl replacement) -------
 
-RUN curl -sfL https://raw.githubusercontent.com/ducaale/xh/master/install.sh | sh
+WORKDIR /installers/xh
+RUN curl -LO https://github.com/ducaale/xh/releases/download/v0.24.1/xh-v0.24.1-x86_64-unknown-linux-musl.tar.gz && \
+    tar xvf xh-v0.24.1-x86_64-unknown-linux-musl.tar.gz && \
+    cd xh-v0.24.1-x86_64-unknown-linux-musl && \
+    mv xh /usr/local/bin && \
+    chmod +x /usr/local/bin/xh && \
+    rm -rf /installers/xh
 
+RUN xh --help
 
+WORKDIR /root
 COPY scripts/ /scripts/
 
 RUN nvim --headless "+MasonInstall --force lua-language-server" +qall
