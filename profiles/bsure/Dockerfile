@@ -28,7 +28,9 @@ RUN apt-get update && apt-get install nodejs -y && \
 
 WORKDIR /installers
 
-RUN curl -sSL https://aka.ms/InstallAzureCLIDeb | bash && \
+RUN curl -sL https://aka.ms/InstallAzureCLIDeb | bash && \
+    apt-get update && \
+    apt-get install azure-cli=2.72.0-1~jammy -y --allow-downgrades && \
     rm -rf /installers
 
 RUN az --version
@@ -60,6 +62,43 @@ RUN curl -L -o gh.tar.gz https://github.com/cli/cli/releases/download/v${GITHUB_
 
 RUN gh --version
 
+# ------- NVIM PLUGINS --------
+
+RUN mkdir -p /root/.config/nvim/pack/plugins/start
+RUN mkdir -p /root/.config/nvim/pack/plugins/opt
+
+# ---- PLENARY ----
+
+WORKDIR /root/.config/nvim/pack/plugins/start
+RUN git clone --depth 1 https://github.com/nvim-lua/plenary.nvim && \
+    cd plenary.nvim && \
+    git fetch origin 857c5ac632080dba10aae49dba902ce3abf91b35 && \
+    git checkout 857c5ac632080dba10aae49dba902ce3abf91b35
+
+# ---- TELESCOPE -----
+
+WORKDIR /root/.config/nvim/pack/plugins/start
+RUN git clone --depth 1 https://github.com/nvim-telescope/telescope.nvim && \
+    cd telescope.nvim && \
+    git fetch origin 6312868392331c9c0f22725041f1ec2bef57c751 && \
+    git checkout 6312868392331c9c0f22725041f1ec2bef57c751
+
+
+# ---- TELESCOPE UI ----
+
+WORKDIR /root/.config/nvim/pack/plugins/start
+RUN git clone --depth 1 https://github.com/nvim-telescope/telescope-ui-select.nvim && \
+    cd telescope-ui-select.nvim && \
+    git fetch origin 6e51d7da30bd139a6950adf2a47fda6df9fa06d2 && \
+    git checkout 6e51d7da30bd139a6950adf2a47fda6df9fa06d2
+
+# ---- HARPOON -----
+
+WORKDIR /root/.config/nvim/pack/plugins/start
+RUN git clone --depth 1 https://github.com/ThePrimeagen/harpoon.git && \
+    cd harpoon && \
+    git fetch origin ed1f853847ffd04b2b61c314865665e1dadf22c7 && \
+    git checkout ed1f853847ffd04b2b61c314865665e1dadf22c7
 
 # ------- RUN -------
 

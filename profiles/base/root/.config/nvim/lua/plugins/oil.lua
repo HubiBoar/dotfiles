@@ -21,7 +21,7 @@ return
                 win_options = {
                     winbar = "%{v:lua.CustomOilBar()}",
                 },
-                default_file_explorer = false,
+                default_file_explorer = true,
                 view_options = {
                     show_hidden = true,
                     is_always_hidden = function(name, _)

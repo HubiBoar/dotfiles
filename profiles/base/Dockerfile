@@ -77,7 +77,6 @@ RUN curl -LO 'https://github.com/BurntSushi/ripgrep/releases/download/14.1.0/rip
 
 RUN apt install fd-find -y
 
-
 # ------- TMUX -------
 
 WORKDIR /installers/tmux
@@ -139,6 +138,6 @@ RUN xh --help
 WORKDIR /root
 COPY scripts/ /scripts/
 
-RUN nvim --headless "+MasonInstall --force lua-language-server" +qall
+#RUN nvim --headless "+MasonInstall --force lua-language-server" +qall
 
 SHELL ["/bin/zsh", "-c"]
