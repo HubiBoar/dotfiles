@@ -2,50 +2,19 @@ local lua = require("plugins.lsp_lua")
 local dotnet = require("plugins.lsp_omnisharp")
 local bicep = require("plugins.lsp_bicep")
 
-return
+require("mason-lspconfig").setup(
 {
-    { "mason-org/mason.nvim", version = "^1.0.0" },
-    { "mason-org/mason-lspconfig.nvim", version = "^1.0.0" },
-    {
-        "williamboman/mason-lspconfig.nvim",
-        dependencies = { "mason.nvim", "lsp-overloads.nvim" },
-        config = function()
-
-            require("mason-lspconfig").setup(
-            {
-                automatic_installation = true,
-                ensure_installed = {
-                    lua.name,
-                    dotnet.name,
-                    bicep.name,
-                }
-            })
-
-            require("mason-lspconfig").setup_handlers(
-            {
-                [lua.name] = lua.setup,
-                [dotnet.name] = dotnet.setup,
-                [bicep.name] = bicep.setup,
-            })
-        end,
-    },
-    {
-        "jay-babu/mason-nvim-dap.nvim",
-        dependencies =
-        {
-            "williamboman/mason.nvim",
-            "mfussenegger/nvim-dap",
-        },
-        opts =
-        {
-            ensure_installed = { dotnet.dapname },
-            handlers =
-            {
-                function(config)
-                    require('mason-nvim-dap').default_setup(config)
-                end,
-                coreclr = dotnet.dap
-            },
-        }
+    automatic_installation = true,
+    ensure_installed = {
+        lua.name,
+        dotnet.name,
+        bicep.name,
     }
-}
+})
+
+require("mason-lspconfig").setup_handlers(
+{
+    [lua.name] = lua.setup,
+    [dotnet.name] = dotnet.setup,
+    [bicep.name] = bicep.setup,
+})

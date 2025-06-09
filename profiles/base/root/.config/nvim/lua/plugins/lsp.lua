@@ -1,25 +1,8 @@
-local overloads = require("plugins.lspoverloads");
+require("../keys").lsp()
 
-return
+vim.diagnostic.config(
 {
-    {
-        overloads.install
-    },
-    {
-        "neovim/nvim-lspconfig",
-        config = function ()
+    virtual_text = false
+})
 
-            require("../keys").lsp()
-            vim.diagnostic.config(
-            {
-                virtual_text = false
-            })
-        end,
-    },
-    {
-        "williamboman/mason.nvim",
-        config = function()
-            require("mason").setup({})
-        end,
-    }
-}
+require("mason").setup({})

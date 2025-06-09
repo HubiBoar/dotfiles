@@ -1,10 +1,3 @@
-return
-{
-    "rmagatti/auto-session",
-    opts = {
-        auto_save = true,
-    },
-    config = function()
-        require("auto-session").setup({})
-    end
-}
+require("auto-session").setup({
+    auto_save = true
+})
