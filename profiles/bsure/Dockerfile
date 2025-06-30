@@ -38,7 +38,7 @@ RUN az --version
 
 # ------- BICEP -------
 
-RUN az bicep install --version v0.34.44
+RUN az bicep install --version v0.33.93
 
 
 # ------- AZURE FUNC -------

@@ -1,6 +1,7 @@
 local M = {}
 
 M.name = "lua_ls";
+M.install = "lua_ls@3.14.0";
 
 M.setup = function()
     local overloads = require("plugins.lspoverloads")

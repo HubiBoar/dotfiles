@@ -6,9 +6,9 @@ require("mason-lspconfig").setup(
 {
     automatic_installation = true,
     ensure_installed = {
-        lua.name,
-        dotnet.name,
-        bicep.name,
+        lua.install,
+        dotnet.install,
+        bicep.install,
     }
 })
 

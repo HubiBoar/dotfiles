@@ -1,6 +1,7 @@
 local M = {}
 
 M.name = "omnisharp"
+M.install = "omnisharp@v1.39.13"
 
 M.setup = function()
 
