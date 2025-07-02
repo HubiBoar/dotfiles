@@ -1,0 +1,11 @@
+services:
+    base:
+      network_mode: "host"
+      image: cde/base 
+      build:
+        context: .
+      volumes: 
+        - /home/dotfiles:/home/dotfiles
+        - /home/projects:/home/projects
+        - ./state/root:/root
+        - ./state/etc/nixos:/etc/nixos

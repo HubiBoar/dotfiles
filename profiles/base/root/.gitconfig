@@ -10,6 +10,7 @@
 [push]
 	autoSetupRemote = true
 	default = current
+	recurseSubmodules = on-demand
 [core]
 	editor = nvim
 	autocrlf = input
@@ -19,3 +20,5 @@
 	email = 150520704+HubiBoar@users.noreply.github.com
 [safe]
     directory = *
+[submodule]
+	recurse = true
