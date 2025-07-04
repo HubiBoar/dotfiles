@@ -93,14 +93,6 @@ RUN git clone --depth 1 https://github.com/nvim-telescope/telescope-ui-select.nv
     git fetch origin 6e51d7da30bd139a6950adf2a47fda6df9fa06d2 && \
     git checkout 6e51d7da30bd139a6950adf2a47fda6df9fa06d2
 
-# ---- HARPOON -----
-
-WORKDIR /root/.config/nvim/pack/plugins/start
-RUN git clone --depth 1 https://github.com/ThePrimeagen/harpoon.git && \
-    cd harpoon && \
-    git fetch origin ed1f853847ffd04b2b61c314865665e1dadf22c7 && \
-    git checkout ed1f853847ffd04b2b61c314865665e1dadf22c7
-
 # ---- CamelCaseMotion -----
 WORKDIR /root/.config/nvim/pack/plugins/start
 RUN git clone --depth 1 https://github.com/bkad/CamelCaseMotion.git && \
