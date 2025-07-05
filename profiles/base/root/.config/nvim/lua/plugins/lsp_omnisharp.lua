@@ -1,17 +1,9 @@
 local M = {}
 
-M.setup = function()
+M.name = "omnisharp"
+M.version = "omnisharp@v1.39.13"
 
-    local lsp_path = vim.fn.stdpath("data") .. "/lsp_servers/omnisharp"
-    local url = "https://github.com/omnisharp/omnisharp-roslyn/releases/download/v1.39.13/omnisharp-linux-x64-net6.0.zip"
-    if not (vim.uv or vim.loop).fs_stat(lsp_path) then
-      vim.fn.mkdir(lsp_path, "p")
-      -- Download and extract
-      local zip_path = lsp_path .. "/omnisharp-linux-x64-net6.0.zip"
-      vim.fn.system({ "curl", "-L", url, "-o", zip_path })
-      vim.fn.system({ "unzip", "-o", zip_path, "-d", lsp_path })
-    end
-    -- vim.fn.system({ "chmod", "+x", omnisharp_bin .. "/omnisharp/OmniSharp." })
+M.setup = function()
 
     local overloads = require("plugins.lspoverloads")
     local capabilities = require('cmp_nvim_lsp').default_capabilities()
@@ -20,9 +12,9 @@ M.setup = function()
     lspconfig.omnisharp.setup(
     {
         capabilities = capabilities,
-        cmd = { "dotnet", vim.fn.stdpath "data" .. "/lsp_servers/omnisharp/OmniSharp.dll" },
+        cmd = { "dotnet", vim.fn.stdpath "data" .. "/mason/packages/omnisharp/OmniSharp.dll" },
         --lspconfig.util.root_pattern(".gitignore", "*.sln", "*.csproj"),
-        root_dir = vim.loop.cwd,
+        root_dir = vim.loop.cwd, 
         settings =
         {
             FormattingOptions =
