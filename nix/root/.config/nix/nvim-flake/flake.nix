@@ -1,4 +1,4 @@
-#nix profile install .
+#nix profile install path:/root/.config/nix/nvim-flake
 #nix profile upgrade nvim-flake
 #sha256 = "0000000000000000000000000000000000000000000000000000";
 {

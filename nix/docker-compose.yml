@@ -1,11 +1,18 @@
 services:
+    startup:
+      network_mode: "host"
+      image: cde/base 
+      build:
+        context: .
+      volumes: 
+        - ./state/nix/store:/nix-store
+      entrypoint: sh -c "rm -rf /nix-store/* && cp -r /nix/store/* /nix-store"
+
     base:
       network_mode: "host"
       image: cde/base 
       build:
         context: .
       volumes: 
-        - /home/dotfiles:/home/dotfiles
-        - /home/projects:/home/projects
-        - ./state/root:/root
-        - ./state/etc/nixos:/etc/nixos
+        - ./root/.config/:/root/.config
+        - ./state/nix/store:/nix/store
