@@ -11,7 +11,6 @@ require("lazy").setup(
     require("plugins.completions"),
     require("plugins.harpoon"),
     require("plugins.sessions"),
-    require("plugins.hardtime"),
     require("plugins.camelCaseMotion"),
     require("plugins.tmux"),
 })
