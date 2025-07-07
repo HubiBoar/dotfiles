@@ -23,7 +23,8 @@ services:
                rm -rvf /nix-state/* && \
                cp -rv /nix/* /nix-state && \
                /root/.tmux/plugins/tpm/bin/install_plugins && \
-               zsh -c '/root/powerlevel10k/gitstatus/install'"
+               zsh -c '/root/powerlevel10k/gitstatus/install' && \
+               az bicep install --version v0.33.93"
 
     nix:
       network_mode: "host"
