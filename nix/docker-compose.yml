@@ -5,8 +5,9 @@ services:
       build:
         context: .
       volumes: 
-        - ./state/nix/store:/nix-store
-      entrypoint: sh -c "rm -rf /nix-store/* && cp -r /nix/store/* /nix-store"
+        - ./root/.config/nix:/root/.config/nix
+        - ./state/nix:/nix-state
+      entrypoint: sh -c "nix profile install path:/root/.config/nix/nvim-flake --priority 0; rm -rf /nix-state/* && cp -r /nix/* /nix-state"
 
     base:
       network_mode: "host"
@@ -14,5 +15,9 @@ services:
       build:
         context: .
       volumes: 
-        - ./root/.config/:/root/.config
-        - ./state/nix/store:/nix/store
+        - ./root/.config/nix:/root/.config/nix
+        - ./root/.config/nvim:/root/.config/nvim
+        - ./root/.config/lf:/root/.config/lf
+        - ./root/.config/tmux/tmux.conf:/root/.config/tmux/tmux.conf
+        - ./state/nix:/nix
+      entrypoint: sh -c "tmux -u"

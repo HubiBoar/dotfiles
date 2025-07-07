@@ -1,3 +1,3 @@
-FROM nixos/nix
+FROM nixos/nix@sha256:2c8d8095d21720e64d025661caca856118505d17964e39cb7b9c49faed57defd
 
-ENTRYPOINT /bin/sh -c "cd /root/.config/nix/nvim-flake; nix profile install .; nix profile upgrade nvim-flake; tmux -u" 
+ENTRYPOINT /bin/sh 
