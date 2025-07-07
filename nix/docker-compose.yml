@@ -1,5 +1,5 @@
 services:
-    install:
+    install-nix:
       network_mode: "host"
       image: cde/base 
       build:
@@ -11,6 +11,33 @@ services:
         sh -c "nix profile install path:/root/.config/nix/nvim-flake --priority 0;\
                rm -rvf /nix-state/* && \
                cp -rv /nix/* /nix-state"
+
+    install:
+      network_mode: "host"
+      image: cde/base 
+      build:
+        context: .
+      volumes: 
+        - ./root/.gitconfig:/root/.gitconfig
+        - ./root/.p10k.zsh:/root/.p10k.zsh
+        - ./root/.zshrc:/root/.zshrc
+        - ./root/.config/nix:/root/.config/nix
+        - ./root/.config/nvim:/root/.config/nvim
+        - ./root/.config/lf:/root/.config/lf
+        - ./root/.config/tmux/tmux.conf:/root/.config/tmux/tmux.conf
+
+        - ./state/nix:/nix
+        - ./state/root/.local:/root/.local
+        - ./state/root/.config/gh:/root/.config/gh
+        - ./state/root/.config/tmux/plugins:/root/.config/tmux/plugins
+        - ./state/root/.tmux:/root/.tmux
+        - ./state/root/.zsh:/root/.zsh
+      entrypoint: >
+        sh -c "git clone --depth=1 https://github.com/tmux-plugins/tpm /root/.tmux/plugins/tpm; \
+               /root/.tmux/plugins/tpm/bin/install_plugins; \
+               git clone --depth=1 https://github.com/romkatv/powerlevel10k /root/.zsh/powerlevel10k; \
+               zsh -c '/root/.zsh/powerlevel10k/gitstatus/install'; \
+               git clone --depth=1 https://github.com/zsh-users/zsh-autosuggestions /root/.zsh/zsh-autosuggestions;"
 
     nix:
       network_mode: "host"
@@ -30,12 +57,7 @@ services:
         - ./state/root/.local:/root/.local
         - ./state/root/.config/gh:/root/.config/gh
         - ./state/root/.config/tmux/plugins:/root/.config/tmux/plugins
+        - ./state/root/.tmux:/root/.tmux
         - ./state/root/.zsh:/root/.zsh
       entrypoint: >
-        sh -c  "git clone --depth=1 https://github.com/tmux-plugins/tpm /root/.tmux/plugins/tpm; \
-                /root/.tmux/plugins/tpm/bin/install_plugins; \
-                git clone --depth=1 https://github.com/romkatv/powerlevel10k /root/powerlevel10k; \
-                zsh -c '/root/powerlevel10k/gitstatus/install'; \
-                git clone --depth=1 https://github.com/zsh-users/zsh-autosuggestions /root/.zsh/zsh-autosuggestions; \
-                source /root/.zshrc; \
-                tmux -u"
+        sh -c  "tmux -u"

@@ -59,6 +59,8 @@
             pkgs.curl
             pkgs.inetutils  # includes `ping`
             pkgs.gh
+            pkgs.gawkInteractive # awk
+            pkgs.gnused # sed
             pkgs.zip
             pkgs.unzip
             pkgs.wget
