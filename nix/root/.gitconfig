@@ -1,0 +1,24 @@
+[alias]
+	cam   = !git add -A && git commit -m
+	caa   = !git add -A && git commit --amend
+	caap  = !git add -A && git commit --amend && git push
+	caapf = !git add -A && git commit --amend && git push --force
+    lg    = !git log --oneline -n 15
+    resetbr = "!f() { git branch -D \"$1\" && git checkout -b \"$1\"; }; f"
+[init]
+	defaultBranch = main
+[push]
+	autoSetupRemote = true
+	default = current
+	recurseSubmodules = on-demand
+[core]
+	editor = nvim
+	autocrlf = input
+	filemode = false
+[user]
+	name = HubiBoar
+	email = 150520704+HubiBoar@users.noreply.github.com
+[safe]
+    directory = *
+[submodule]
+	recurse = true
