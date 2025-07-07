@@ -5,26 +5,12 @@ services:
       build:
         context: .
       volumes: 
-        - ./root/.gitconfig:/root/.gitconfig
-        - ./root/.p10k.zsh:/root/.p10k.zsh
-        - ./root/.zshrc:/root/.zshrc
-        - ./root/.config/nix:/root/.config/nix
-        - ./root/.config/nvim:/root/.config/nvim
-        - ./root/.config/lf:/root/.config/lf
-        - ./root/.config/tmux/tmux.conf:/root/.config/tmux/tmux.conf
-        # STATE
         - ./state/nix:/nix-state
-        - ./state/root/.local:/root/.local
-        - ./state/root/.config/gh:/root/.config/gh
-        - ./state/root/.config/tmux/plugins:/root/.config/tmux/plugins
-        - ./state/root/.config/.zsh:/root/.config/.zsh
+        - ./root/.config/nix:/root/.config/nix
       entrypoint: >
         sh -c "nix profile install path:/root/.config/nix/nvim-flake --priority 0;\
                rm -rvf /nix-state/* && \
-               cp -rv /nix/* /nix-state && \
-               /root/.tmux/plugins/tpm/bin/install_plugins && \
-               zsh -c '/root/powerlevel10k/gitstatus/install' && \
-               az bicep install --version v0.33.93"
+               cp -rv /nix/* /nix-state"
 
     nix:
       network_mode: "host"
@@ -44,5 +30,12 @@ services:
         - ./state/root/.local:/root/.local
         - ./state/root/.config/gh:/root/.config/gh
         - ./state/root/.config/tmux/plugins:/root/.config/tmux/plugins
-        - ./state/root/.config/.zsh:/root/.config/.zsh
-      entrypoint: sh -c "tmux -u"
+        - ./state/root/.zsh:/root/.zsh
+      entrypoint: >
+        sh -c  "git clone --depth=1 https://github.com/tmux-plugins/tpm /root/.tmux/plugins/tpm; \
+                /root/.tmux/plugins/tpm/bin/install_plugins; \
+                git clone --depth=1 https://github.com/romkatv/powerlevel10k /root/powerlevel10k; \
+                zsh -c '/root/powerlevel10k/gitstatus/install'; \
+                git clone --depth=1 https://github.com/zsh-users/zsh-autosuggestions /root/.zsh/zsh-autosuggestions; \
+                source /root/.zshrc; \
+                tmux -u"
