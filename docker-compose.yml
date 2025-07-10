@@ -3,6 +3,8 @@ x-base: &base
   environment:
     PROFILE: ${PROFILE}
     USER: ${USER:?'USER is Required'}
+    STATE_PATH: "$PWD/profiles/${PROFILE}/state"
+    STATE_HOME_PATH: "$PWD/profiles/${PROFILE}/state/root"
   volumes: 
     - ./profiles/${PROFILE}/state/root/.local/share/nvim/harpoon:/root/.local/share/nvim/harpoon
     - ./profiles/${PROFILE}/state/root/.ssh:/root/.ssh

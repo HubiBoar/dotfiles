@@ -33,6 +33,7 @@ RUN apt-get install -y \
     gh \
     zip \
     unzip \
+    fzf \
     wget \
     iproute2 \
     jq
