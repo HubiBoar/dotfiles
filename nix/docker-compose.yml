@@ -1,3 +1,5 @@
+# XDG_DATA_HOME=/nix/store/dzqf1fxpi24npgnb8k5831s17li4748-luajit-2.1.1741730670-env nvim
+
 services:
     install-nix:
       network_mode: "host"

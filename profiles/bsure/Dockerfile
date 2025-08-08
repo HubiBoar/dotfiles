@@ -63,6 +63,53 @@ RUN curl -L -o gh.tar.gz https://github.com/cli/cli/releases/download/v${GITHUB_
 RUN gh --version
 
 
+# ------- KUBE CTL ---------
+
+RUN curl -LO https://dl.k8s.io/release/v1.33.0/bin/linux/amd64/kubectl \
+    && install -o root -g root -m 0755 kubectl /usr/local/bin/kubectl
+
+RUN kubectl version --client
+
+
+
+# ------- K3D ---------
+
+RUN curl -Lo k3d https://github.com/k3d-io/k3d/releases/download/v5.8.3/k3d-linux-amd64 \
+    && chmod +x k3d \
+    && mv k3d /usr/local/bin/
+
+RUN k3d --version
+
+
+
+# ------- K9S ---------
+
+RUN curl -L https://github.com/derailed/k9s/releases/download/v0.50.9/k9s_Linux_amd64.tar.gz | tar xz \
+    && mv k9s /usr/local/bin/ \
+    && chmod +x /usr/local/bin/k9s
+
+RUN k9s version
+
+
+# ------- ArgoCD ---------
+
+RUN curl -sSL -o argocd-linux-amd64 https://github.com/argoproj/argo-cd/releases/download/v3.0.12/argocd-linux-amd64 \
+    && install -m 555 argocd-linux-amd64 /usr/local/bin/argocd \
+    && rm argocd-linux-amd64
+
+RUN argocd --help
+
+
+
+# ------- HELM ---------
+
+RUN curl -LO https://get.helm.sh/helm-v3.17.4-linux-amd64.tar.gz \
+    && tar -zxvf helm-v3.17.4-linux-amd64.tar.gz \
+    && mv linux-amd64/helm /usr/local/bin/helm
+
+RUN helm version
+
+
 
 # ------- RUN -------
 

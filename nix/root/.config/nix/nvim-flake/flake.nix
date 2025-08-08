@@ -87,6 +87,8 @@
             dotnetCombined
             pkgs.nodejs
             pkgs.nodePackages.npm
+
+            pkgs.gcc
           ];
 
           # Optional: ensure `man` pages and bin links are preserved
