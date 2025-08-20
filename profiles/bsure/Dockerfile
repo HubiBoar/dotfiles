@@ -43,11 +43,11 @@ RUN az bicep install --version v0.33.93
 
 # ------- AZURE FUNC -------
 
-RUN wget -q https://packages.microsoft.com/config/ubuntu/22.04/packages-microsoft-prod.deb \
-    && dpkg -i packages-microsoft-prod.deb \
-    && sh -c 'echo "deb [arch=amd64] https://packages.microsoft.com/repos/microsoft-ubuntu-$(lsb_release -cs 2>/dev/null)-prod $(lsb_release -cs 2>/dev/null) main" > /etc/apt/sources.list.d/dotnetdev.list' \
-    && apt-get update \
-    && apt-get install azure-functions-core-tools-4
+#RUN wget -q https://packages.microsoft.com/config/ubuntu/22.04/packages-microsoft-prod.deb \
+#    && dpkg -i packages-microsoft-prod.deb \
+#    && sh -c 'echo "deb [arch=amd64] https://packages.microsoft.com/repos/microsoft-ubuntu-$(lsb_release -cs 2>/dev/null)-prod $(lsb_release -cs 2>/dev/null) main" > /etc/apt/sources.list.d/dotnetdev.list' \
+#    && apt-get update \
+#    && apt-get install azure-functions-core-tools-4
 
 
 # ------- GITHUB CLI -------
