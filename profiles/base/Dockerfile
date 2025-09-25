@@ -136,6 +136,10 @@ RUN curl -LO https://github.com/ducaale/xh/releases/download/v0.24.1/xh-v0.24.1-
 
 RUN xh --help
 
+# ------- PASS -------
+
+RUN apt-get install pass -y
+
 WORKDIR /root
 COPY scripts/ /scripts/
 

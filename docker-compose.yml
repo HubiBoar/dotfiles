@@ -19,6 +19,8 @@ x-base: &base
     - /mnt/c:/mnt/c
     - /mnt/c/users/${USER}/Desktop:/desktop
     - /root/.docker:/root/.docker
+    - /root/.password-store:/root/.password-store
+    - /root/.gnupg:/root/.gnupg
     - /root/nis:/root/nis
 
 #cp -n /home/dotfiles/dotfiles/* /dotfiles/ && \
