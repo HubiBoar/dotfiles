@@ -2,7 +2,6 @@ x-base: &base
   network_mode: "host"
   environment:
     PROFILE: ${PROFILE}
-    USER: ${USER:?'USER is Required'}
     STATE_PATH: "$PWD/profiles/${PROFILE}/state"
     STATE_HOME_PATH: "$PWD/profiles/${PROFILE}/state/root"
   volumes: 
@@ -13,57 +12,39 @@ x-base: &base
     - ./profiles/${PROFILE}/state/root/.config/gh:/root/.config/gh
     - ./profiles/${PROFILE}/lazy-lock.json:/root/.config/nvim/lazy-lock.json
     - /var/run/docker.sock:/var/run/docker.sock
-    - /home/dotfiles:/home/dotfiles
-    - /home/projects:/home/projects
+    - ~/dotfiles:/root/dotfiles
+    - ~/projects:/root/projects
     - /etc/hosts:/etc/hosts
-    - /mnt/c:/mnt/c
-    - /mnt/c/users/${USER}/Desktop:/desktop
-    - /root/.docker:/root/.docker
-    - /root/.password-store:/root/.password-store
-    - /root/.gnupg:/root/.gnupg
-    - /root/nis:/root/nis
+    - ~/.docker:/root/.docker
+    - ~/.password-store:/root/.password-store
+    - ~/.gnupg:/root/.gnupg
 
-#cp -n /home/dotfiles/dotfiles/* /dotfiles/ && \
 services:
     base:
       image: cde/base 
       build:
         context: ./profiles/base
-      profiles:
-        - base
 
     go:
       <<: *base 
       container_name: cde-go
       build: 
         context: ./profiles/go
-      profiles:
-        - profiles
-        - go
 
     dotnet:
       <<: *base 
       container_name: cde-dotnet
       build: 
         context: ./profiles/dotnet
-      profiles:
-        - profiles
-        - dotnet
 
     nis:
       <<: *base 
       container_name: cde-nis
       build:
         context: ./profiles/nis
-      profiles:
-        - profiles
-        - nis
 
     bsure:
       <<: *base 
       container_name: cde-bsure
       build:
         context: ./profiles/bsure
-      profiles:
-        - profiles
-        - bsure
