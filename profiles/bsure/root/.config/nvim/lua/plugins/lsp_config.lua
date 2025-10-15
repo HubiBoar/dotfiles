@@ -1,11 +1,13 @@
 local lua = require("plugins.lsp_lua")
 local dotnet = require("plugins.lsp_omnisharp")
-local bicep = require("plugins.lsp_bicep")
+local ts = require("plugins.lsp_ts")
+local razor = require("plugins.lsp_razor")
 local mason = require("plugins.mason")
 local dap = require("plugins.dap")
 
 return
 {
+    razor.install,
     mason.install(function()
         require("mason-lspconfig").setup(
         {
@@ -13,7 +15,11 @@ return
             ensure_installed = {
                 lua.version,
                 dotnet.version,
-                bicep.version,
+                razor.name,
+                ts.name,
+                ts.eslint,
+                ts.html,
+                "bashls",
             }
         })
 
@@ -21,7 +27,7 @@ return
         {
             [lua.name] = lua.setup,
             [dotnet.name] = dotnet.setup,
-            [bicep.name] = bicep.setup,
+            [ts.name] = ts.setup,
         })
     end),
 

@@ -16,14 +16,6 @@ RUN wget https://packages.microsoft.com/config/ubuntu/22.04/packages-microsoft-p
 
 RUN dotnet --version
 
-
-# ------- NODE -------
-
-WORKDIR /installer
-RUN apt-get update && apt-get install nodejs -y && \ 
-    apt-get update && apt-get install npm -y
-
-
 # ------- AZCLI -------
 
 WORKDIR /installers
@@ -109,6 +101,17 @@ RUN curl -LO https://get.helm.sh/helm-v3.17.4-linux-amd64.tar.gz \
 
 RUN helm version
 
+
+# ------- NODE -------
+
+WORKDIR /installer
+RUN curl -L -o node.tar.xz https://nodejs.org/dist/v24.10.0/node-v24.10.0-linux-x64.tar.xz \
+    && tar -xJf node.tar.xz \
+    && mv node-v24.10.0-linux-x64 /usr/local/node-v24.10.0 \
+    && ln -s /usr/local/node-v24.10.0/bin/node /usr/local/bin/node \
+    && ln -s /usr/local/node-v24.10.0/bin/npm /usr/local/bin/npm \
+    && ln -s /usr/local/node-v24.10.0/bin/npx /usr/local/bin/npx \
+    && rm -rf /installers
 
 
 # ------- RUN -------
