@@ -1,4 +1,5 @@
 local lua = require("plugins.lsp_lua")
+local bicep = require("plugins.lsp_bicep")
 local dotnet = require("plugins.lsp_omnisharp")
 local ts = require("plugins.lsp_ts")
 local razor = require("plugins.lsp_razor")
@@ -15,6 +16,7 @@ return
             ensure_installed = {
                 lua.version,
                 dotnet.version,
+                bicep.version,
                 razor.name,
                 ts.name,
                 ts.eslint,
@@ -27,6 +29,7 @@ return
         {
             [lua.name] = lua.setup,
             [dotnet.name] = dotnet.setup,
+            [bicep.name] = bicep.setup,
             [ts.name] = ts.setup,
         })
     end),
