@@ -12,8 +12,8 @@ x-base: &base
     - ./profiles/${PROFILE}/state/root/.config/gh:/root/.config/gh
     - ./profiles/${PROFILE}/lazy-lock.json:/root/.config/nvim/lazy-lock.json
     - /var/run/docker.sock:/var/run/docker.sock
-    - ~/dotfiles:/root/dotfiles
-    - ~/projects:/root/projects
+    - .:/home/dotfiles
+    - ../projects:/home/projects
     - /etc/hosts:/etc/hosts
     - ~/.docker:/root/.docker
     - ~/.password-store:/root/.password-store
