@@ -1,23 +1,29 @@
 x-base: &base
   network_mode: "host"
+  #user: "${UID?:'UID is needed'}:${GID?:'GID is needed'}"  # <-- run as your host user
+  init: true
   environment:
     PROFILE: ${PROFILE}
     STATE_PATH: "$PWD/profiles/${PROFILE}/state"
     STATE_HOME_PATH: "$PWD/profiles/${PROFILE}/state/root"
+    DISPLAY: $DISPLAY
+    #SSH_AUTH_SOCK: /ssh-agent
   volumes: 
-    - ./profiles/${PROFILE}/state/root/.local/share/nvim/harpoon:/root/.local/share/nvim/harpoon
-    - ./profiles/${PROFILE}/state/root/.ssh:/root/.ssh
-    - ./profiles/${PROFILE}/state/root/.azure:/root/.azure
-    - ./profiles/${PROFILE}/state/root/.aspnet:/root/.aspnet
-    - ./profiles/${PROFILE}/state/root/.config/gh:/root/.config/gh
-    - ./profiles/${PROFILE}/lazy-lock.json:/root/.config/nvim/lazy-lock.json
+    - ./profiles/${PROFILE}/state/root/.local/share/nvim/harpoon:/home/hubert/.local/share/nvim/harpoon
+    - ./profiles/${PROFILE}/state/root/.ssh:/home/hubert/.ssh
+    - ./profiles/${PROFILE}/state/root/.azure:/home/hubert/.azure
+    - ./profiles/${PROFILE}/state/root/.aspnet:/home/hubert/.aspnet
+    - ./profiles/${PROFILE}/state/root/.config/gh:/home/hubert/.config/gh
+    - ./profiles/${PROFILE}/lazy-lock.json:/home/hubert/.config/nvim/lazy-lock.json
     - /var/run/docker.sock:/var/run/docker.sock
     - .:/home/dotfiles
-    - ../projects:/home/projects
+    - ~:/home/home
+    - ~/projects:/home/projects
     - /etc/hosts:/etc/hosts
-    - ~/.docker:/root/.docker
-    - ~/.password-store:/root/.password-store
-    - ~/.gnupg:/root/.gnupg
+    - ~/.docker:/home/hubert/.docker
+    - ~/.password-store:/home/hubert/.password-store
+    - ~/.gnupg:/home/hubert/.gnupg:rw
+    - /tmp/.X11-unix:/tmp/.X11-unix \/
 
 services:
     base:

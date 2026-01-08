@@ -1,7 +1,12 @@
 #https://medium.com/@ls12styler/docker-as-an-integrated-development-environment-95bc9b01d2c1
 FROM amd64/ubuntu:22.04
 
-COPY root/ /root/
+#RUN useradd -m -u 1000 hubert
+#USER hubert
+
+#COPY root/ /root/
+COPY root/ /base-files/
+
 
 # ------- UPDATE -------
 
@@ -97,19 +102,20 @@ RUN curl -LO https://github.com/tmux/tmux/releases/download/3.4/tmux-3.4.tar.gz 
     make install && \
     rm -rf /installers/tmux
 
-RUN git clone --depth=1 https://github.com/tmux-plugins/tpm /root/.tmux/plugins/tpm
-RUN /root/.tmux/plugins/tpm/bin/install_plugins
+RUN git clone --depth=1 https://github.com/tmux-plugins/tpm /base-files/.tmux/plugins/tpm
+
+#RUN /base-files/.tmux/plugins/tpm/bin/install_plugins
 
 
 # ------- POWERLEVEL -------
 
-RUN git clone --depth=1 https://github.com/romkatv/powerlevel10k /root/powerlevel10k
-RUN zsh -c '/root/powerlevel10k/gitstatus/install'
+RUN git clone --depth=1 https://github.com/romkatv/powerlevel10k /base-files/powerlevel10k
+#RUN zsh -c '/base-files/powerlevel10k/gitstatus/install'
 
 
 # ------- ZSH-AUTOSUGGESTIONS -------
 
-RUN git clone --depth=1 https://github.com/zsh-users/zsh-autosuggestions /root/.zsh/zsh-autosuggestions
+RUN git clone --depth=1 https://github.com/zsh-users/zsh-autosuggestions /base-files/.zsh/zsh-autosuggestions
 
 
 # ------- LAZY SQL -------
@@ -140,9 +146,6 @@ RUN xh --help
 
 RUN apt-get install pass -y
 
-WORKDIR /root
 COPY scripts/ /scripts/
-
-#RUN nvim --headless "+MasonInstall --force lua-language-server" +qall
 
 SHELL ["/bin/zsh", "-c"]

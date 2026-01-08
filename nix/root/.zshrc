@@ -1,4 +1,5 @@
 COLORTERM=truecolor
+export TERM=st-256color
 export EDITOR=nvim
 export VISUAL=nvim
 test -f /root/.ssh/tokens.sh && source /root/.ssh/tokens.sh

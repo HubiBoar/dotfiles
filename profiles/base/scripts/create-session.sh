@@ -3,10 +3,10 @@
 create_session() {
     session_name=$1
     session_path=$2
-    tmux new-session -d -s "$session_name" -c "$session_path" -n zsh "echo 'Press Enter...'; read; source /root/.zshrc; exec zsh"
+    tmux new-session -d -s "$session_name" -c "$session_path" -n zsh "echo 'Press Enter...'; read; source ~/.zshrc; exec zsh"
 
-    tmux new-window -t "$session_name":2 -c "$session_path" -n lf "echo 'Press Enter...'; read; source /root/.zshrc; lf; exec zsh"
-    tmux new-window -t "$session_name":3 -c "$session_path" -n nvim "echo 'Press Enter...'; read; source /root/.zshrc; nvim .; exec zsh"
+    tmux new-window -t "$session_name":2 -c "$session_path" -n lf "echo 'Press Enter...'; read; source ~/.zshrc; lf; exec zsh"
+    tmux new-window -t "$session_name":3 -c "$session_path" -n nvim "echo 'Press Enter...'; read; source ~/.zshrc; nvim .; exec zsh"
 }
 
 create_sessions() {

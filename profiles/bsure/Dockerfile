@@ -116,15 +116,29 @@ RUN curl -L -o node.tar.xz https://nodejs.org/dist/v24.10.0/node-v24.10.0-linux-
 
 # ------- RUN -------
 
-COPY root/ /root/
+RUN useradd -m -u 1000 hubert
+
+COPY root/ /home/hubert/
+COPY scripts/ /scripts/
+
+RUN cp -r /base-files/. /home/hubert/
+
+RUN chown -R hubert:hubert /scripts
+RUN chown -R hubert:hubert /home/hubert
+
+RUN chown -R hubert:hubert /home/hubert
+
+USER hubert
+
+RUN git config --global url."git@github-bsureas:bsureas/".insteadOf "git@github.com:bsureas/"
+
+RUN ~/.tmux/plugins/tpm/bin/install_plugins
+RUN zsh -c '~/powerlevel10k/gitstatus/install'
 
 RUN nvim --headless "+Lazy! sync" +qall
 RUN nvim --headless "+MasonInstall --force --all" +qall
 RUN nvim --headless "+MasonInstall --force omnisharp" +qall
-
-COPY scripts/ /scripts/
-
-RUN git config --global url."git@github-bsureas:bsureas/".insteadOf "git@github.com:bsureas/"
+RUN nvim --headless "+MasonInstall --force lua-language-server" +qall
 
 RUN chmod +x /scripts/entrypoint.sh
 
