@@ -7,6 +7,7 @@ x-base: &base
     STATE_PATH: "$PWD/profiles/${PROFILE}/state"
     STATE_HOME_PATH: "$PWD/profiles/${PROFILE}/state/root"
     DISPLAY: $DISPLAY
+    XAUTHORITY: /tmp/.Xauthority
     #SSH_AUTH_SOCK: /ssh-agent
   volumes: 
     - ./profiles/${PROFILE}/state/root/.local/share/nvim/harpoon:/home/hubert/.local/share/nvim/harpoon
@@ -23,7 +24,8 @@ x-base: &base
     - ~/.docker:/home/hubert/.docker
     - ~/.password-store:/home/hubert/.password-store
     - ~/.gnupg:/home/hubert/.gnupg:rw
-    - /tmp/.X11-unix:/tmp/.X11-unix \/
+    - /tmp/.X11-unix:/tmp/.X11-unix 
+    - ~/.Xauthority:/tmp/.Xauthority:ro 
 
 services:
     base:

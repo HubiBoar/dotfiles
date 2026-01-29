@@ -1,0 +1,21 @@
+services:
+  deb-builder:
+    image: ubuntu:latest
+    volumes:
+      - ../release:/release:rw
+      - ../../..:/src:ro
+    command: >
+      bash -c "
+        echo Building wikiman-${PKGVER}-${PKGREL} for Ubuntu... &&
+        apt update &&
+        apt -y install make &&
+        cp -arp /src ~/wikiman &&
+        chown -R root:root ~/wikiman &&
+        cd ~/wikiman &&
+        make all &&
+        mkdir -p ./pkgbuild/DEBIAN &&
+        cp /src/build/package/deb/conffiles ./pkgbuild/DEBIAN &&
+        sed 's|BUILDER_PKGVER|${PKGVER}-${PKGREL}|g' /src/build/package/deb/control > ./pkgbuild/DEBIAN/control &&
+        dpkg -b ./pkgbuild /release/wikiman-${PKGVER}-${PKGREL}_any.deb &&
+        echo Build completed successfully!
+      "

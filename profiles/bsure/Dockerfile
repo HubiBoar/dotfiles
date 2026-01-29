@@ -126,7 +126,8 @@ RUN cp -r /base-files/. /home/hubert/
 RUN chown -R hubert:hubert /scripts
 RUN chown -R hubert:hubert /home/hubert
 
-RUN chown -R hubert:hubert /home/hubert
+RUN apt-get install xauth -y
+RUN apt-get install powershell -y
 
 USER hubert
 

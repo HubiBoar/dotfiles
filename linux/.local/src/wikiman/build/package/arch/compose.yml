@@ -1,0 +1,29 @@
+services:
+  arch-builder:
+    image: archlinux:latest
+    volumes:
+      - ../release:/release:rw
+      - ../../..:/src:ro
+    command: >
+      bash -c "
+        echo Building wikiman-${PKGVER}-${PKGREL} for Arch Linux... &&
+        pacman -Sy --noconfirm make binutils fakeroot curl debugedit &&
+        mkdir /tmp/build &&
+        cd /tmp/build &&
+        cp -arp /src /tmp/build/wikiman-${PKGVER} &&
+        tar czf ${PKGVER}.tar.gz ./wikiman-${PKGVER} &&
+        echo 'pkgver=${PKGVER}' > PKGBUILD &&
+        echo 'pkgrel=${PKGREL}' >> PKGBUILD &&
+        echo \"sha256sums=('`sha256sum ${PKGVER}.tar.gz | cut -d' ' -f1`')\" >> PKGBUILD &&
+        echo 'source=('${PKGVER}.tar.gz')' >> PKGBUILD &&
+        cp /src/build/package/arch/PKGBUILD PKGBUILD.original &&
+        sed '/^pkgver=/d; /^pkgrel=/d; /^source=/d; /^sha256sums=/d' -i PKGBUILD.original &&
+        cat PKGBUILD.original >> PKGBUILD &&
+        echo \"COMPRESSZST=(zstd -c -T0 --ultra -20 -) PKGEXT='.pkg.tar.zst'\" >> /etc/makepkg.conf &&
+        useradd -u ${UID} builder &&
+        chown builder:builder /tmp/build &&
+        su builder -c 'makepkg -d' &&
+        mv wikiman-${PKGVER}-${PKGREL}-any.pkg.* /release &&
+        chown ${UID}:${UID} /release/wikiman-${PKGVER}-${PKGREL}-any.pkg.* &&
+        echo Build completed successfully!
+      "

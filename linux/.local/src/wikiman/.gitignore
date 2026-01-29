@@ -1,0 +1,4 @@
+pkgbuild/
+srcbuild/
+wikiman-*.tar.gz
+pkg-plist

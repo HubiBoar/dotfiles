@@ -1,0 +1,31 @@
+services:
+  arch:
+    image: archlinux:latest
+    volumes:
+      - ./release:/release:rw
+      - ./arch.sh:/build.sh:ro
+    entrypoint: /build.sh
+  gentoo:
+    image: archlinux:latest
+    volumes:
+      - ./release:/release:rw
+      - ./gentoo.sh:/build.sh:ro
+    entrypoint: /build.sh
+  fbsd:
+    image: archlinux:latest
+    volumes:
+      - ./release:/release:rw
+      - ./fbsd.sh:/build.sh:ro
+    entrypoint: /build.sh
+  tldr:
+    image: archlinux:latest
+    volumes:
+      - ./release:/release:rw
+      - ./tldr.sh:/build.sh:ro
+    entrypoint: /build.sh
+  devdocs:
+    image: archlinux:latest
+    volumes:
+      - ./release:/release:rw
+      - ./devdocs.sh:/build.sh:ro
+    entrypoint: /build.sh
