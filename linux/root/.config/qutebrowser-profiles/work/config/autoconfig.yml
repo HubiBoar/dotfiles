@@ -6,5 +6,5 @@
 
 config_version: 2
 settings:
-  content.pdfjs:
-    global: false
+  colors.statusbar.url.fg:
+    global: orange
