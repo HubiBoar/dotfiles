@@ -1,0 +1,8 @@
+[Desktop Entry]
+Type=Application
+Name=Qutebrowser (Personal)
+Exec=qutebrowser --basedir /home/hubert/.config/qutebrowser-profiles/personal %u
+Icon=qutebrowser
+Terminal=false
+Categories=Network;WebBrowser;
+StartupWMClass=qutebrowser-personal
