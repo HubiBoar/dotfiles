@@ -217,19 +217,19 @@ c.colors.webpage.darkmode.enabled = True
 # font setting, it's replaced with the fonts listed here. If set to an
 # empty value, a system-specific monospace default is used.
 # Type: List of Font, or Font
-c.fonts.default_family = ['Noto Sans', 'Noto Color Emoji']
+c.fonts.default_family = ['Hack Nerd Font', 'Hack Nerd Font Mono']
 
 # Font family for standard fonts.
 # Type: FontFamily
-c.fonts.web.family.standard = 'Noto Sans'
+c.fonts.web.family.standard = 'Hack Nerd Font'
 
 # Font family for serif fonts.
 # Type: FontFamily
-c.fonts.web.family.serif = 'Noto Serif'
+c.fonts.web.family.serif = 'Hack Nerd Font'
 
 # Font family for sans-serif fonts.
 # Type: FontFamily
-c.fonts.web.family.sans_serif = 'Noto Sans'
+c.fonts.web.family.sans_serif = 'Hack Nerd Font Mono'
 
 # Bindings for normal mode
 config.bind('<Ctrl+1>', 'tab-focus 1')
