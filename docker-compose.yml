@@ -1,57 +1,25 @@
-x-base: &base
-  network_mode: "host"
-  #user: "${UID?:'UID is needed'}:${GID?:'GID is needed'}"  # <-- run as your host user
-  init: true
-  environment:
-    PROFILE: ${PROFILE}
-    STATE_PATH: "$PWD/profiles/${PROFILE}/state"
-    STATE_HOME_PATH: "$PWD/profiles/${PROFILE}/state/root"
-    DISPLAY: $DISPLAY
-    XAUTHORITY: /tmp/.Xauthority
-    #SSH_AUTH_SOCK: /ssh-agent
-  volumes: 
-    - ./profiles/${PROFILE}/state/root/.local/share/nvim/harpoon:/root/.local/share/nvim/harpoon
-    - ./profiles/${PROFILE}/state/root/.ssh:/root/.ssh
-    - ./profiles/${PROFILE}/state/root/.azure:/root/.azure
-    - ./profiles/${PROFILE}/state/root/.aspnet:/root/.aspnet
-    - ./profiles/${PROFILE}/state/root/.config/gh:/root/.config/gh
-    - ./profiles/${PROFILE}/lazy-lock.json:/root/.config/nvim/lazy-lock.json
-    - /var/run/docker.sock:/var/run/docker.sock
-    - ~/projects:/home/projects
-    - .:/home/dotfiles
-    - /etc/hosts:/etc/hosts
-    - ~/.docker:/root/.docker
-    - ~/.password-store:/root/.password-store
-    - ~/.gnupg:/root/.gnupg:rw
-    - /tmp/.X11-unix:/tmp/.X11-unix 
-    - /home/bsure/.Xauthority:/tmp/.Xauthority:ro 
-
 services:
-    base:
-      image: cde/base 
-      build:
-        context: ./profiles/base
-
-    go:
-      <<: *base 
-      container_name: cde-go
-      build: 
-        context: ./profiles/go
-
-    dotnet:
-      <<: *base 
-      container_name: cde-dotnet
-      build: 
-        context: ./profiles/dotnet
-
-    nis:
-      <<: *base 
-      container_name: cde-nis
-      build:
-        context: ./profiles/nis
-
-    bsure:
-      <<: *base 
-      container_name: cde-bsure
-      build:
-        context: ./profiles/bsure
+  identity:
+    image: cde-identity
+    build:
+      context: ./new-profiles/identity
+      args:
+        DEV_USER: ${DEV_USER}
+        DEV_UID: ${DEV_UID}
+        DEV_GID: ${DEV_GID}
+    network_mode: "host"
+    user: "${DEV_UID}:${DEV_GID}"
+    working_dir: /home/${DEV_USER}/projects
+    volumes:
+      - /etc/hosts:/etc/hosts
+      - ${SSH_AUTH_SOCK}:/ssh-agent
+      - /tmp/.X11-unix:/tmp/.X11-unix 
+      - ${HOME}/.Xauthority:/tmp/.Xauthority:ro 
+      - ./new-profiles/state/identity/projects:/home/${DEV_USER}/projects
+      - ./new-profiles/state/identity/.ssh/known_hosts:/home/${DEV_USER}/.ssh/known_hosts
+    environment:
+      DISPLAY: $DISPLAY
+      SSH_AUTH_SOCK: /ssh-agent
+      XAUTHORITY: /tmp/.Xauthority
+    tty: true
+    stdin_open: true

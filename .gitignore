@@ -1,4 +1,6 @@
+*.env
 profiles/**/state/
+new-profiles/state/
 **/qutebrowser-profiles/*
 
 # But keep these two files
