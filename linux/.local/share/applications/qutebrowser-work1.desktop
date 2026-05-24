@@ -1,0 +1,8 @@
+[Desktop Entry]
+Type=Application
+Name=Qutebrowser (01 bsure.io)
+Exec=qutebrowser --basedir /home/bsure/.config/qutebrowser-profiles/work1 %u
+Icon=qutebrowser
+Terminal=false
+Categories=Network;WebBrowser;
+StartupWMClass=qutebrowser-work1

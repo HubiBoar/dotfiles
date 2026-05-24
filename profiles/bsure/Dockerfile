@@ -1,17 +1,18 @@
 FROM cde/base
 
-ENV GITHUB_CLI_VERSION=2.65.0
+ENV GITHUB_CLI_VERSION=2.87.0
 
 # ------- DOTNET -------
 
 WORKDIR /installers
 
-RUN wget https://packages.microsoft.com/config/ubuntu/22.04/packages-microsoft-prod.deb -O packages-microsoft-prod.deb && \
+RUN wget https://packages.microsoft.com/config/ubuntu/25.04/packages-microsoft-prod.deb -O packages-microsoft-prod.deb && \
     dpkg -i packages-microsoft-prod.deb && \
     rm packages-microsoft-prod.deb && \
-    apt update && \
-    apt install -y dotnet-sdk-9.0=9.0.203-1 && \
-    apt install -y dotnet-sdk-8.0=8.0.404-1 && \
+    apt-get update && \
+    apt-get install -y dotnet-sdk-10.0=10.0.100-0ubuntu1~25.04.1 && \
+    apt-get install -y dotnet-sdk-9.0=9.0.112-0ubuntu1~25.04.1 && \
+    apt-get install -y dotnet-sdk-8.0=8.0.122-0ubuntu1~25.04.1 && \
     rm -rf /installers
 
 RUN dotnet --version
@@ -113,23 +114,25 @@ RUN curl -L -o node.tar.xz https://nodejs.org/dist/v24.10.0/node-v24.10.0-linux-
     && ln -s /usr/local/node-v24.10.0/bin/npx /usr/local/bin/npx \
     && rm -rf /installers
 
+# ------- Dotnet EF -------
+
+RUN dotnet tool install --global dotnet-ef
 
 # ------- RUN -------
 
-RUN useradd -m -u 1000 hubert
-
-COPY root/ /home/hubert/
+COPY root/ /root/
 COPY scripts/ /scripts/
 
-RUN cp -r /base-files/. /home/hubert/
-
-RUN chown -R hubert:hubert /scripts
-RUN chown -R hubert:hubert /home/hubert
+RUN echo 'export PATH="$PATH:$HOME/.dotnet/tools"' >> "$HOME/.zshrc"
 
 RUN apt-get install xauth -y
-RUN apt-get install powershell -y
+RUN apt-get --fix-missing update 
 
-USER hubert
+# POWERSHELL
+RUN wget https://github.com/PowerShell/PowerShell/releases/download/v7.5.5/powershell_7.5.5-1.deb_amd64.deb
+RUN dpkg -i powershell_7.5.5-1.deb_amd64.deb
+RUN apt-get install -f
+RUN rm powershell_7.5.5-1.deb_amd64.deb
 
 RUN git config --global url."git@github-bsureas:bsureas/".insteadOf "git@github.com:bsureas/"
 

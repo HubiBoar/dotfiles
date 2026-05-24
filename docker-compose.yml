@@ -10,22 +10,21 @@ x-base: &base
     XAUTHORITY: /tmp/.Xauthority
     #SSH_AUTH_SOCK: /ssh-agent
   volumes: 
-    - ./profiles/${PROFILE}/state/root/.local/share/nvim/harpoon:/home/hubert/.local/share/nvim/harpoon
-    - ./profiles/${PROFILE}/state/root/.ssh:/home/hubert/.ssh
-    - ./profiles/${PROFILE}/state/root/.azure:/home/hubert/.azure
-    - ./profiles/${PROFILE}/state/root/.aspnet:/home/hubert/.aspnet
-    - ./profiles/${PROFILE}/state/root/.config/gh:/home/hubert/.config/gh
-    - ./profiles/${PROFILE}/lazy-lock.json:/home/hubert/.config/nvim/lazy-lock.json
+    - ./profiles/${PROFILE}/state/root/.local/share/nvim/harpoon:/root/.local/share/nvim/harpoon
+    - ./profiles/${PROFILE}/state/root/.ssh:/root/.ssh
+    - ./profiles/${PROFILE}/state/root/.azure:/root/.azure
+    - ./profiles/${PROFILE}/state/root/.aspnet:/root/.aspnet
+    - ./profiles/${PROFILE}/state/root/.config/gh:/root/.config/gh
+    - ./profiles/${PROFILE}/lazy-lock.json:/root/.config/nvim/lazy-lock.json
     - /var/run/docker.sock:/var/run/docker.sock
-    - .:/home/dotfiles
-    - ~:/home/home
     - ~/projects:/home/projects
+    - .:/home/dotfiles
     - /etc/hosts:/etc/hosts
-    - ~/.docker:/home/hubert/.docker
-    - ~/.password-store:/home/hubert/.password-store
-    - ~/.gnupg:/home/hubert/.gnupg:rw
+    - ~/.docker:/root/.docker
+    - ~/.password-store:/root/.password-store
+    - ~/.gnupg:/root/.gnupg:rw
     - /tmp/.X11-unix:/tmp/.X11-unix 
-    - ~/.Xauthority:/tmp/.Xauthority:ro 
+    - /home/bsure/.Xauthority:/tmp/.Xauthority:ro 
 
 services:
     base:

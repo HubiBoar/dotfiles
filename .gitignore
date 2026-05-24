@@ -1,2 +1,7 @@
 profiles/**/state/
-nix/state/
+**/qutebrowser-profiles/*
+
+# But keep these two files
+!**/qutebrowser-profiles/**/config/config.py
+!**/qutebrowser-profiles/**/config/autoconfig.yml
+!**/qutebrowser-profiles/**/config/bookmarks/urls
