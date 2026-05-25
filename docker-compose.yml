@@ -15,11 +15,14 @@ services:
       - ${SSH_AUTH_SOCK}:/ssh-agent
       - /tmp/.X11-unix:/tmp/.X11-unix 
       - ${HOME}/.Xauthority:/tmp/.Xauthority:ro 
-      - ./new-profiles/state/identity/projects:/home/${DEV_USER}/projects
-      - ./new-profiles/state/identity/.ssh/known_hosts:/home/${DEV_USER}/.ssh/known_hosts
+      - ./new-profiles/base/.config/nvim:/home/${DEV_USER}/.config/nvim
+      - ./new-profiles/base/.gitconfig:/home/${DEV_USER}/.gitconfig
+      - ./new-profiles/base/.p10k.zsh:/home/${DEV_USER}/.p10k.zsh
+      - ./new-profiles/base/.zshrc:/home/${DEV_USER}/.zshrc
+      - ./new-profiles/identity/state/projects:/home/${DEV_USER}/projects
+      - ./new-profiles/identity/state/.ssh/known_hosts:/home/${DEV_USER}/.ssh/known_hosts
     environment:
       DISPLAY: $DISPLAY
       SSH_AUTH_SOCK: /ssh-agent
       XAUTHORITY: /tmp/.Xauthority
     tty: true
-    stdin_open: true
