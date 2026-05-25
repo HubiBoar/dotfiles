@@ -3,18 +3,16 @@ local M = {}
 M.setup = function()
     local overloads = require("plugins.lspoverloads")
     local capabilities = require("cmp_nvim_lsp").default_capabilities()
-    local lspconfig = require("lspconfig")
 
     local logpath = vim.fn.stdpath("state") .. "/lua-language-server"
     vim.fn.mkdir(logpath, "p")
 
-    lspconfig.lua_ls.setup({
+    vim.lsp.config("lua_ls", {
         cmd = {
             "lua-language-server",
             "--logpath=" .. logpath,
         },
 
-        diagnostics = { disable = { "missing-fields" } },
         capabilities = capabilities,
 
         settings = {
@@ -40,6 +38,8 @@ M.setup = function()
             overloads.setup("lua", client, bufnr)
         end,
     })
+
+    vim.lsp.enable("lua_ls")
 end
 
 return M

@@ -1,5 +1,6 @@
 services:
   identity:
+    init: true
     image: cde-identity
     build:
       context: ./
@@ -23,6 +24,12 @@ services:
       - ./identity/state/projects:/home/${DEV_USER}/projects
       - ./identity/state/.ssh/known_hosts:/home/${DEV_USER}/.ssh/known_hosts
     environment:
+      USER: ${DEV_USER}
+      LOGNAME: ${DEV_USER}
+      HOME: /home/${DEV_USER}
+      SHELL: /bin/zsh
+      TERM: xterm-256color
+      COLORTERM: truecolor
       DISPLAY: $DISPLAY
       SSH_AUTH_SOCK: /ssh-agent
       XAUTHORITY: /tmp/.Xauthority

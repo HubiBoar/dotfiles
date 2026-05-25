@@ -120,7 +120,34 @@ RUN set -eux; \
     rm -rf /tmp/tree-sitter.zip /tmp/tree-sitter-cli; \
     tree-sitter --version
 
+# ------ NODE -----
+
+ARG NODE_VERSION="24.15.0"
+ARG NODE_DISTRO="linux-x64"
+ARG NODE_DIR="node-v${NODE_VERSION}-${NODE_DISTRO}"
+
+WORKDIR /installers/node
+
+RUN curl -fsSL -o node.tar.xz \
+      "https://nodejs.org/dist/v${NODE_VERSION}/${NODE_DIR}.tar.xz" \
+    && tar -xJf node.tar.xz \
+    && mv "${NODE_DIR}" "/usr/local/node-v${NODE_VERSION}" \
+    && ln -sf "/usr/local/node-v${NODE_VERSION}/bin/node" /usr/local/bin/node \
+    && ln -sf "/usr/local/node-v${NODE_VERSION}/bin/npm" /usr/local/bin/npm \
+    && ln -sf "/usr/local/node-v${NODE_VERSION}/bin/npx" /usr/local/bin/npx \
+    && rm -rf /installers/node
+
+RUN node --version && npm --version
+
 # ------ Language Server Protocol -----
+
+# ------ YAML LSP -----
+
+ARG YAML_LANGUAGE_SERVER_VERSION="1.14.0"
+
+RUN npm install -g yaml-language-server@${YAML_LANGUAGE_SERVER_VERSION} \
+    && ln -sf /usr/local/node-v${NODE_VERSION}/bin/yaml-language-server /usr/local/bin/yaml-language-server \
+    && yaml-language-server --version
 
 # ------ LUA -----
 ARG LUA_LANGUAGE_SERVER_VERSION="3.18.2"
@@ -141,10 +168,10 @@ RUN mkdir -p /opt/lua-language-server && \
 
 RUN pacman -Syu --noconfirm --needed \
       ca-certificates \
-      dotnet-sdk \
-      dotnet-sdk-9.0 \
-      dotnet-sdk-8.0 && \
-    pacman -Scc --noconfirm
+      dotnet-sdk
+#      dotnet-sdk-9.0 \
+#      dotnet-sdk-8.0 \
+    #&& pacman -Scc --noconfirm
 
 #TODO: bicep LSP, ts LSP, html LSP
 #TODO: npm, azcli, bicep, github cli
@@ -165,6 +192,9 @@ RUN dotnet tool install \
 RUN zsh -c '/home/${DEV_USER}/powerlevel10k/gitstatus/install'
 
 RUN mkdir -p /home/${DEV_USER}/.local/share/nvim
+
+SHELL ["/bin/zsh", "-c"]
+ENTRYPOINT ["/bin/zsh"]
 
 
 #COPY base/build/scripts/install-nvim-plugin /usr/local/bin/install-nvim-plugin

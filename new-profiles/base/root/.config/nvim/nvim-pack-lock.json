@@ -20,6 +20,11 @@
       "src": "https://github.com/hrsh7th/nvim-cmp",
       "version": "'b5311ab3ed9c846b585c0c15b7559be131ec4be9'"
     },
+    "nvim-lspconfig": {
+      "rev": "a182334ba933e58240c2c45e6ae2d9c7ae313e00",
+      "src": "https://github.com/neovim/nvim-lspconfig",
+      "version": "'f6738ef65dabade340b473d4ff2a1ad3352c10e7'"
+    },
     "nvim-treesitter": {
       "rev": "4916d6592ede8c07973490d9322f187e07dfefac",
       "src": "https://github.com/nvim-treesitter/nvim-treesitter",
