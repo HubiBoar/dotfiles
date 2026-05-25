@@ -146,17 +146,16 @@ RUN pacman -Syu --noconfirm --needed \
       dotnet-sdk-8.0 && \
     pacman -Scc --noconfirm
 
-ARG ROSLYN_LANGUAGE_SERVER_VERSION="5.8.0-1.26266.2"
+#TODO: bicep LSP, ts LSP, html LSP
+#TODO: npm, azcli, bicep, github cli
 
-# ------- PLUGINS -------
-
-#COPY base/build/scripts/install-nvim-plugin /usr/local/bin/install-nvim-plugin
-#RUN chmod 755 /usr/local/bin/install-nvim-plugin
 
 USER ${DEV_USER}
 WORKDIR /home/${DEV_USER}
 
 RUN echo 'export PATH="$PATH:$HOME/.dotnet/tools"' >> "/home/${DEV_USER}/.zshrc"
+
+ARG ROSLYN_LANGUAGE_SERVER_VERSION="5.8.0-1.26266.2"
 
 RUN dotnet tool install \
       --global \
@@ -167,6 +166,9 @@ RUN zsh -c '/home/${DEV_USER}/powerlevel10k/gitstatus/install'
 
 RUN mkdir -p /home/${DEV_USER}/.local/share/nvim
 
+
+#COPY base/build/scripts/install-nvim-plugin /usr/local/bin/install-nvim-plugin
+#RUN chmod 755 /usr/local/bin/install-nvim-plugin
 
 # ------- Treesitter -----
 #RUN install-nvim-plugin "nvim-treesitter/nvim-treesitter-textobjects" "851e865342e5a4cb1ae23d31caf6e991e1c99f1e" treesitter-text-object

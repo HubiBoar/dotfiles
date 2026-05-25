@@ -11,7 +11,6 @@ M.setup = function()
         "*.sln",
         "*.slnx",
         "*.csproj",
-        ".git",
       },
 
       settings = {

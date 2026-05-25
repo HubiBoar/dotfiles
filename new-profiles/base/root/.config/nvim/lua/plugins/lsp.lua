@@ -2,7 +2,7 @@ local M = {}
 
 M.pack_lspconfig = {
   src = "https://github.com/neovim/nvim-lspconfig",
-  version = "a182334ba933e58240c2c45e6ae2d9c7ae313e00",
+  version = "f6738ef65dabade340b473d4ff2a1ad3352c10e7",
 }
 
 M.pack_overloads = {
