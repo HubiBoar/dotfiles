@@ -12,9 +12,4 @@ M.setup = function(name, client, bufnr)
     end
 end
 
-M.install = {
-    "Issafalcon/lsp-overloads.nvim",
-    commit = "7d766bfccbff2ab0be8089ea4d1493089f67a408"
-}
-
 return M

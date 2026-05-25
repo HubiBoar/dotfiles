@@ -1,0 +1,14 @@
+#!/usr/bin/env bash
+set -euo pipefail
+
+OWNER_REPO="${1:?usage: install-nvim-plugin OWNER/REPO REF [PLUGIN_NAME]}"
+REF="${2:?usage: install-nvim-plugin OWNER/REPO REF [PLUGIN_NAME]}"
+PLUGIN_NAME="${3:-$(basename "$OWNER_REPO")}"
+
+NVIM_PACK_DIR="${NVIM_PACK_DIR:-$HOME/.local/share/nvim/site/pack/vendor/start}"
+PLUGIN_DIR="${NVIM_PACK_DIR}/${PLUGIN_NAME}"
+
+mkdir -p "$PLUGIN_DIR"
+
+curl -fsSL "https://github.com/${OWNER_REPO}/archive/${REF}.tar.gz" \
+  | tar -xz --strip-components=1 -C "$PLUGIN_DIR"

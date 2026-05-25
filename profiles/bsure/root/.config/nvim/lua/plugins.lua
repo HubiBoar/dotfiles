@@ -6,7 +6,7 @@ require("lazy").setup(
     require("plugins.telescope"),
     require("plugins.treesitter"),
     require("plugins.lsp"),
-    require("plugins.lsp_config"),
+    require("new-profiles.base.root.config.nvim.lua.plugins.lsp_config_identity"),
     require("plugins.oil"),
     require("plugins.completions"),
     require("plugins.harpoon"),

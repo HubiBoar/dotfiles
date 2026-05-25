@@ -1,0 +1,8 @@
+require("plugins.treesitter").setup()
+require("plugins.camelCaseMotion").setup()
+require("plugins.colorschema").setup()
+require("plugins.completions").setup()
+require("plugins.telescope").setup()
+require("plugins.lsp").setup()
+require("plugins.lsp_config_identity").setup()
+require("plugins.oil").setup()

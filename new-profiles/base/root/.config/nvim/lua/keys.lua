@@ -86,20 +86,11 @@ M.default = function ()
 
     vim.keymap.set('i', "<M-PageUp>",    "<nop>", remap)
     vim.keymap.set('i', "<M-PageDown>",  "<nop>", remap)
-end
 
-M.tmux = function()
-    local remap = { remap = true }
-    vim.keymap.set('', '<C-h>', "<cmd>TmuxNavigateLeft<cr>", remap)
-    vim.keymap.set('', '<C-l>', "<cmd>TmuxNavigateRight<cr>", remap)
-    vim.keymap.set('', '<C-j>', "<cmd>TmuxNavigateDown<cr>", remap)
-    vim.keymap.set('', '<C-k>', "<cmd>TmuxNavigateUp<cr>", remap)
-end
-
-M.hop = function()
-    local remap = { remap = true }
-    vim.keymap.set('', '<leader>j', "<cmd>HopLine<cr>", remap)
-    vim.keymap.set('', '<leader>J', "<cmd>HopWord<cr>", remap)
+    vim.keymap.set('', '<C-h>', '<C-w>h', remap)
+    vim.keymap.set('', '<C-l>', '<C-w>l', remap)
+    vim.keymap.set('', '<C-j>', '<C-w>j', remap)
+    vim.keymap.set('', '<C-k>', '<C-w>k', remap)
 end
 
 M.lsp = function()
@@ -176,23 +167,6 @@ M.treesitter_selection_modes = function ()
     }
 end
 
-M.harpoon = function (harpoon, toggle_telescope)
-
-    vim.keymap.set("n", "<leader>ha", function() harpoon:list():add() end)
-    vim.keymap.set("n", "<leader>hh", function() harpoon.ui:toggle_quick_menu(harpoon:list()) end)
-    vim.keymap.set("n", "<leader>hl", function() toggle_telescope(harpoon:list()) end, { desc = "Open harpoon window" })
-
-    vim.keymap.set("n", "<leader>1", function() harpoon:list():select(1) end)
-    vim.keymap.set("n", "<leader>2", function() harpoon:list():select(2) end)
-    vim.keymap.set("n", "<leader>3", function() harpoon:list():select(3) end)
-    vim.keymap.set("n", "<leader>4", function() harpoon:list():select(4) end)
-    vim.keymap.set("n", "<leader>5", function() harpoon:list():select(5) end)
-    vim.keymap.set("n", "<leader>6", function() harpoon:list():select(6) end)
-    vim.keymap.set("n", "<leader>7", function() harpoon:list():select(7) end)
-
-    vim.keymap.set("n", "<leader>hk", function() harpoon:list():prev() end)
-    vim.keymap.set("n", "<leader>hj", function() harpoon:list():next() end)
-end
 
 M.telescope = function (builtin)
     vim.keymap.set("n", "<leader>ff", function() builtin.find_files() end)
@@ -200,11 +174,6 @@ M.telescope = function (builtin)
     vim.keymap.set("n", "<leader>fr", function() builtin.registers() end)
     vim.keymap.set("n", "<leader>fg", function() builtin.live_grep()  end)
     vim.keymap.set("n", "<leader>fd", function() builtin.resume()  end)
-end
-
-M.dap = function (dap)
-    vim.keymap.set("n", "<leader>db", dap.toggle_breakpoint, {})
-    vim.keymap.set("n", "<leader>dc", dap.continue, {})
 end
 
 M.overloads_keymaps = function ()

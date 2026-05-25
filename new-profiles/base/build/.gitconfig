@@ -15,9 +15,6 @@
 	editor = nvim
 	autocrlf = input
 	filemode = false
-[user]
-	name = HubiBoar
-	email = 150520704+HubiBoar@users.noreply.github.com
 [safe]
     directory = *
 [submodule]
