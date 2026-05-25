@@ -137,6 +137,16 @@ RUN mkdir -p /opt/lua-language-server && \
       /usr/local/bin/lua-language-server && \
     rm -f /tmp/lua-language-server.tar.gz
 
+# ------ Roslyn ----
+
+RUN pacman -Syu --noconfirm --needed \
+      ca-certificates \
+      dotnet-sdk \
+      dotnet-sdk-9.0 \
+      dotnet-sdk-8.0 && \
+    pacman -Scc --noconfirm
+
+ARG ROSLYN_LANGUAGE_SERVER_VERSION="5.8.0-1.26266.2"
 
 # ------- PLUGINS -------
 
@@ -146,6 +156,12 @@ RUN mkdir -p /opt/lua-language-server && \
 USER ${DEV_USER}
 WORKDIR /home/${DEV_USER}
 
+RUN echo 'export PATH="$PATH:$HOME/.dotnet/tools"' >> "/home/${DEV_USER}/.zshrc"
+
+RUN dotnet tool install \
+      --global \
+      roslyn-language-server \
+      --version "${ROSLYN_LANGUAGE_SERVER_VERSION}" 
 
 RUN zsh -c '/home/${DEV_USER}/powerlevel10k/gitstatus/install'
 
