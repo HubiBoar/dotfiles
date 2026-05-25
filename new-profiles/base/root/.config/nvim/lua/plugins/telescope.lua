@@ -1,5 +1,15 @@
 local M = {}
 
+M.pack_plenary = {
+  src = "https://github.com/nvim-lua/plenary.nvim",
+  version = "74b06c6c75e4eeb3108ec01852001636d85a932b",
+}
+
+M.pack_telescope = {
+  src = "https://github.com/nvim-telescope/telescope.nvim",
+  version = "7d324792b7943e4aa16ad007212e6acc6f9fe335",
+}
+
 M.find_files = function()
     local builtin = require("telescope.builtin")
     builtin.find_files ({

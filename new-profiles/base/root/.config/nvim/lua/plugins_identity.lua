@@ -1,8 +1,23 @@
-require("plugins.treesitter").setup()
+vim.pack.add({
+    require("plugins.camelCaseMotion").pack,
+    require("plugins.colorschema").pack,
+    require("plugins.completions").pack_cmp,
+    require("plugins.completions").pack_lsp,
+    require("plugins.telescope").pack_plenary,
+    require("plugins.telescope").pack_telescope,
+    require("plugins.treesitter").pack_text_objects,
+    require("plugins.treesitter").pack_treesitter,
+    require("plugins.lsp").pack_lspconfig,
+    require("plugins.lsp").pack_overloads,
+    require("plugins.oil").pack_devicons,
+    require("plugins.oil").pack_oil,
+})
+
 require("plugins.camelCaseMotion").setup()
 require("plugins.colorschema").setup()
 require("plugins.completions").setup()
 require("plugins.telescope").setup()
+require("plugins.treesitter").setup()
 require("plugins.lsp").setup()
 require("plugins.lsp_config_identity").setup()
 require("plugins.oil").setup()

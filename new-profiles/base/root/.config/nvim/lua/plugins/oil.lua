@@ -1,6 +1,16 @@
 -- based on https://github.com/tjdevries/config.nvim/blob/master/lua/custom/plugins/oil.lua
 local M = {}
 
+M.pack_devicons = {
+  src = "https://github.com/nvim-tree/nvim-web-devicons",
+  version = "1fb58cca9aebbc4fd32b086cb413548ce132c127",
+}
+
+M.pack_oil = {
+      src = "https://github.com/stevearc/oil.nvim",
+      version = "08c2bce8b00fd780fb7999dbffdf7cd174e896fb",
+}
+
 M.setup = function()
     CustomOilBar = function()
         local path = vim.fn.expand "%"

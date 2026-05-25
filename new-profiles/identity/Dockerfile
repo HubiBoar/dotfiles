@@ -104,12 +104,25 @@ COPY --chown=${DEV_UID}:${DEV_GID} base/build/.zshrc /home/${DEV_USER}/.zshrc
 COPY --chown=${DEV_UID}:${DEV_GID} base/build/.gitconfig /home/${DEV_USER}/.gitconfig
 COPY --chown=${DEV_UID}:${DEV_GID} base/build/.p10k.zsh /home/${DEV_USER}/.p10k.zsh
 
-RUN zsh -c '/home/${DEV_USER}/powerlevel10k/gitstatus/install'
+# ------- NVIM -------
+
+# ------ Treesitter ----
+ARG TREE_SITTER_VERSION="v0.26.9"
+ARG TREE_SITTER_SHA256="0ea5daaef79145fe73786f0e3cdc43b62b22ddb36f7f6676c9f8bb72434d78e9"
+
+RUN set -eux; \
+    curl -fsSL \
+      "https://github.com/tree-sitter/tree-sitter/releases/download/${TREE_SITTER_VERSION}/tree-sitter-cli-linux-x64.zip" \
+      -o /tmp/tree-sitter.zip; \
+    echo "${TREE_SITTER_SHA256}  /tmp/tree-sitter.zip" | sha256sum -c -; \
+    unzip -q /tmp/tree-sitter.zip -d /tmp/tree-sitter-cli; \
+    install -m 0755 /tmp/tree-sitter-cli/tree-sitter /usr/local/bin/tree-sitter; \
+    rm -rf /tmp/tree-sitter.zip /tmp/tree-sitter-cli; \
+    tree-sitter --version
 
 # ------ Language Server Protocol -----
 
 # ------ LUA -----
-
 ARG LUA_LANGUAGE_SERVER_VERSION="3.18.2"
 ARG LUA_LANGUAGE_SERVER_SHA256="ca71415dd19f19e30aaa35a4915aefca9fdb5fec31b98331cc3d77f778d539c5"
 
@@ -125,40 +138,46 @@ RUN mkdir -p /opt/lua-language-server && \
     rm -f /tmp/lua-language-server.tar.gz
 
 
-# ------- NVIM PLUGINS -------
+# ------- PLUGINS -------
 
-COPY base/build/scripts/install-nvim-plugin /usr/local/bin/install-nvim-plugin
-RUN chmod 755 /usr/local/bin/install-nvim-plugin
+#COPY base/build/scripts/install-nvim-plugin /usr/local/bin/install-nvim-plugin
+#RUN chmod 755 /usr/local/bin/install-nvim-plugin
 
 USER ${DEV_USER}
 WORKDIR /home/${DEV_USER}
 
+
+RUN zsh -c '/home/${DEV_USER}/powerlevel10k/gitstatus/install'
+
+RUN mkdir -p /home/${DEV_USER}/.local/share/nvim
+
+
 # ------- Treesitter -----
-RUN install-nvim-plugin "nvim-treesitter/nvim-treesitter-textobjects" "0f051e9813a36481f48ca1f833897210dbcfffde" treesitter-text-object
-RUN install-nvim-plugin "nvim-treesitter/nvim-treesitter" "42fc28ba918343ebfd5565147a42a26580579482" treesitter
+#RUN install-nvim-plugin "nvim-treesitter/nvim-treesitter-textobjects" "851e865342e5a4cb1ae23d31caf6e991e1c99f1e" treesitter-text-object
+#RUN install-nvim-plugin "nvim-treesitter/nvim-treesitter" "4916d6592ede8c07973490d9322f187e07dfefac" treesitter
 
 # ------- LSP -----
-RUN install-nvim-plugin "neovim/nvim-lspconfig" "a182334ba933e58240c2c45e6ae2d9c7ae313e00" lsp-config
-RUN install-nvim-plugin "Issafalcon/lsp-overloads.nvim" "7d766bfccbff2ab0be8089ea4d1493089f67a408" lsp-overloads
+#RUN install-nvim-plugin "neovim/nvim-lspconfig" "a182334ba933e58240c2c45e6ae2d9c7ae313e00" lsp-config
+#RUN install-nvim-plugin "Issafalcon/lsp-overloads.nvim" "7d766bfccbff2ab0be8089ea4d1493089f67a408" lsp-overloads
 
 # ------- Tokyonight -----
-RUN install-nvim-plugin "folke/tokyonight.nvim" "057ef5d260c1931f1dffd0f052c685dcd14100a3" tokyonight.nvim 
+#RUN install-nvim-plugin "folke/tokyonight.nvim" "057ef5d260c1931f1dffd0f052c685dcd14100a3" tokyonight.nvim 
 
 # ------- CamelCaseMotion -----
-RUN install-nvim-plugin "bkad/CamelCaseMotion" "de439d7c06cffd0839a29045a103fe4b44b15cdc" CamelCaseMotion
+#RUN install-nvim-plugin "bkad/CamelCaseMotion" "de439d7c06cffd0839a29045a103fe4b44b15cdc" CamelCaseMotion
 
 # ------- Completions -----
-RUN install-nvim-plugin "hrsh7th/nvim-cmp" "b5311ab3ed9c846b585c0c15b7559be131ec4be9" nvim-cmp
-RUN install-nvim-plugin "hrsh7th/cmp-nvim-lsp" "a8912b88ce488f411177fc8aed358b04dc246d7b" cmp-nvim-lsp
+#RUN install-nvim-plugin "hrsh7th/nvim-cmp" "b5311ab3ed9c846b585c0c15b7559be131ec4be9" nvim-cmp
+#RUN install-nvim-plugin "hrsh7th/cmp-nvim-lsp" "a8912b88ce488f411177fc8aed358b04dc246d7b" cmp-nvim-lsp
 
 # ------ TELESCOPE ----
-RUN install-nvim-plugin "nvim-lua/plenary.nvim" "857c5ac632080dba10aae49dba902ce3abf91b35" plenary
-RUN install-nvim-plugin "nvim-telescope/telescope.nvim" "6312868392331c9c0f22725041f1ec2bef57c751" telescope
+#RUN install-nvim-plugin "nvim-lua/plenary.nvim" "74b06c6c75e4eeb3108ec01852001636d85a932b" plenary
+#RUN install-nvim-plugin "nvim-telescope/telescope.nvim" "7d324792b7943e4aa16ad007212e6acc6f9fe335" telescope
 #RUN install-nvim-plugin "nvim-telescope/telescope-ui-select.nvim" "6e51d7da30bd139a6950adf2a47fda6df9fa06d2" telescope-ui
 
 # ------ OIL ----
-RUN install-nvim-plugin "nvim-tree/nvim-web-devicons" "1fb58cca9aebbc4fd32b086cb413548ce132c127" devicons
-RUN install-nvim-plugin "stevearc/oil.nvim" "08c2bce8b00fd780fb7999dbffdf7cd174e896fb" oil
+#RUN install-nvim-plugin "nvim-tree/nvim-web-devicons" "1fb58cca9aebbc4fd32b086cb413548ce132c127" devicons
+#RUN install-nvim-plugin "stevearc/oil.nvim" "08c2bce8b00fd780fb7999dbffdf7cd174e896fb" oil
 
 
 SHELL ["/bin/zsh", "-c"]
