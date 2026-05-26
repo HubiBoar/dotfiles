@@ -163,6 +163,19 @@ RUN mkdir -p /opt/lua-language-server && \
       /usr/local/bin/lua-language-server && \
     rm -f /tmp/lua-language-server.tar.gz
 
+# ------ TypeScript / React LSP -----
+
+ARG TYPESCRIPT_VERSION="5.9.3"
+ARG TYPESCRIPT_LANGUAGE_SERVER_VERSION="5.0.0"
+
+RUN npm install -g \
+      typescript@${TYPESCRIPT_VERSION} \
+      typescript-language-server@${TYPESCRIPT_LANGUAGE_SERVER_VERSION} \
+    && command -v typescript-language-server \
+    && command -v tsc \
+    && npm list -g --depth=0 typescript typescript-language-server \
+    && npm cache clean --force
+
 # ------ Roslyn ----
 
 RUN pacman -S --noconfirm --needed \

@@ -1,27 +1,59 @@
 local M = {}
 
-M.name = "ts_ls"
-M.html = "html"
-M.eslint = "eslint"
-
 M.setup = function()
-
-    local overloads = require("plugins.lspoverloads")
-    local capabilities = require('cmp_nvim_lsp').default_capabilities()
-    local lspconfig = require("lspconfig")
-
-    lspconfig.ts_ls.setup(
-    {
-        capabilities = capabilities,
-        settings = {
-            completions = {
-                completeFunctionCalls = true
-            }
+    vim.filetype.add({
+        extension = {
+            ts = "typescript",
+            tsx = "typescriptreact",
+            js = "javascript",
+            jsx = "javascriptreact",
         },
-        on_attach = function(client, bufnr)
-            overloads.setup("ts", client, bufnr);
-        end,
     })
+
+    vim.lsp.config("ts_ls", {
+        cmd = { "typescript-language-server", "--stdio" },
+
+        filetypes = {
+            "javascript",
+            "javascriptreact",
+            "typescript",
+            "typescriptreact",
+        },
+
+        root_markers = {
+            "package.json",
+            "tsconfig.json",
+            "jsconfig.json",
+            ".git",
+        },
+
+        settings = {
+            typescript = {
+                inlayHints = {
+                    includeInlayParameterNameHints = "literal",
+                    includeInlayParameterNameHintsWhenArgumentMatchesName = false,
+                    includeInlayFunctionParameterTypeHints = true,
+                    includeInlayVariableTypeHints = false,
+                    includeInlayPropertyDeclarationTypeHints = true,
+                    includeInlayFunctionLikeReturnTypeHints = true,
+                    includeInlayEnumMemberValueHints = true,
+                },
+            },
+            javascript = {
+                inlayHints = {
+                    includeInlayParameterNameHints = "literal",
+                    includeInlayParameterNameHintsWhenArgumentMatchesName = false,
+                    includeInlayFunctionParameterTypeHints = true,
+                    includeInlayVariableTypeHints = false,
+                    includeInlayPropertyDeclarationTypeHints = true,
+                    includeInlayFunctionLikeReturnTypeHints = true,
+                    includeInlayEnumMemberValueHints = true,
+                },
+            },
+        },
+    })
+
+    vim.lsp.enable("ts_ls")
 end
 
 return M

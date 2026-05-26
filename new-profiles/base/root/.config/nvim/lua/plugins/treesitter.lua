@@ -26,7 +26,9 @@ M.setup = function()
         "c_sharp",
         "go",
         "kotlin",
-        "bicep"
+        "bicep",
+        "javascript",
+        "typescript"
     })
 
     vim.api.nvim_create_autocmd("FileType", {
@@ -39,7 +41,9 @@ M.setup = function()
             "cs",
             "go",
             "kotlin",
-            "bicep"
+            "bicep",
+            "javascript",
+            "typescript"
         },
         callback = function()
             vim.treesitter.start()
