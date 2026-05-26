@@ -22,7 +22,7 @@ services:
       - ./base/root/.config/nvim/init_identity.lua:/home/${DEV_USER}/.config/nvim/init.lua
       - ./base/state/.local/share/nvim/site:/home/${DEV_USER}/.local/share/nvim/site
       - ./identity/state/projects:/home/${DEV_USER}/projects
-      - ./identity/state/.ssh/known_hosts:/home/${DEV_USER}/.ssh/known_hosts
+      - ./identity/state/.ssh:/home/${DEV_USER}/.ssh
     environment:
       USER: ${DEV_USER}
       LOGNAME: ${DEV_USER}
