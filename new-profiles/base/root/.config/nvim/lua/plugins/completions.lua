@@ -1,36 +1,33 @@
 local M = {}
 
-M.pack_cmp = {
-  src = "https://github.com/hrsh7th/nvim-cmp",
-  version = "b5311ab3ed9c846b585c0c15b7559be131ec4be9",
-}
-
-M.pack_lsp = {
-  src = "https://github.com/hrsh7th/cmp-nvim-lsp",
-  version = "a8912b88ce488f411177fc8aed358b04dc246d7b",
-}
-
 M.setup = function()
+  vim.opt.completeopt = { "menuone", "popup", "noinsert", "fuzzy" }
 
-    local cmp = require("cmp")
-    local keys = require("../keys").completions(cmp)
-    cmp.setup(
-    {
-        completion =
-        {
-            autocomplete = false
-        },
-        window =
-        {
-            completion    = cmp.config.window.bordered(),
-            documentation = cmp.config.window.bordered(),
-        },
-        mapping = cmp.mapping.preset.insert(keys),
-        sources = cmp.config.sources(
-        {
-            { name = "nvim_lsp" },
-        }),
+  local keys = require("../keys").completions()
+
+  for lhs, rhs in pairs(keys) do
+    vim.keymap.set("i", lhs, rhs, {
+      expr = lhs == "<CR>",
+      silent = true,
+      desc = "Native LSP completion",
     })
+  end
+
+  vim.api.nvim_create_autocmd("LspAttach", {
+    group = vim.api.nvim_create_augroup("NativeLspCompletion", { clear = true }),
+    callback = function(ev)
+      local client = vim.lsp.get_client_by_id(ev.data.client_id)
+      if not client then
+        return
+      end
+
+      if client:supports_method(vim.lsp.protocol.Methods.textDocument_completion) then
+        vim.lsp.completion.enable(true, client.id, ev.buf, {
+          autotrigger = false,
+        })
+      end
+    end,
+  })
 end
 
 return M

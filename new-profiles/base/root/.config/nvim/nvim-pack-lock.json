@@ -5,20 +5,10 @@
       "src": "https://github.com/bkad/CamelCaseMotion",
       "version": "'de439d7c06cffd0839a29045a103fe4b44b15cdc'"
     },
-    "cmp-nvim-lsp": {
-      "rev": "a8912b88ce488f411177fc8aed358b04dc246d7b",
-      "src": "https://github.com/hrsh7th/cmp-nvim-lsp",
-      "version": "'a8912b88ce488f411177fc8aed358b04dc246d7b'"
-    },
     "lsp-overloads.nvim": {
       "rev": "7d766bfccbff2ab0be8089ea4d1493089f67a408",
       "src": "https://github.com/Issafalcon/lsp-overloads.nvim",
       "version": "'7d766bfccbff2ab0be8089ea4d1493089f67a408'"
-    },
-    "nvim-cmp": {
-      "rev": "b5311ab3ed9c846b585c0c15b7559be131ec4be9",
-      "src": "https://github.com/hrsh7th/nvim-cmp",
-      "version": "'b5311ab3ed9c846b585c0c15b7559be131ec4be9'"
     },
     "nvim-lspconfig": {
       "rev": "a182334ba933e58240c2c45e6ae2d9c7ae313e00",

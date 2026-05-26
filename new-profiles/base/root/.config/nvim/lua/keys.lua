@@ -124,16 +124,19 @@ M.camelCaseMotion = function ()
     vim.keymap.set('', 'ge', "<Plug>CamelCaseMotion_ge", remap)
 end
 
-M.completions = function (cmp)
+M.completions = function()
+  return {
+    ["<C-s>"] = function()
+      vim.lsp.completion.get()
+    end,
 
-    return
-    {
-        ["<C-b>"] = cmp.mapping.scroll_docs(-4),
-        ["<C-f>"] = cmp.mapping.scroll_docs(4),
-        ["<C-s>"] = cmp.mapping.complete(),
-        ["<C-e>"] = cmp.mapping.abort(),
-        ["<CR>"]  = cmp.mapping.confirm({ select = true }),
-    }
+    ["<CR>"] = function()
+      if vim.fn.pumvisible() == 1 then
+        return "<C-y>"
+      end
+      return "<CR>"
+    end,
+  }
 end
 
 M.treesitter_keymaps = function ()

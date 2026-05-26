@@ -1,8 +1,6 @@
 vim.pack.add({
     require("plugins.camelCaseMotion").pack,
     require("plugins.colorschema").pack,
-    require("plugins.completions").pack_cmp,
-    require("plugins.completions").pack_lsp,
     require("plugins.telescope").pack_plenary,
     require("plugins.telescope").pack_telescope,
     require("plugins.treesitter").pack_text_objects,
