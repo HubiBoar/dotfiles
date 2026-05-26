@@ -137,6 +137,87 @@ ENV PATH="/usr/local/node-v${NODE_VERSION}/bin:$PATH"
 
 RUN node --version && npm --version
 
+
+ARG AZURE_CLI_VERSION="2.72.0"
+ARG BICEP_VERSION="v0.33.93"
+ARG GITHUB_CLI_VERSION="2.72.0"
+ARG KUBECTL_VERSION="v1.33.0"
+ARG K9S_VERSION="v0.50.9"
+ARG HELM_VERSION="v3.17.4"
+
+# ------- AZURE CLI -------
+
+ARG AZURE_CLI_VERSION="2.72.0"
+
+RUN pacman -S --noconfirm --needed --quiet python python-pip python-virtualenv \
+    && pacman -Scc --noconfirm >/dev/null
+
+RUN python -m venv /opt/azure-cli \
+    && /opt/azure-cli/bin/pip install -q --no-cache-dir "azure-cli==${AZURE_CLI_VERSION}" \
+    && ln -sf /opt/azure-cli/bin/az /usr/local/bin/az
+
+RUN az --version
+
+
+# ------- BICEP -------
+
+RUN az bicep install --version v0.33.93
+RUN az bicep version
+
+# ------- GITHUB CLI -------
+
+RUN curl -fsSL \
+      "https://github.com/cli/cli/releases/download/v${GITHUB_CLI_VERSION}/gh_${GITHUB_CLI_VERSION}_linux_amd64.tar.gz" \
+      -o /tmp/gh.tar.gz && \
+    tar -xzf /tmp/gh.tar.gz -C /tmp && \
+    install -m 0755 "/tmp/gh_${GITHUB_CLI_VERSION}_linux_amd64/bin/gh" /usr/local/bin/gh && \
+    rm -rf /tmp/gh.tar.gz "/tmp/gh_${GITHUB_CLI_VERSION}_linux_amd64"
+
+RUN gh --version
+
+
+# ------- KUBECTL ---------
+
+RUN curl -fsSL \
+      "https://dl.k8s.io/release/${KUBECTL_VERSION}/bin/linux/amd64/kubectl" \
+      -o /usr/local/bin/kubectl && \
+    chmod +x /usr/local/bin/kubectl
+
+RUN kubectl version --client
+
+
+# ------- K9S ---------
+
+RUN curl -fsSL \
+      "https://github.com/derailed/k9s/releases/download/${K9S_VERSION}/k9s_Linux_amd64.tar.gz" \
+    | tar -xz -C /tmp && \
+    install -m 0755 /tmp/k9s /usr/local/bin/k9s && \
+    rm -f /tmp/k9s
+
+RUN k9s version
+
+
+# ------- HELM ---------
+
+RUN curl -fsSL \
+      "https://get.helm.sh/helm-${HELM_VERSION}-linux-amd64.tar.gz" \
+      -o /tmp/helm.tar.gz && \
+    tar -xzf /tmp/helm.tar.gz -C /tmp && \
+    install -m 0755 /tmp/linux-amd64/helm /usr/local/bin/helm && \
+    rm -rf /tmp/helm.tar.gz /tmp/linux-amd64
+
+RUN helm version
+
+
+# ------- DOTNET --------
+RUN pacman -S --noconfirm --needed \
+      ca-certificates \
+      dotnet-sdk=10.0.4.sdk104-1
+
+RUN dotnet tool install --global dotnet-ef
+
+
+
 # ------ Language Server Protocol -----
 
 # ------ YAML LSP -----
@@ -178,13 +259,6 @@ RUN npm install -g \
 
 # ------ Roslyn ----
 
-RUN pacman -S --noconfirm --needed \
-      ca-certificates \
-      dotnet-sdk=10.0.4.sdk104-1
-
-#TODO: bicep LSP, ts LSP, html LSP
-#TODO: npm, azcli, bicep, github cli
-
 USER ${DEV_USER}
 WORKDIR /home/${DEV_USER}
 
@@ -216,6 +290,7 @@ WORKDIR /home/${DEV_USER}
 RUN zsh -c '/home/${DEV_USER}/powerlevel10k/gitstatus/install'
 
 RUN mkdir -p /home/${DEV_USER}/.local/share/nvim
+RUN mkdir -p /home/${DEV_USER}/.config/gh
 
 SHELL ["/bin/zsh", "-c"]
 ENTRYPOINT ["/bin/zsh"]
@@ -250,7 +325,3 @@ ENTRYPOINT ["/bin/zsh"]
 # ------ OIL ----
 #RUN install-nvim-plugin "nvim-tree/nvim-web-devicons" "1fb58cca9aebbc4fd32b086cb413548ce132c127" devicons
 #RUN install-nvim-plugin "stevearc/oil.nvim" "08c2bce8b00fd780fb7999dbffdf7cd174e896fb" oil
-
-
-SHELL ["/bin/zsh", "-c"]
-ENTRYPOINT ["/bin/zsh"]

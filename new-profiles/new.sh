@@ -36,4 +36,11 @@ export DEV_USER=$(id -un)
 export DEV_UID=$(id -u)
 export DEV_GID=$(id -g)
 
+mkdir -p ./base/state/.config/gh
+
+#sudo chown -R ${DEV_UID}:${DEV_GID} \
+#  ./base/state/.config \
+#  ./base/state/.local/share/nvim \
+#  ./base/root/.config
+
 docker compose run --rm --build identity 
