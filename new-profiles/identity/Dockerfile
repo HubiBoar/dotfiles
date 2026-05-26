@@ -184,6 +184,22 @@ RUN dotnet tool install \
       roslyn-language-server \
       --version "${ROSLYN_LANGUAGE_SERVER_VERSION}"
 
+USER root
+
+# ------ BICEP -----
+ARG BICEP_LANGUAGE_SERVER_VERSION="v0.43.8"
+
+RUN mkdir -p /opt/bicep-langserver && \
+    curl -fsSL \
+      "https://github.com/Azure/bicep/releases/download/${BICEP_LANGUAGE_SERVER_VERSION}/bicep-langserver.zip" \
+      -o /tmp/bicep-langserver.zip && \
+    unzip -q /tmp/bicep-langserver.zip -d /opt/bicep-langserver && \
+    rm -f /tmp/bicep-langserver.zip && \
+    test -f /opt/bicep-langserver/Bicep.LangServer.dll
+
+USER ${DEV_USER}
+WORKDIR /home/${DEV_USER}
+
 RUN zsh -c '/home/${DEV_USER}/powerlevel10k/gitstatus/install'
 
 RUN mkdir -p /home/${DEV_USER}/.local/share/nvim

@@ -1,11 +1,31 @@
 local M = {}
 
-M.name = "bicep";
-M.version = "bicep@v0.36.1";
-
 M.setup = function()
-    local lspconfig = require("lspconfig")
-    lspconfig.bicep.setup{}
-end;
+  vim.filetype.add({
+    extension = {
+      bicep = "bicep",
+      bicepparam = "bicep-params",
+    },
+  })
+
+  vim.lsp.config("bicep", {
+    cmd = {
+      "dotnet",
+      "/opt/bicep-langserver/Bicep.LangServer.dll",
+    },
+
+    filetypes = {
+      "bicep",
+      "bicep-params",
+    },
+
+    root_markers = {
+      "bicepconfig.json",
+      ".git",
+    },
+  })
+
+  vim.lsp.enable("bicep")
+end
 
 return M
