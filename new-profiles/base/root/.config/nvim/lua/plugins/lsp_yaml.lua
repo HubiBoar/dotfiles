@@ -3,7 +3,7 @@ local M = {}
 M.setup = function()
     vim.lsp.config("yamlls", {
       cmd = { "yaml-language-server", "--stdio" },
-      filetypes = { "yaml", "yaml.docker-compose", "yaml.github" },
+      filetypes = { "yaml" },
       settings = {
         yaml = {
           validate = true,

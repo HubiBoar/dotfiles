@@ -26,7 +26,6 @@ RUN pacman -S --noconfirm \
     less \
     curl \
     inetutils \
-    github-cli \
     zip \
     unzip \
     fzf \
@@ -132,10 +131,9 @@ RUN curl -fsSL -o node.tar.xz \
       "https://nodejs.org/dist/v${NODE_VERSION}/${NODE_DIR}.tar.xz" \
     && tar -xJf node.tar.xz \
     && mv "${NODE_DIR}" "/usr/local/node-v${NODE_VERSION}" \
-    && ln -sf "/usr/local/node-v${NODE_VERSION}/bin/node" /usr/local/bin/node \
-    && ln -sf "/usr/local/node-v${NODE_VERSION}/bin/npm" /usr/local/bin/npm \
-    && ln -sf "/usr/local/node-v${NODE_VERSION}/bin/npx" /usr/local/bin/npx \
     && rm -rf /installers/node
+
+ENV PATH="/usr/local/node-v${NODE_VERSION}/bin:$PATH"
 
 RUN node --version && npm --version
 
@@ -146,8 +144,9 @@ RUN node --version && npm --version
 ARG YAML_LANGUAGE_SERVER_VERSION="1.14.0"
 
 RUN npm install -g yaml-language-server@${YAML_LANGUAGE_SERVER_VERSION} \
-    && ln -sf /usr/local/node-v${NODE_VERSION}/bin/yaml-language-server /usr/local/bin/yaml-language-server \
-    && yaml-language-server --version
+    && command -v yaml-language-server \
+    && npm list -g --depth=0 yaml-language-server \
+    && npm cache clean --force
 
 # ------ LUA -----
 ARG LUA_LANGUAGE_SERVER_VERSION="3.18.2"
@@ -166,16 +165,12 @@ RUN mkdir -p /opt/lua-language-server && \
 
 # ------ Roslyn ----
 
-RUN pacman -Syu --noconfirm --needed \
+RUN pacman -S --noconfirm --needed \
       ca-certificates \
-      dotnet-sdk
-#      dotnet-sdk-9.0 \
-#      dotnet-sdk-8.0 \
-    #&& pacman -Scc --noconfirm
+      dotnet-sdk=10.0.4.sdk104-1
 
 #TODO: bicep LSP, ts LSP, html LSP
 #TODO: npm, azcli, bicep, github cli
-
 
 USER ${DEV_USER}
 WORKDIR /home/${DEV_USER}
@@ -187,7 +182,7 @@ ARG ROSLYN_LANGUAGE_SERVER_VERSION="5.8.0-1.26266.2"
 RUN dotnet tool install \
       --global \
       roslyn-language-server \
-      --version "${ROSLYN_LANGUAGE_SERVER_VERSION}" 
+      --version "${ROSLYN_LANGUAGE_SERVER_VERSION}"
 
 RUN zsh -c '/home/${DEV_USER}/powerlevel10k/gitstatus/install'
 
