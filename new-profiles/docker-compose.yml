@@ -24,6 +24,7 @@ services:
       - ./base/state/.local/share/nvim/site:/home/${DEV_USER}/.local/share/nvim/site
       - ./identity/state/projects:/home/${DEV_USER}/projects
       - ./identity/state/.ssh:/home/${DEV_USER}/.ssh
+      - .:/home/${DEV_USER}/dotfiles
     environment:
       USER: ${DEV_USER}
       LOGNAME: ${DEV_USER}

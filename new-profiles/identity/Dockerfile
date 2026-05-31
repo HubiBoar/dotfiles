@@ -6,7 +6,7 @@ ARG DEV_GID
 
 ARG ARCH_SNAPSHOT_DATE=2026/05/24
 ARG NEOVIM_VERSION=0.12.2
-ARG LAZYSQL_VERSION=0.3.7
+ARG LAZYSQL_VERSION=v0.5.1
 ARG POWERLEVEL10K_REF=35833ea15f14b71dbcebc7e54c104d8d56ca5268 #v1.20.0
 ARG ZSH_AUTOSUGGESTIONS_REF=e52ee8ca55bcc56a17c828767a3f98f22a68d4eb #v0.7.1
 
@@ -20,6 +20,7 @@ RUN printf 'Server = https://archive.archlinux.org/repos/%s/$repo/os/$arch\n' "$
 # ------- CORE PACKAGES -------
 
 RUN pacman -S --noconfirm \
+    openssh \
     zsh \
     xclip \
     git \
@@ -52,19 +53,6 @@ RUN curl -fsSL -o nvim-linux-x86_64.tar.gz \
     rm -rf /installers/nvim
 
 ENV PATH="$PATH:/opt/nvim-linux-x86_64/bin"
-
-# ------- LAZY SQL -------
-
-WORKDIR /installers/lazysql
-
-RUN curl -fsSL -o lazysql_Linux_x86_64.tar.gz \
-    "https://github.com/jorgerojas26/lazysql/releases/download/v${LAZYSQL_VERSION}/lazysql_Linux_x86_64.tar.gz" && \
-    tar xvf lazysql_Linux_x86_64.tar.gz && \
-    mv lazysql /usr/local/bin/lazysql && \
-    chmod +x /usr/local/bin/lazysql && \
-    rm -rf /installers/lazysql
-
-RUN lazysql --help
 
 # ------- DEV USER -------
 
@@ -212,10 +200,28 @@ RUN helm version
 # ------- DOTNET --------
 RUN pacman -S --noconfirm --needed \
       ca-certificates \
-      dotnet-sdk=10.0.4.sdk104-1
+      dotnet-sdk=10.0.4.sdk104-1 \
+      dotnet-sdk-9.0=9.0.14.sdk115-1 \
+      dotnet-sdk-8.0=8.0.25.sdk125-1 \
+      dotnet-runtime-8.0=8.0.25.sdk125-1 \
+      dotnet-runtime-9.0=9.0.14.sdk115-1 \
+      aspnet-runtime-8.0=8.0.25.sdk125-1 \
+      aspnet-runtime-9.0=9.0.14.sdk115-1 
 
-RUN dotnet tool install --global dotnet-ef
+RUN dotnet --list-runtimes && dotnet --list-sdks
 
+# ------- LAZY SQL -------
+
+WORKDIR /installers/lazysql
+
+RUN curl -fsSL -o lazysql_Linux_x86_64.tar.gz \
+    "https://github.com/jorgerojas26/lazysql/releases/download/${LAZYSQL_VERSION}/lazysql_Linux_x86_64.tar.gz" && \
+    tar xvf lazysql_Linux_x86_64.tar.gz && \
+    mv lazysql /usr/local/bin/lazysql && \
+    chmod +x /usr/local/bin/lazysql && \
+    rm -rf /installers/lazysql
+
+RUN lazysql --help
 
 
 # ------ Language Server Protocol -----
@@ -265,11 +271,10 @@ WORKDIR /home/${DEV_USER}
 RUN echo 'export PATH="$PATH:$HOME/.dotnet/tools"' >> "/home/${DEV_USER}/.zshrc"
 
 ARG ROSLYN_LANGUAGE_SERVER_VERSION="5.8.0-1.26266.2"
+RUN dotnet tool install --global roslyn-language-server --version "${ROSLYN_LANGUAGE_SERVER_VERSION}"
 
-RUN dotnet tool install \
-      --global \
-      roslyn-language-server \
-      --version "${ROSLYN_LANGUAGE_SERVER_VERSION}"
+ARG DOTNET_EF_VERSION="10.0.8"
+RUN dotnet tool install --global dotnet-ef --version "${DOTNET_EF_VERSION}"
 
 USER root
 
@@ -288,6 +293,9 @@ USER ${DEV_USER}
 WORKDIR /home/${DEV_USER}
 
 RUN zsh -c '/home/${DEV_USER}/powerlevel10k/gitstatus/install'
+
+RUN git config --global user.email "hubert@bsure.io"
+RUN git config --global user.name "Hubert Dzikuc"
 
 RUN mkdir -p /home/${DEV_USER}/.local/share/nvim
 RUN mkdir -p /home/${DEV_USER}/.config/gh

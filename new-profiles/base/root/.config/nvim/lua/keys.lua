@@ -5,12 +5,18 @@ M.default = function ()
 
     vim.g.mapleader = " "
 
-    vim.keymap.set("t", "<esc><esc>", "<C-\\><C-n>")
+    vim.keymap.set("t", "<M-c>", "<C-\\><C-n>")
 
-    local terminal = require("plugins.float_terminal");
+    local vimux = require("plugins.vimux");
 
-    vim.api.nvim_create_user_command("Floaterminal", terminal.toggle_terminal, {})
-    vim.keymap.set({ "n", "t" }, "<leader>tt", terminal.toggle_terminal)
+    vimux.set_autocmd();
+
+   -- local terminal = require("plugins.float_terminal");
+
+   -- vim.api.nvim_create_user_command("Floaterminal", terminal.toggle_terminal, {})
+   -- vim.keymap.set({ "n" }, "<leader>tt", terminal.toggle_terminal)
+
+    vim.opt.ttimeoutlen = 10
 
     vim.keymap.set("n", "d", '"_d')
     vim.keymap.set("v", "d", '"_d')
@@ -23,7 +29,7 @@ M.default = function ()
     vim.keymap.set("v", "c", '"_c')
 
     vim.keymap.set("n", "<leader>re", function()
-        vim.cmd("source /root/.config/nvim/init.lua")
+        vim.cmd("source ~/.config/nvim/init.lua")
         print("Neovim config reloaded!")
     end, { desc = "Reload Neovim config" })
 
