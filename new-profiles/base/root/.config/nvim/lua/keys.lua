@@ -1,15 +1,21 @@
 local M = {}
 
+M.vimux = function ()
+    vim.g.mapleader = " "
+
+    local vimux = require("plugins.vimux");
+
+    vimux.set_autocmd();
+
+    M.default();
+end
+
 M.default = function ()
     local remap = { silent = true, remap = true}
 
     vim.g.mapleader = " "
 
     vim.keymap.set("t", "<M-c>", "<C-\\><C-n>")
-
-    local vimux = require("plugins.vimux");
-
-    vimux.set_autocmd();
 
    -- local terminal = require("plugins.float_terminal");
 
