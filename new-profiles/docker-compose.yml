@@ -16,7 +16,8 @@ services:
       - /etc/hosts:/etc/hosts
       - ${SSH_AUTH_SOCK}:/ssh-agent
       - /tmp/.X11-unix:/tmp/.X11-unix 
-      - ${HOME}/.Xauthority:/tmp/.Xauthority:ro 
+      - ${HOME}/.Xauthority:/home/${DEV_USER}/.Xauthority:ro
+      - ./base/root/.config/opencode/opencode.json:/home/${DEV_USER}/.config/opencode/opencode.json
       - ./base/root/.config/nvim/nvim-pack-lock.json:/home/${DEV_USER}/.config/nvim/nvim-pack-lock.json
       - ./base/root/.config/nvim/lua:/home/${DEV_USER}/.config/nvim/lua
       - ./base/root/.config/nvim/init_identity.lua:/home/${DEV_USER}/.config/nvim/init.lua
@@ -33,7 +34,7 @@ services:
       SHELL: /bin/zsh
       TERM: xterm-256color
       COLORTERM: truecolor
-      DISPLAY: $DISPLAY
+      DISPLAY: ${DISPLAY}
       SSH_AUTH_SOCK: /ssh-agent
-      XAUTHORITY: /tmp/.Xauthority
+      XAUTHORITY: /home/${DEV_USER}/.Xauthority
     tty: true

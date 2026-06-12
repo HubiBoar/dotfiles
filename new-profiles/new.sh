@@ -4,6 +4,8 @@ set -euo pipefail
 #sudo chown -R "$(id -u):$(id -g)" ./new-profiles/state
 
 # Setting dedicated ssh agent
+xhost +local:
+
 KEY="$HOME/.ssh/id_ed25519_bsureas"
 AGENT_DIR="$HOME/.cache/cde-ssh-agent"
 AGENT_SOCK="$AGENT_DIR/ssh-agent.sock"

@@ -5,10 +5,11 @@ vim.pack.add({
     require("plugins.telescope").pack_telescope,
     require("plugins.treesitter").pack_text_objects,
     require("plugins.treesitter").pack_treesitter,
-    require("plugins.lsp").pack_lspconfig,
-    require("plugins.lsp").pack_overloads,
+    require("plugins.lsp").pack,
+    require("plugins.lsp").pack,
     require("plugins.oil").pack_devicons,
     require("plugins.oil").pack_oil,
+    require("plugins.lspoverloads").pack,
 })
 
 require("plugins.camelCaseMotion").setup()

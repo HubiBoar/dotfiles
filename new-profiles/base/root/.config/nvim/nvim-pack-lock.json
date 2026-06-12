@@ -8,7 +8,7 @@
     "lsp-overloads.nvim": {
       "rev": "7d766bfccbff2ab0be8089ea4d1493089f67a408",
       "src": "https://github.com/Issafalcon/lsp-overloads.nvim",
-      "version": "'7d766bfccbff2ab0be8089ea4d1493089f67a408'"
+      "version": "'4a9277c52455785096ddc4df13208c67fd696343'"
     },
     "nvim-lspconfig": {
       "rev": "a4ed4e761c400849e8c9f8bda33e5083f890268c",

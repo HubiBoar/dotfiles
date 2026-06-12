@@ -1,3 +1,3 @@
-require("keys").default()
+require("keys").normal()
 require("options")
 require("plugins_identity")

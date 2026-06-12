@@ -205,8 +205,10 @@ RUN pacman -S --noconfirm --needed \
       dotnet-sdk-8.0=8.0.25.sdk125-1 \
       dotnet-runtime-8.0=8.0.25.sdk125-1 \
       dotnet-runtime-9.0=9.0.14.sdk115-1 \
+      dotnet-runtime=10.0.4.sdk104-1 \ 
       aspnet-runtime-8.0=8.0.25.sdk125-1 \
-      aspnet-runtime-9.0=9.0.14.sdk115-1 
+      aspnet-runtime-9.0=9.0.14.sdk115-1 \
+      aspnet-runtime=10.0.4.sdk104-1 
 
 RUN dotnet --list-runtimes && dotnet --list-sdks
 
@@ -288,6 +290,23 @@ RUN mkdir -p /opt/bicep-langserver && \
     unzip -q /tmp/bicep-langserver.zip -d /opt/bicep-langserver && \
     rm -f /tmp/bicep-langserver.zip && \
     test -f /opt/bicep-langserver/Bicep.LangServer.dll
+
+# ----- GO LANG  ----
+ARG GO_VERSION=1.26.4
+
+RUN curl -fsSL \
+    "https://go.dev/dl/go${GO_VERSION}.linux-amd64.tar.gz" \
+    -o /tmp/go.tar.gz && \
+    rm -rf /usr/local/go && \
+    tar -C /usr/local -xzf /tmp/go.tar.gz && \
+    rm /tmp/go.tar.gz
+
+ENV PATH="/usr/local/go/bin:${PATH}"
+
+ARG GOPLS_VERSION=v0.20.0
+
+RUN GOBIN=/usr/local/bin \
+    go install golang.org/x/tools/gopls@${GOPLS_VERSION}
 
 USER ${DEV_USER}
 WORKDIR /home/${DEV_USER}

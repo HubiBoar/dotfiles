@@ -7,20 +7,100 @@ M.vimux = function ()
 
     vimux.set_autocmd();
 
+    -- Exit current Neovim terminal mode
+    vim.keymap.set("t", "<M-c>", "<C-\\><C-n>")
+
     M.default();
+
+end
+
+M.normal = function ()
+    vim.g.mapleader = " "
+    vim.opt.number         = true
+    vim.opt.relativenumber = true
+
+    -- local terminal = require("plugins.float_terminal");
+
+    -- vim.api.nvim_create_user_command("Floaterminal", terminal.toggle_terminal, {})
+
+    -- vim.keymap.set({ "n", "t" }, "<M-t>", terminal.toggle_terminal)
+
+    local function term_manager_mode()
+        if vim.bo.buftype ~= "terminal" then
+            return
+        end
+
+        vim.opt_local.number = true
+        vim.opt_local.relativenumber = true
+        vim.opt_local.numberwidth = 4
+        vim.opt_local.statuscolumn = ""
+
+        -- vim.opt_local.cursorline = true
+    end
+
+    local function term_insert_mode()
+        if vim.bo.buftype ~= "terminal" then
+            return
+        end
+
+        vim.opt_local.number = true
+        vim.opt_local.relativenumber = true
+        vim.opt_local.numberwidth = 4
+        vim.opt_local.statuscolumn = "%= "
+
+        -- vim.opt_local.cursorline = false
+    end
+
+    local term_group = vim.api.nvim_create_augroup("terminal_manager", {
+        clear = true,
+    })
+
+    vim.api.nvim_create_autocmd("TermOpen", {
+        group = term_group,
+        pattern = "*",
+        callback = function()
+            vim.schedule(term_manager_mode)
+        end,
+    })
+
+    vim.api.nvim_create_autocmd("TermEnter", {
+        group = term_group,
+        pattern = "*",
+        callback = term_insert_mode,
+    })
+
+    vim.api.nvim_create_autocmd("TermLeave", {
+        group = term_group,
+        pattern = "*",
+        callback = term_manager_mode,
+    })
+
+    M.default();
+
+    local remap = { silent = true, remap = true}
+    vim.keymap.set('t', '<C-h>', [[<C-\><C-n><C-w>h]], remap)
+    vim.keymap.set('t', '<C-j>', [[<C-\><C-n><C-w>j]], remap)
+    vim.keymap.set('t', '<C-k>', [[<C-\><C-n><C-w>k]], remap)
+    vim.keymap.set('t', '<C-l>', [[<C-\><C-n><C-w>l]], remap)
+
+    vim.keymap.set("n", "<M-t>", "<cmd>vert term<CR>", remap)
+    vim.keymap.set("t", "<M-i>", "<C-\\><C-n>")
 end
 
 M.default = function ()
     local remap = { silent = true, remap = true}
 
-    vim.g.mapleader = " "
 
-    vim.keymap.set("t", "<M-c>", "<C-\\><C-n>")
+    -- Exit current Neovim terminal mode
+    -- vim.keymap.set("t", "<M-c>", "<C-\\><C-n>")
 
-   -- local terminal = require("plugins.float_terminal");
+    -- Send escape sequence to nested Neovim
+    -- vim.keymap.set("t", "<M-S-c>", "<C-\\><C-\\><C-n>")
 
-   -- vim.api.nvim_create_user_command("Floaterminal", terminal.toggle_terminal, {})
-   -- vim.keymap.set({ "n" }, "<leader>tt", terminal.toggle_terminal)
+    -- local terminal = require("plugins.float_terminal");
+
+    -- vim.api.nvim_create_user_command("Floaterminal", terminal.toggle_terminal, {})
+    -- vim.keymap.set({ "n" }, "<leader>tt", terminal.toggle_terminal)
 
     vim.opt.ttimeoutlen = 10
 
@@ -44,10 +124,10 @@ M.default = function ()
     vim.keymap.set("n", "<M-v>",     "<c-v>",        remap)
     vim.keymap.set("n", "<M-v>",     "<c-v>",        remap)
 
-    vim.keymap.set('', "<Up>",    "<nop>", remap)
-    vim.keymap.set('', "<Down>",  "<nop>", remap)
-    vim.keymap.set('', "<Left>",  "<nop>", remap)
-    vim.keymap.set('', "<Right>", "<nop>", remap)
+    --vim.keymap.set('', "<Up>",    "<nop>", remap)
+    --vim.keymap.set('', "<Down>",  "<nop>", remap)
+    --vim.keymap.set('', "<Left>",  "<nop>", remap)
+    --vim.keymap.set('', "<Right>", "<nop>", remap)
 
     vim.keymap.set('', "<S-Up>",    "<nop>", remap)
     vim.keymap.set('', "<S-Down>",  "<nop>", remap)
@@ -103,6 +183,16 @@ M.default = function ()
     vim.keymap.set('', '<C-l>', '<C-w>l', remap)
     vim.keymap.set('', '<C-j>', '<C-w>j', remap)
     vim.keymap.set('', '<C-k>', '<C-w>k', remap)
+
+    -- vim.keymap.set('t', '<C-h>', [[<C-\><C-n><C-w>h]], remap)
+    -- vim.keymap.set('t', '<C-j>', [[<C-\><C-n><C-w>j]], remap)
+    -- vim.keymap.set('t', '<C-k>', [[<C-\><C-n><C-w>k]], remap)
+    -- vim.keymap.set('t', '<C-l>', [[<C-\><C-n><C-w>l]], remap)
+
+    vim.keymap.set('n', '<C-h>', '<C-w>h', remap)
+    vim.keymap.set('n', '<C-j>', '<C-w>j', remap)
+    vim.keymap.set('n', '<C-k>', '<C-w>k', remap)
+    vim.keymap.set('n', '<C-l>', '<C-w>l', remap)
 end
 
 M.lsp = function()
@@ -111,7 +201,7 @@ M.lsp = function()
     vim.keymap.set("n", "gD",         vim.lsp.buf.declaration,             {})
     vim.keymap.set("n", "gd",         vim.lsp.buf.definition,              {})
     vim.keymap.set("n", "gi",         vim.lsp.buf.implementation,          {})
-    vim.keymap.set("n", "<C-k>",      vim.lsp.buf.signature_help,          {})
+    vim.keymap.set({"n", "i", "s"}, "<C-k>",      vim.lsp.buf.signature_help,          {})
     vim.keymap.set("n", "<leader>wa", vim.lsp.buf.add_workspace_folder,    {})
     vim.keymap.set("n", "<leader>wr", vim.lsp.buf.remove_workspace_folder, {})
     vim.keymap.set("n", "<leader>D",  vim.lsp.buf.type_definition,         {})

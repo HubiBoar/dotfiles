@@ -11,6 +11,19 @@ M.setup = function()
       silent = true,
       desc = "Native LSP completion",
     })
+    vim.keymap.set("i", "<Down>", function()
+      if vim.fn.pumvisible() == 1 then
+        return "<C-n>"
+      end
+      return "<Down>"
+    end, { expr = true })
+
+    vim.keymap.set("i", "<Up>", function()
+      if vim.fn.pumvisible() == 1 then
+        return "<C-p>"
+      end
+      return "<Up>"
+    end, { expr = true })
   end
 
   vim.api.nvim_create_autocmd("LspAttach", {

@@ -1,6 +1,7 @@
 local M = {}
 
 M.setup = function()
+  local overloads = require("plugins.lspoverloads")
   vim.lsp.config("roslyn_ls", {
     cmd = { "roslyn-language-server", "--stdio" },
 
@@ -18,6 +19,10 @@ M.setup = function()
         dotnet_compiler_diagnostics_scope = "openFiles",
       },
     },
+    on_attach = function(client, bufnr)
+      overloads.setup("lua", client, bufnr)
+    end,
+
   })
 
   vim.lsp.enable("roslyn_ls")

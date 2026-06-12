@@ -1,15 +1,40 @@
 local M = {}
 
-M.name="gopls"
-M.dapname="delve"
-M.version="gopls@v0.19.1"
-
 M.setup = function()
+  local overloads = require("plugins.lspoverloads")
 
-    local lspconfig = require("lspconfig")
+  vim.lsp.config("gopls", {
+    cmd = { "gopls" },
 
-    lspconfig.gopls.setup({})
+    settings = {
+      gopls = {
+        analyses = {
+          unusedparams = true,
+          nilness = true,
+          unusedwrite = true,
+          useany = true,
+        },
 
-end;
+        staticcheck = true,
+
+        hints = {
+          assignVariableTypes = true,
+          compositeLiteralFields = true,
+          compositeLiteralTypes = true,
+          constantValues = true,
+          functionTypeParameters = true,
+          parameterNames = true,
+          rangeVariableTypes = true,
+        },
+      },
+    },
+
+    on_attach = function(client, bufnr)
+      overloads.setup("go", client, bufnr)
+    end,
+  })
+
+  vim.lsp.enable("gopls")
+end
 
 return M
