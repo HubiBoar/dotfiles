@@ -152,7 +152,7 @@ M.normal = function ()
     })
 
     for i = 1, 9 do
-        vim.keymap.set("n", "<C-" .. i .. ">", function()
+        vim.keymap.set("n", "" .. i, function()
             go_to_slot(i)
         end, {
             desc = "Go to slot " .. i,
