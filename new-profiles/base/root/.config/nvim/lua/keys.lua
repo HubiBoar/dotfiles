@@ -83,8 +83,89 @@ M.normal = function ()
     vim.keymap.set('t', '<C-k>', [[<C-\><C-n><C-w>k]], remap)
     vim.keymap.set('t', '<C-l>', [[<C-\><C-n><C-w>l]], remap)
 
-    vim.keymap.set("n", "<M-t>", "<cmd>vert term<CR>", remap)
+    --vim.keymap.set("n", "<M-t>", "<cmd>vert term<CR>", remap)
+    --
     vim.keymap.set("t", "<M-i>", "<C-\\><C-n>")
+
+
+
+
+    local terminals_by_dir = {}
+    local previous_by_terminal = {}
+
+    local function normalize_dir(dir)
+        return vim.fn.fnamemodify(dir, ":p"):gsub("/$", "")
+    end
+
+    local function current_dir()
+        if vim.bo.filetype == "oil" then
+            local ok, oil = pcall(require, "oil")
+
+            if ok then
+                local dir = oil.get_current_dir()
+                if dir then
+                    return dir
+                end
+            end
+
+            return vim.api.nvim_buf_get_name(0):gsub("^oil://", "")
+        end
+
+        local file = vim.api.nvim_buf_get_name(0)
+
+        if file ~= "" then
+            return vim.fn.fnamemodify(file, ":p:h")
+        end
+
+        return vim.fn.getcwd()
+    end
+
+    local function open_or_reuse_terminal()
+        local current_buf = vim.api.nvim_get_current_buf()
+
+        -- If already inside a managed terminal, go back to previous buffer
+        if vim.b[current_buf].vimux_managed_terminal then
+            local previous = previous_by_terminal[current_buf]
+
+            if previous and vim.api.nvim_buf_is_valid(previous) then
+                vim.api.nvim_win_set_buf(0, previous)
+                return
+            end
+
+            vim.cmd("bprevious")
+            return
+        end
+
+        local dir = normalize_dir(current_dir())
+        local existing = terminals_by_dir[dir]
+
+        if existing and vim.api.nvim_buf_is_valid(existing) then
+            previous_by_terminal[existing] = current_buf
+            vim.api.nvim_win_set_buf(0, existing)
+            vim.cmd("startinsert")
+            return
+        end
+
+        vim.cmd("enew")
+        vim.cmd("lcd " .. vim.fn.fnameescape(dir))
+        vim.cmd("terminal")
+        vim.cmd("startinsert")
+
+        local term_buf = vim.api.nvim_get_current_buf()
+
+        terminals_by_dir[dir] = term_buf
+        previous_by_terminal[term_buf] = current_buf
+
+        vim.b[term_buf].vimux_managed_terminal = true
+        vim.b[term_buf].vimux_terminal_dir = dir
+    end
+
+    vim.keymap.set("n", "<M-i>", open_or_reuse_terminal, {
+        desc = "Open/reuse terminal or return to previous buffer",
+    })
+
+
+
 
     local current_slot = 1
 
