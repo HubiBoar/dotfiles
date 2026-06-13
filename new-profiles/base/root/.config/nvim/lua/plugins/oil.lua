@@ -13,10 +13,12 @@ M.pack_oil = {
 
 M.setup = function()
     CustomOilBar = function()
-        local path = vim.fn.expand "%"
-        path = path:gsub("oil://", "")
+        local path = vim.fn.expand("%")
 
-        return "  " .. vim.fn.fnamemodify(path, ":.")
+        path = path:gsub("^oil://", "")
+        path = vim.fn.fnamemodify(path, ":~")
+
+        return "" .. path
     end
 
     local keys = require("../keys")

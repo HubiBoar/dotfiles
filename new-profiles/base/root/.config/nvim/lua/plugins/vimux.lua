@@ -75,7 +75,7 @@ M.set_autocmd = function()
 
         --vim.opt_local.cursorline = true
         --vim.opt_local.winbar = ""
-        vim.opt_local.statusline = vimux_statusline(true)
+        vim.opt.statusline = vimux_statusline(true)
 
         vim.opt_local.winhighlight = table.concat({
             "LineNr:VimuxLineNr",
@@ -97,7 +97,7 @@ M.set_autocmd = function()
 
         -- vim.opt_local.cursorline = false
         -- vim.opt_local.winbar = ""
-        vim.opt_local.statusline = vimux_statusline(false)
+        vim.opt.statusline = vimux_statusline(false)
 
         --vim.opt_local.winhighlight = table.concat({
         --    "StatusLine:VimuxStatusInactive",

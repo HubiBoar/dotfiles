@@ -85,6 +85,34 @@ M.normal = function ()
 
     vim.keymap.set("n", "<M-t>", "<cmd>vert term<CR>", remap)
     vim.keymap.set("t", "<M-i>", "<C-\\><C-n>")
+
+    vim.g.my_status_number = 1
+
+    function _G.my_status_number()
+      return tostring(vim.g.my_status_number or 0)
+    end
+
+    function _G.my_statusline()
+      if vim.bo.buftype == "terminal" then
+        local name = vim.api.nvim_buf_get_name(0)
+        local cwd = name:match("^term://(.-)//%d+:")
+        cwd = cwd and vim.fn.fnamemodify(cwd, ":~")
+        return "term " .. (cwd or name)
+      end
+
+      if vim.bo.filetype == "oil" then
+          local path = vim.fn.expand("%")
+
+          path = path:gsub("^oil://", "")
+          path = vim.fn.fnamemodify(path, ":~")
+
+          return "oil " .. path
+      end
+
+      return "[" .. tostring(vim.g.my_status_number or 0) .. "] " .. vim.fn.expand("%:p:~")
+    end
+
+    vim.opt.statusline = "%!v:lua.my_statusline()"
 end
 
 M.default = function ()
