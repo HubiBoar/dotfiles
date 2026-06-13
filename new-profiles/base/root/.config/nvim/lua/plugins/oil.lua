@@ -16,6 +16,7 @@ M.setup = function()
         local path = vim.fn.expand("%")
 
         path = path:gsub("^oil://", "")
+        path = path:gsub("^manager://", "")
         path = vim.fn.fnamemodify(path, ":~")
 
         return "" .. path

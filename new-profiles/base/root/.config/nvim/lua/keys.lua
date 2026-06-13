@@ -86,33 +86,134 @@ M.normal = function ()
     vim.keymap.set("n", "<M-t>", "<cmd>vert term<CR>", remap)
     vim.keymap.set("t", "<M-i>", "<C-\\><C-n>")
 
-    vim.g.my_status_number = 1
+    local current_slot = 1
 
-    function _G.my_status_number()
-      return tostring(vim.g.my_status_number or 0)
-    end
-
-    function _G.my_statusline()
-      if vim.bo.buftype == "terminal" then
+    local function statusline()
+        local prefix = "[" .. tostring(current_slot) .. "] "
+        local buftype = vim.bo.buftype
         local name = vim.api.nvim_buf_get_name(0)
-        local cwd = name:match("^term://(.-)//%d+:")
-        cwd = cwd and vim.fn.fnamemodify(cwd, ":~")
-        return "term " .. (cwd or name)
-      end
 
-      if vim.bo.filetype == "oil" then
-          local path = vim.fn.expand("%")
+        if name == "" then
+            return prefix .. "[empty]"
+        end
 
-          path = path:gsub("^oil://", "")
-          path = vim.fn.fnamemodify(path, ":~")
+        if buftype == "terminal" then
+            local cwd = name:match("^term://(.-)//%d+:")
+            cwd = cwd and vim.fn.fnamemodify(cwd, ":~")
 
-          return "oil " .. path
-      end
+            return prefix .. "[term] " .. (cwd or name)
+        end
 
-      return "[" .. tostring(vim.g.my_status_number or 0) .. "] " .. vim.fn.expand("%:p:~")
+        if vim.bo.filetype == "oil" then
+            local path = vim.fn.expand("%")
+            path = path:gsub("^oil://", "")
+            path = vim.fn.fnamemodify(path, ":~")
+
+            if not path:match("/$") then
+                path = path .. "/"
+            end
+
+            return prefix .. "[oil] " .. path
+        end
+
+        return prefix .. vim.fn.expand("%:p:~")
     end
 
+    _G.my_statusline = statusline
     vim.opt.statusline = "%!v:lua.my_statusline()"
+
+    local function go_to_slot(i)
+        vim.cmd("tabnext " .. i)
+        current_slot = i
+        vim.cmd("redrawstatus")
+    end
+
+    vim.api.nvim_create_autocmd("VimEnter", {
+        callback = function()
+            vim.schedule(function()
+                -- Make sure we start from one tab
+
+                if vim.fn.tabpagenr("$") > 1 then
+                    vim.cmd("tabonly")
+                end
+
+                local cwd = vim.fn.getcwd()
+                vim.cmd.edit(vim.fn.fnameescape(cwd))
+                -- Create tabs 2-9
+                for _ = 2, 9 do
+                    vim.cmd("tabnew")
+                    vim.cmd.edit(vim.fn.fnameescape(cwd))
+                end
+
+                -- Go back to tab 1
+                go_to_slot(1)
+            end)
+        end,
+    })
+
+    for i = 1, 9 do
+        vim.keymap.set("n", "<C-" .. i .. ">", function()
+            go_to_slot(i)
+        end, {
+            desc = "Go to slot " .. i,
+        })
+    end
+
+
+    -- TAB
+    local function tab_name(tabnr)
+        local win = vim.fn.tabpagewinnr(tabnr)
+        local bufs = vim.fn.tabpagebuflist(tabnr)
+        local buf = bufs[win]
+
+        local name = vim.api.nvim_buf_get_name(buf)
+
+        if name == "" then
+            return "[empty]"
+        end
+
+        name = name:gsub("^oil://", "")
+
+        if vim.bo[buf].buftype == "terminal" then
+            local cwd = name:match("^term://(.-)//%d+:")
+            name = cwd or name
+        end
+
+        name = name:gsub("/$", "")
+
+        local tail = vim.fn.fnamemodify(name, ":t")
+
+        if tail == "" then
+            return "[empty]"
+        end
+
+        return tail
+    end
+
+    function _G.my_tabline()
+        local current = vim.fn.tabpagenr()
+        local total = vim.fn.tabpagenr("$")
+        local parts = {}
+
+        for i = 1, total do
+            local label = tab_name(i)
+            local prefix = "[" .. tostring(i) .. "] "
+
+            if i == current then
+                table.insert(parts, "%#TabLineSel# " .. prefix .. label .. " ")
+            else
+                table.insert(parts, "%#TabLine# " .. prefix .. label .. " ")
+            end
+        end
+
+        table.insert(parts, "%#TabLineFill#%=")
+
+        return table.concat(parts, "")
+    end
+
+    --vim.opt.showtabline = 2
+    --vim.opt.tabline = "%!v:lua.my_tabline()"
+    vim.opt.showtabline = 0
 end
 
 M.default = function ()
