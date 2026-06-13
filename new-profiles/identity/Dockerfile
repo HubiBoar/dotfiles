@@ -319,9 +319,14 @@ RUN git config --global user.name "Hubert Dzikuc"
 RUN mkdir -p /home/${DEV_USER}/.local/share/nvim
 RUN mkdir -p /home/${DEV_USER}/.config/gh
 
+#RUN echo 'alias vimux="nvim -u $HOME/.config/nvim/vimux.lua"' >> "/home/${DEV_USER}/.zshrc"
+
+COPY --chown=${DEV_UID}:${DEV_GID} identity/entrypoint.sh /usr/local/bin/entrypoint.sh
+RUN chmod +x /usr/local/bin/entrypoint.sh
+
 SHELL ["/bin/zsh", "-c"]
 ENTRYPOINT ["/bin/zsh"]
-
+#ENTRYPOINT ["/usr/local/bin/entrypoint.sh"]
 
 #COPY base/build/scripts/install-nvim-plugin /usr/local/bin/install-nvim-plugin
 #RUN chmod 755 /usr/local/bin/install-nvim-plugin

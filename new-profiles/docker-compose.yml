@@ -1,6 +1,8 @@
 services:
   identity:
     init: true
+    tty: true
+    stdin_open: true
     image: cde-identity
     build:
       context: ./
@@ -37,4 +39,3 @@ services:
       DISPLAY: ${DISPLAY}
       SSH_AUTH_SOCK: /ssh-agent
       XAUTHORITY: /home/${DEV_USER}/.Xauthority
-    tty: true
