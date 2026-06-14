@@ -37,11 +37,37 @@ M.set_autocmd = function()
         bg = colors.bg_highlight,
     })
 
+    --local function vimux_statusline(active)
+    --    local hl = active and "%#VimuxStatusActive#" or "%#VimuxStatusInactive#"
+    --    local slot = vim.fn.tabpagenr()
+
+    --    return hl .. " VIMUX [" .. slot .. "] "
+    --end
+
+    local function pretty_path(path, max_len)
+        path = vim.fn.fnamemodify(path, ":~")
+
+        if #path <= max_len then
+            return path
+        end
+
+        -- Keep the beginning readable, e.g. ~/projects/...
+        local parts = vim.split(path, "/", { plain = true })
+        if #parts <= 2 then
+            return path
+        end
+
+        return parts[1] .. "/" .. parts[2] .. "/..."
+    end
+
     local function vimux_statusline(active)
         local hl = active and "%#VimuxStatusActive#" or "%#VimuxStatusInactive#"
         local slot = vim.fn.tabpagenr()
 
-        return hl .. " VIMUX [" .. slot .. "] "
+        local cwd = vim.fn.getcwd(-1, slot)
+        local path = pretty_path(cwd, 32)
+
+        return hl .. " VIMUX [" .. slot .. "] " .. path .. " "
     end
 
     local function term_manager_mode()
@@ -118,10 +144,20 @@ M.set_autocmd = function()
 
     -- Go to Vimux terminal slot with 1 through 9
     for i = 1, 9 do
-        vim.keymap.set("n", tostring(i), function()
+        vim.keymap.set("n", "<C-" .. i .. ">" , function()
             vim.cmd("tabnext " .. i)
 
             term_manager_mode()
+
+            vim.cmd("redrawstatus")
+        end, {
+            desc = "Go to Vimux terminal " .. i,
+        })
+
+        vim.keymap.set({"t", "i"}, "<C-" .. i .. ">", function()
+            vim.cmd("tabnext " .. i)
+
+            term_insert_mode()
 
             vim.cmd("redrawstatus")
         end, {

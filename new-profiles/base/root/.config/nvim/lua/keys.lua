@@ -5,12 +5,13 @@ M.vimux = function ()
 
     local vimux = require("plugins.vimux");
 
-    vimux.set_autocmd();
 
     -- Exit current Neovim terminal mode
     vim.keymap.set("t", "<M-c>", "<C-\\><C-n>")
 
     M.default();
+
+    vimux.set_autocmd();
 
 end
 
@@ -233,7 +234,7 @@ M.normal = function ()
     })
 
     for i = 1, 9 do
-        vim.keymap.set("n", "" .. i, function()
+        vim.keymap.set("n", "<leader>" .. i, function()
             go_to_slot(i)
         end, {
             desc = "Go to slot " .. i,
