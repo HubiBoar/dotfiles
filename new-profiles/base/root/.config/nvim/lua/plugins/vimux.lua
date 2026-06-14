@@ -144,7 +144,7 @@ M.set_autocmd = function()
 
     -- Go to Vimux terminal slot with 1 through 9
     for i = 1, 9 do
-        vim.keymap.set("n", "<C-" .. i .. ">" , function()
+        vim.keymap.set("n", "<F" .. i .. ">" , function()
             vim.cmd("tabnext " .. i)
 
             term_manager_mode()
@@ -154,7 +154,7 @@ M.set_autocmd = function()
             desc = "Go to Vimux terminal " .. i,
         })
 
-        vim.keymap.set({"t", "i"}, "<C-" .. i .. ">", function()
+        vim.keymap.set({"t", "i"}, "<F" .. i .. ">", function()
             vim.cmd("tabnext " .. i)
 
             term_insert_mode()

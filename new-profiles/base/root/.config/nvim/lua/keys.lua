@@ -234,7 +234,21 @@ M.normal = function ()
     })
 
     for i = 1, 9 do
-        vim.keymap.set("n", "<leader>" .. i, function()
+        vim.keymap.set("n", "<C-" .. i .. ">", function()
+            go_to_slot(i)
+        end, {
+            desc = "Go to slot " .. i,
+        })
+        vim.keymap.set("i", "<C-" .. i .. ">", function()
+            vim.cmd("stopinsert")
+            go_to_slot(i)
+        end, {
+            desc = "Go to slot " .. i,
+        })
+
+        vim.keymap.set("t", "<C-" .. i .. ">", function()
+            vim.cmd("stopinsert")
+            term_manager_mode()
             go_to_slot(i)
         end, {
             desc = "Go to slot " .. i,
