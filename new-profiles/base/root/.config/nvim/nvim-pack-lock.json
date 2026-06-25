@@ -1,5 +1,10 @@
 {
   "plugins": {
+    "99": {
+      "rev": "c17422457027c913c76c75a921fca1e623d2678e",
+      "src": "https://github.com/ThePrimeagen/99",
+      "version": "'c17422457027c913c76c75a921fca1e623d2678e'"
+    },
     "CamelCaseMotion": {
       "rev": "de439d7c06cffd0839a29045a103fe4b44b15cdc",
       "src": "https://github.com/bkad/CamelCaseMotion",

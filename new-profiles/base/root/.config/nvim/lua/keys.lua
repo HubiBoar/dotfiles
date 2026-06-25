@@ -15,6 +15,195 @@ M.vimux = function ()
 
 end
 
+M.vimux_main = function ()
+
+    --vim.opt_local.numberwidth = 0
+    vim.opt.laststatus = 0
+    vim.opt.cmdheight = 0
+    vim.opt.showtabline = 0
+    vim.opt.ruler = false
+    vim.opt.showmode = false
+    vim.opt.signcolumn = "no"
+    vim.opt.number = false
+    vim.opt.relativenumber = false
+    vim.opt.foldcolumn = "0"
+    vim.opt.fillchars = { eob = " " }
+    vim.opt.winbar = ""
+    vim.cmd("tabnew | terminal nvim .")
+    vim.cmd("startinsert")
+
+    vim.keymap.set("t", "<M-c>", "<C-\\><C-n>")
+
+    local colors = {
+        bg = "#7aa2f7",
+        fg = "#1a1b26",
+    }
+    
+    local term_group = vim.api.nvim_create_augroup("vimux_terminal_manager", {
+        clear = true,
+    })
+
+    -- Hide command line in insert mode
+    vim.api.nvim_create_autocmd("TermEnter", {
+      group = term_group,
+      pattern = "*",
+      callback = function()
+        vim.opt.laststatus = 0
+        vim.opt.cmdheight = 0
+      end,
+    })
+
+    vim.api.nvim_set_hl(0, "VimuxStatusActive", {
+        fg = colors.fg,
+        bg = colors.bg,
+        bold = true,
+    })
+
+    -- Show command line outside insert mode
+    vim.api.nvim_create_autocmd("TermLeave", {
+      group = term_group,
+      pattern = "*",
+      callback = function()
+        local hl = "%#VimuxStatusActive#" 
+        vim.opt.cmdheight = 1
+        vim.opt.laststatus = 2
+        vim.opt.statusline = hl .. " VIMUX"
+      end,
+    })
+end
+
+M.vimux2 = function ()
+    vim.opt.showtabline = 0
+    vim.g.mapleader = " "
+    vim.opt.number         = true
+    vim.opt.relativenumber = true
+
+    vim.o.statusline = "%!v:lua.require'plugins.vimux2'.statusline()"
+
+    vim.opt_local.number = true
+    vim.opt_local.relativenumber = true
+    vim.opt_local.numberwidth = 4
+    vim.opt_local.statuscolumn = ""
+
+    local remap = { silent = true, remap = true}
+    vim.keymap.set('t', '<C-h>', [[<C-\><C-n><C-w>h]], remap)
+    vim.keymap.set('t', '<C-j>', [[<C-\><C-n><C-w>j]], remap)
+    vim.keymap.set('t', '<C-k>', [[<C-\><C-n><C-w>k]], remap)
+    vim.keymap.set('t', '<C-l>', [[<C-\><C-n><C-w>l]], remap)
+
+    vim.keymap.set("n", "<M-t>", "<cmd>vert term<CR>", remap)
+    vim.keymap.set("t", "<M-i>", "<C-\\><C-n>")
+
+    require("plugins.vimux2").setup({
+      layout = {
+        {
+          "tcd ~/projects/bsure/iac | terminal",
+          "tabnew | tcd ~/projects/bsure/iac | Oil",
+        },
+        {
+          "tabnew | tcd ~/projects/bsure/app | terminal",
+          "vsplit | tcd ~/projects/bsure/app/src/Frontend | terminal",
+          "tabnew | tcd ~/projects/bsure/app | Oil",
+          "tabnew | tcd ~/projects/bsure/app/src/CustomerApp | Oil",
+          "tabnew | tcd ~/projects/bsure/app/src/Frontend | Oil",
+        },
+        {
+          "tabnew | tcd ~/projects/bsure/data | terminal",
+          "tabnew | tcd ~/projects/bsure/data | Oil",
+        },
+        {
+          "tabnew | tcd ~/projects/bsure/control | terminal",
+          "tabnew | tcd ~/projects/bsure/control | Oil",
+        },
+        {
+          "tabnew | tcd ~/projects/bsure/shared | terminal",
+          "tabnew | tcd ~/projects/bsure/shared | Oil",
+          "tabnew | tcd ~/projects/bsure/shared/src/bsure.Shared | Oil",
+        },
+        {
+          "tabnew | tcd ~/projects/bsure/updater | terminal",
+          "tabnew | tcd ~/projects/bsure/updater | Oil",
+        },
+        {
+          "tabnew | tcd ~/projects/bsure/etl | terminal",
+          "tabnew | tcd ~/projects/bsure/etl | Oil",
+        },
+        {
+          "tabnew | tcd ~/projects/hubert/konfik | terminal",
+          "tabnew | tcd ~/projects/hubert/konfik | Oil",
+        },
+        {
+          "tabnew | tcd ~/.config | terminal",
+          "tabnew | tcd ~/.config | Oil"
+        },
+      },
+    });
+
+    vim.cmd("tabfirst");
+
+    local function term_manager_mode()
+        if vim.bo.buftype ~= "terminal" then
+            return
+        end
+
+        vim.opt_local.number = true
+        vim.opt_local.relativenumber = true
+        vim.opt_local.numberwidth = 4
+        vim.opt_local.statuscolumn = ""
+
+        -- vim.opt_local.cursorline = true
+    end
+
+    local function term_insert_mode()
+        if vim.bo.buftype ~= "terminal" then
+            return
+        end
+
+        vim.opt_local.number = true
+        vim.opt_local.relativenumber = true
+        vim.opt_local.numberwidth = 4
+        vim.opt_local.statuscolumn = "%= "
+
+        -- vim.opt_local.cursorline = false
+    end
+
+    local term_group = vim.api.nvim_create_augroup("terminal_manager", {
+        clear = true,
+    })
+
+    vim.api.nvim_create_autocmd("TabEnter", {
+        group = term_group,
+        pattern = "*",
+        callback = function()
+            vim.schedule(term_manager_mode)
+        end,
+    })
+
+    vim.api.nvim_create_autocmd("TermOpen", {
+        group = term_group,
+        pattern = "*",
+        callback = function()
+            vim.schedule(term_manager_mode)
+        end,
+    })
+
+    vim.api.nvim_create_autocmd("TermEnter", {
+        group = term_group,
+        pattern = "*",
+        callback = term_insert_mode,
+    })
+
+    vim.api.nvim_create_autocmd("TermLeave", {
+        group = term_group,
+        pattern = "*",
+        callback = term_manager_mode,
+    })
+
+    M.default();
+
+end
+
+
 M.normal = function ()
     vim.g.mapleader = " "
     vim.opt.number         = true
@@ -210,28 +399,28 @@ M.normal = function ()
         vim.cmd("redrawstatus")
     end
 
-    vim.api.nvim_create_autocmd("VimEnter", {
-        callback = function()
-            vim.schedule(function()
-                -- Make sure we start from one tab
+    --vim.api.nvim_create_autocmd("VimEnter", {
+    --    callback = function()
+    --        vim.schedule(function()
+    --            -- Make sure we start from one tab
 
-                if vim.fn.tabpagenr("$") > 1 then
-                    vim.cmd("tabonly")
-                end
+    --            if vim.fn.tabpagenr("$") > 1 then
+    --                vim.cmd("tabonly")
+    --            end
 
-                local cwd = vim.fn.getcwd()
-                vim.cmd.edit(vim.fn.fnameescape(cwd))
-                -- Create tabs 2-9
-                for _ = 2, 9 do
-                    vim.cmd("tabnew")
-                    vim.cmd.edit(vim.fn.fnameescape(cwd))
-                end
+    --            local cwd = vim.fn.getcwd()
+    --            vim.cmd.edit(vim.fn.fnameescape(cwd))
+    --            -- Create tabs 2-9
+    --            for _ = 2, 9 do
+    --                vim.cmd("tabnew")
+    --                vim.cmd.edit(vim.fn.fnameescape(cwd))
+    --            end
 
-                -- Go back to tab 1
-                go_to_slot(1)
-            end)
-        end,
-    })
+    --            -- Go back to tab 1
+    --            go_to_slot(1)
+    --        end)
+    --    end,
+    --})
 
     for i = 1, 9 do
         vim.keymap.set("n", "<C-" .. i .. ">", function()

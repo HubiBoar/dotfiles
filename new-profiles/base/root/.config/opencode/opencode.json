@@ -23,5 +23,40 @@
     "task": "deny",
     "skill": "deny",
     "lsp": "deny"
+  },
+  "model": "ollama/qwen3:8b",
+  "small_model": "ollama/qwen3:4b",
+  "provider": {
+    "ollama": {
+      "npm": "@ai-sdk/openai-compatible",
+      "name": "Ollama Local Docker",
+      "options": {
+        "baseURL": "http://ollama:11434/v1",
+        "apiKey": "ollama"
+      },
+      "models": {
+        "qwen3:4b": {
+          "name": "Qwen3 4B",
+          "limit": {
+            "context": 32768,
+            "output": 8192
+          }
+        },
+        "qwen3:8b": {
+          "name": "Qwen3 8B",
+          "limit": {
+            "context": 32768,
+            "output": 8192
+          }
+        },
+        "qwen3-coder:30b": {
+          "name": "Qwen3-Coder 30B",
+          "limit": {
+            "context": 32768,
+            "output": 8192
+          }
+        }
+      }
+    }
   }
 }

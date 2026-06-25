@@ -37,12 +37,12 @@ M.set_autocmd = function()
         bg = colors.bg_highlight,
     })
 
-    --local function vimux_statusline(active)
-    --    local hl = active and "%#VimuxStatusActive#" or "%#VimuxStatusInactive#"
-    --    local slot = vim.fn.tabpagenr()
+    local function vimux_statusline(active)
+        local hl = active and "%#VimuxStatusActive#" or "%#VimuxStatusInactive#"
+        local slot = vim.fn.tabpagenr()
 
-    --    return hl .. " VIMUX [" .. slot .. "] "
-    --end
+        return hl .. " VIMUX [" .. slot .. "] "
+    end
 
     local function pretty_path(path, max_len)
         path = vim.fn.fnamemodify(path, ":~")
@@ -116,6 +116,55 @@ M.set_autocmd = function()
         callback = term_manager_mode,
     })
 
+local tab_specs = {
+    {
+        "~/projects/bsure/iac",
+        [[terminal nvim -c "tcd ~/projects/bsure/iac | terminal" -c "tabnew | tcd ~/projects/bsure/iac/ | Oil" -c "tabfirst" ]],
+    },
+    {
+        "~/projects/bsure/app",
+        [[terminal nvim -c "lcd ~/projects/bsure/app | terminal" -c "vsplit | lcd ~/projects/bsure/app/src/Frontend | terminal" -c "wincmd =" -c "tabnew | tcd ~/projects/bsure/app/ | Oil" -c "tabnew | tcd ~/projects/bsure/app/src/CustomerApp/ | Oil" -c "tabnew | tcd ~/projects/bsure/app/src/Frontend/ | Oil" -c "tabfirst"]],
+    },
+    {
+        "~/projects/bsure/data",
+        [[terminal nvim -c "tcd ~/projects/bsure/data | terminal" -c "tabnew | tcd ~/projects/bsure/data | Oil" -c "tabfirst" ]],
+    },
+    {
+        "~/projects/bsure/control",
+        [[terminal nvim -c "tcd ~/projects/bsure/control | terminal" -c "tabnew | tcd ~/projects/bsure/control | Oil" -c "tabfirst" ]],
+    },
+    {
+        "~/projects/bsure/shared",
+        [[terminal nvim -c "tcd ~/projects/bsure/shared | terminal" -c "tabnew | tcd ~/projects/bsure/shared | Oil" -c "tabnew | tcd ~/projects/bsure/shared/src/bsure.Shared | Oil" -c "tabfirst" ]],
+    },
+    {
+        "~/projects/bsure/updater",
+        [[terminal nvim -c "tcd ~/projects/bsure/updater | terminal" -c "tabnew | tcd ~/projects/bsure/updater | Oil" -c "tabfirst" ]],
+    },
+    {
+        "~/projects/bsure/etl",
+        [[terminal nvim -c "tcd ~/projects/bsure/etl | terminal" -c "tabnew | tcd ~/projects/bsure/etl | Oil" -c "tabfirst" ]],
+    },
+    {
+        "~/projects/hubert/konfik",
+        [[terminal nvim -c "tcd ~/projects/hubert/konfik | terminal" -c "tabnew | tcd ~/projects/hubert/konfik | Oil" -c "tabfirst" ]],
+    },
+    {
+        "~/.config",
+        [[terminal nvim -c "tcd ~/.config | terminal" -c "tabnew | tcd ~/.config | Oil" -c "tabfirst" ]],
+    },
+}
+
+    local function set_tab_cwd(path)
+        path = vim.fn.expand(path)
+
+        if vim.fn.isdirectory(path) == 1 then
+            vim.cmd("tcd " .. vim.fn.fnameescape(path))
+        else
+            vim.notify("Directory does not exist: " .. path, vim.log.levels.WARN)
+        end
+    end
+
     vim.api.nvim_create_autocmd("VimEnter", {
         callback = function()
             vim.schedule(function()
@@ -123,19 +172,20 @@ M.set_autocmd = function()
                     vim.cmd("tabonly")
                 end
 
-                -- First terminal tab
-                vim.cmd("terminal")
-                term_manager_mode()
+                for i, spec in ipairs(tab_specs) do
+                    local outer_cwd = spec[1]
+                    local command = spec[2]
 
-                -- Other terminal tabs
-                for _ = 2, 9 do
-                    vim.cmd("tabnew")
-                    vim.cmd("terminal")
+                    if i > 1 then
+                        vim.cmd("tabnew")
+                    end
+
+                    set_tab_cwd(outer_cwd)
+                    vim.cmd(command)
                     term_manager_mode()
                 end
 
                 vim.cmd("tabnext 1")
-
                 term_manager_mode()
                 vim.cmd("redrawstatus")
             end)
@@ -145,6 +195,16 @@ M.set_autocmd = function()
     -- Go to Vimux terminal slot with 1 through 9
     for i = 1, 9 do
         vim.keymap.set("n", "<F" .. i .. ">" , function()
+            vim.cmd("tabnext " .. i)
+
+            term_manager_mode()
+
+            vim.cmd("redrawstatus")
+        end, {
+            desc = "Go to Vimux terminal " .. i,
+        })
+
+        vim.keymap.set("n", "<C-" .. i .. ">" , function()
             vim.cmd("tabnext " .. i)
 
             term_manager_mode()
