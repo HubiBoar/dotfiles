@@ -74,11 +74,10 @@ end
 
 M.vimux2 = function ()
     vim.opt.showtabline = 0
-    vim.g.mapleader = " "
     vim.opt.number         = true
     vim.opt.relativenumber = true
 
-    vim.o.statusline = "%!v:lua.require'plugins.vimux2'.statusline()"
+    --vim.o.statusline = "%!v:lua.require'plugins.vimux2'.statusline()"
 
     vim.opt_local.number = true
     vim.opt_local.relativenumber = true
@@ -97,47 +96,147 @@ M.vimux2 = function ()
     require("plugins.vimux2").setup({
       layout = {
         {
-          "tcd ~/projects/bsure/iac | terminal",
-          "tabnew | tcd ~/projects/bsure/iac | Oil",
+          name = "iac",
+          windows = {
+            {
+              name = "term",
+              command = "tcd ~/projects/bsure/iac | terminal",
+            },
+            {
+              name = "nvim",
+              command = "tabnew | tcd ~/projects/bsure/iac | Oil",
+            },
+          },
         },
         {
-          "tabnew | tcd ~/projects/bsure/app | terminal",
-          "vsplit | tcd ~/projects/bsure/app/src/Frontend | terminal",
-          "tabnew | tcd ~/projects/bsure/app | Oil",
-          "tabnew | tcd ~/projects/bsure/app/src/CustomerApp | Oil",
-          "tabnew | tcd ~/projects/bsure/app/src/Frontend | Oil",
+          name = "app",
+          windows = {
+            {
+              name = "term",
+              commands =
+              {
+                "tabnew | tcd ~/projects/bsure/app | terminal",
+                "vsplit | tcd ~/projects/bsure/app/src/Frontend | terminal",
+                "wincmd =",
+              },
+            },
+            {
+              name = "nvim",
+              command = "tabnew | tcd ~/projects/bsure/app | Oil",
+            },
+            {
+              name = "nvim-backend",
+              command = "tabnew | tcd ~/projects/bsure/app/src/CustomerApp | Oil",
+            },
+            {
+              name = "nvim-frontend",
+              command = "tabnew | tcd ~/projects/bsure/app/src/Frontend | Oil",
+            },
+          },
         },
         {
-          "tabnew | tcd ~/projects/bsure/data | terminal",
-          "tabnew | tcd ~/projects/bsure/data | Oil",
+          name = "data",
+          windows = {
+            {
+              name = "term",
+              command = "tabnew | tcd ~/projects/bsure/data | terminal",
+            },
+            {
+              name = "nvim",
+              command = "tabnew | tcd ~/projects/bsure/data | Oil",
+            },
+          },
         },
+
         {
-          "tabnew | tcd ~/projects/bsure/control | terminal",
-          "tabnew | tcd ~/projects/bsure/control | Oil",
+          name = "control",
+          windows = {
+            {
+              name = "term",
+              command = "tabnew | tcd ~/projects/bsure/control | terminal",
+            },
+            {
+              name = "nvim",
+              command = "tabnew | tcd ~/projects/bsure/control | Oil",
+            },
+          },
         },
+
         {
-          "tabnew | tcd ~/projects/bsure/shared | terminal",
-          "tabnew | tcd ~/projects/bsure/shared | Oil",
-          "tabnew | tcd ~/projects/bsure/shared/src/bsure.Shared | Oil",
+          name = "shared",
+          windows = {
+            {
+              name = "term",
+              command = "tabnew | tcd ~/projects/bsure/shared | terminal",
+            },
+            {
+              name = "nvim",
+              command = "tabnew | tcd ~/projects/bsure/shared | Oil",
+            },
+            {
+              name = "nvim-new",
+              command = "tabnew | tcd ~/projects/bsure/shared/src/bsure.Shared | Oil",
+            },
+          },
         },
+
         {
-          "tabnew | tcd ~/projects/bsure/updater | terminal",
-          "tabnew | tcd ~/projects/bsure/updater | Oil",
+          name = "updater",
+          windows = {
+            {
+              name = "term",
+              command = "tabnew | tcd ~/projects/bsure/updater | terminal",
+            },
+            {
+              name = "nvim",
+              command = "tabnew | tcd ~/projects/bsure/updater | Oil",
+            },
+          },
         },
+
         {
-          "tabnew | tcd ~/projects/bsure/etl | terminal",
-          "tabnew | tcd ~/projects/bsure/etl | Oil",
+          name = "etl",
+          windows = {
+            {
+              name = "term",
+              command = "tabnew | tcd ~/projects/bsure/etl | terminal",
+            },
+            {
+              name = "nvim",
+              command = "tabnew | tcd ~/projects/bsure/etl | Oil",
+            },
+          },
         },
+
         {
-          "tabnew | tcd ~/projects/hubert/konfik | terminal",
-          "tabnew | tcd ~/projects/hubert/konfik | Oil",
+          name = "konfik",
+          windows = {
+            {
+              name = "term",
+              command = "tabnew | tcd ~/projects/hubert/konfik | terminal",
+            },
+            {
+              name = "nvim",
+              command = "tabnew | tcd ~/projects/hubert/konfik | Oil",
+            },
+          },
         },
+
         {
-          "tabnew | tcd ~/.config | terminal",
-          "tabnew | tcd ~/.config | Oil"
+          name = ".config",
+          windows = {
+            {
+              name = "term",
+              command = "tabnew | tcd ~/.config | terminal",
+            },
+            {
+              name = "nvim",
+              command = "tabnew | tcd ~/.config | Oil",
+            },
+          },
         },
       },
-    });
+    })
 
     vim.cmd("tabfirst");
 
@@ -198,8 +297,6 @@ M.vimux2 = function ()
         pattern = "*",
         callback = term_manager_mode,
     })
-
-    M.default();
 
 end
 
@@ -502,6 +599,7 @@ M.normal = function ()
 end
 
 M.default = function ()
+    vim.g.mapleader = " "
     local remap = { silent = true, remap = true}
 
 
@@ -712,7 +810,7 @@ M.overloads = function(bufnr)
 end
 
 M.oil = function()
-    local remap = { noremap = false, silent = true, }
+    local remap = { silent = true, remap = true }
     vim.keymap.set("n", "<leader>fe", "<CMD>Oil<CR>", remap)
 end
 
