@@ -24,6 +24,7 @@ services:
       - ./base/root/.config/nvim/lua:/home/${DEV_USER}/.config/nvim/lua
       - ./base/root/.config/nvim/init_identity.lua:/home/${DEV_USER}/.config/nvim/init.lua
       - ./base/root/.config/nvim/vimux.lua:/home/${DEV_USER}/.config/nvim/vimux.lua
+      - ./base/root/.config/nvim/vimux_main.lua:/home/${DEV_USER}/.config/nvim/vimux_main.lua
       - ./base/state/.config/gh:/home/${DEV_USER}/.config/gh
       - ./base/state/.local/share/nvim/site:/home/${DEV_USER}/.local/share/nvim/site
       - ./identity/state/projects:/home/${DEV_USER}/projects

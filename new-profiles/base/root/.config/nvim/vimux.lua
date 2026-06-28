@@ -1,3 +1,4 @@
-require("keys").vimux_main()
+require("keys").default()
 require("options")
-require("plugins_vimux")
+require("plugins_identity")
+require("plugins.vimux_config").setup()
